@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 // import { UserModule } from './user/user.module';
+import { UserModule } from './user/user.module';
+import { TodoModule } from './todo/todo.module';
 import 'dotenv/config';
 
 @Module({
@@ -18,7 +20,8 @@ import 'dotenv/config';
       synchronize: true,
       logging: true,
     }),
-    // UserModule,
+    UserModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
