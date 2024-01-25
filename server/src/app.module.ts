@@ -2,10 +2,9 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-// import { UserModule } from './user/user.module';
-import { UserModule } from './user/user.module';
 import { TodoModule } from './todo/todo.module';
 import 'dotenv/config';
+import { Todo } from './todo/entities/todo.entity';
 
 @Module({
   imports: [
@@ -15,12 +14,11 @@ import 'dotenv/config';
       port: 5433,
       password: process.env.DB_PASSWORD,
       username: process.env.DB_USERNAME,
-      entities: [],
+      entities: [Todo],
       database: process.env.DB_NAME,
       synchronize: true,
       logging: true,
     }),
-    UserModule,
     TodoModule,
   ],
   controllers: [AppController],
