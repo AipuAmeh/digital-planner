@@ -2,9 +2,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TodoModule } from './todo/todo.module';
+// import { TodoModule } from './todo/todo.module';
 import 'dotenv/config';
 import { Todo } from './todo/entities/todo.entity';
+import { ConfigModule } from '@nestjs/config';
+import { TodoController } from './todo/todo.controller';
+import { TodoService } from './todo/todo.service';
 
 @Module({
   imports: [
@@ -19,7 +22,8 @@ import { Todo } from './todo/entities/todo.entity';
       synchronize: true,
       logging: true,
     }),
-    TodoModule,
+    TypeOrmModule.forFeature([Todo]),
+    ConfigModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],
