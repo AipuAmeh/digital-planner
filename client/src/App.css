@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -15,17 +16,28 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 10vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+.todo-form {
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  width: 70%;
+}
+.todo-title {
+  padding: 1em;
+}
+
+.save-todo {
+ width: 75%;
 }
 
 @keyframes App-logo-spin {
