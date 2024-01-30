@@ -1,40 +1,39 @@
 import { useState, useEffect } from "react";
-import "./App.css";
-import { Input, Spacer, Text } from "@chakra-ui/react";
+// import "./App.css";
+import { FormControl, FormLabel, Input, Spacer, Text, useDisclosure } from "@chakra-ui/react";
 import { Textarea } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import axios from "axios";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react'
 import { Card, CardHeader, CardBody, Stack } from '@chakra-ui/react'
-import { useParams } from "react-router-dom";
-import { error } from "console";
-// import TodoModal from "./components/TodoModal";
 const date = new Date().toDateString();
 
 // want to make form a modal
 // want to style page so that day is split into blocks
 // on add button modal pops up and you can add todo for that block
-type todosObject = {
-  id: number,
-  todo: string,
-  reflectionText: string
-  todaysDate: any;
-};
+// type todosObject = {
+//   todo: string,
+//   reflectionText: string
+//   todaysDate: any;
+// };
 
-function App() {
+function TodoModal() {
 
   const [todoInput, setTodoInput] = useState('');
   const [reflection, setReflection] = useState('');
   const [data, setData] = useState([]);
-  const [updatedTodo, setUpdates] = useState([]);
 
-  useEffect(() => {
-    axios.get("http://localhost:3001/todo/")
-      .then((response) => {
-        console.log(response);
-        setData(response.data)
-      })
-  }, []);
+
+
+//   useEffect(() => {
+//     axios.get("http://localhost:3001/todo/")
+//       .then((response) => {
+//         console.log(response);
+//         setData(response.data)
+
+//       })
+//   }, []);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -51,33 +50,27 @@ function App() {
     alert(`Your Todo is ${todoInput}`);
     setTodoInput('');
     setReflection('');
+    setData(data);
     console.log(response)
   };
 
-  const deleteTodo = async (id: number ) => {
-    try {
-      const response = await axios.delete(`http://localhost:3001/todo/${id}`);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const deleteHandler = async (id: number) => {
-    deleteTodo(id);
-    setData(data.filter((todoData: todosObject ) => todoData.id !== id))
-  };
-
+  const { isOpen, onOpen, onClose } = useDisclosure()
   return (
-    <div className="App">
+    <div >
       <header className="header"></header>
       <main>
         <Center>
-          <form 
-            onSubmit={handleClick}
-            className="todo-form">
+        <Button onClick={onOpen}>Open Modal</Button>
+          <Modal 
+           isOpen={isOpen} onClose={onClose}
+            >
+                <ModalOverlay />
+                <ModalContent>
             <h2>Today's Date: {date}</h2>
-            <h2 className="todo-title">Todo Task</h2>
+            <ModalCloseButton />
+           
+            <FormControl>
+            <FormLabel className="todo-title">Todo Task</FormLabel>
             <Input
               className="input"
               placeholder="Basic usage"
@@ -86,7 +79,9 @@ function App() {
               value={todoInput}
               onChange={handleChange}
             />
-            <h3 className="todo-title">Intentions</h3>
+            </FormControl>
+            <FormControl>
+            <FormLabel className="todo-title">Intentions</FormLabel>
             <Textarea
               className="todo-text-area"
               placeholder="Here is a sample placeholder"
@@ -94,6 +89,7 @@ function App() {
               value={reflection}
               onChange={handleChange}
             />
+            </FormControl>
             <Spacer />
             <Center>
               <Button
@@ -103,43 +99,36 @@ function App() {
                 colorScheme="teal"
                 size="lg"
                 type="submit"
+                // onClose={onClose}
+                onClick={handleClick}
               >
                 Save Todo
+                
               </Button>
             </Center>
-          </form>
+            </ModalContent>
+          </Modal>
         </Center>
-        <h1>Todos:</h1>
-        <Center>
+        {/* <h1>Todos:</h1> */}
+        {/* <Center> */}
 
-      
-        <Stack className="rendered-todos" spacing='6' maxW='sm'>
+       
+        {/* <Stack className="rendered-todos" spacing='6' maxW='sm'>
         {
           data.map((todos: todosObject) => {
-            return (   
-                <Card backgroundColor="teal" key={todos?.id} size={"sm"} color='white' >
-                  <CardHeader 
-                  fontSize='lg'>Todo: {todos?.todo}</CardHeader>
-                  <CardHeader 
-                  onChange={(e:any) => setReflection(e.target.value)}
-                  fontSize='md'>Intention: {todos?.reflectionText}</CardHeader>
-                  <Center>
-                  <Button 
-                  maxW={'50%'}
-                  size={'sm'}
-                  onClick={() => deleteHandler(todos?.id)}
-                  colorScheme='blue'>Delete</Button>
-                  </Center>
-           
+            return (    
+                <Card backgroundColor="teal" key={"sm"} size={"sm"} color='white'>
+                  <CardHeader fontSize='lg'>Todo: {todos?.todo}</CardHeader>
+                  <CardBody fontSize='md'>Intention: {todos?.reflectionText}</CardBody>
                 </Card>           
             )
           }) 
         }
           </Stack>
-          </Center>
+          </Center> */}
       </main>
     </div>
   );
 }
 
-export default App;
+export default TodoModal;
