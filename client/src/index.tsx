@@ -5,16 +5,22 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 
 import App from './App';
+import Login from './pages/Login';
+import Todo from './pages/Todo';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <App/>,
     // errorElement: 
     children: [
       {
         index: true,
-        element: <App />
+        element: <Login />
+      }, 
+      {
+        path: '/todo',
+        element: <Todo />
       }
     ]
   }
