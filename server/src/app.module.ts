@@ -23,7 +23,7 @@ import { UserModule } from './user/user.module';
       synchronize: true,
       logging: true,
     }),
-    TypeOrmModule.forFeature([Todo]),
+    TypeOrmModule.forFeature([Todo, User]),
     ConfigModule.forRoot(),
     UserModule,
   ],
