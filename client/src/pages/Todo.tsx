@@ -69,7 +69,7 @@ function Todo() {
 
   return (
     <div className="App">
-      <header className="header"></header>
+      {/* <header className="header"></header> */}
       <main>
         <Center>
           <form
