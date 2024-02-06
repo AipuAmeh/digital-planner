@@ -23,7 +23,6 @@ export class UserService {
    */
   createUser(createUserDto: CreateUserDto): Promise<User> {
     const user: User = new User();
-    user.email = createUserDto.email;
     user.username = createUserDto.username;
     user.password = createUserDto.password;
     return this.userRepository.save(user);
@@ -42,8 +41,8 @@ export class UserService {
    * @param id is type of number, which represent the id of user.
    * @returns promise of user
    */
-  findOneUser(id: number): Promise<User> {
-    return this.userRepository.findOneBy({ id });
+  async findOneUser(username: string): Promise<User> {
+    return await this.userRepository.findOneBy({ username });
   }
 
   /**
@@ -55,7 +54,6 @@ export class UserService {
    */
   updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     const user: User = new User();
-    user.email = updateUserDto.email;
     user.username = updateUserDto.username;
     user.password = updateUserDto.password;
     user.id = id;
