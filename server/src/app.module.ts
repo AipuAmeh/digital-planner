@@ -1,13 +1,17 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-// import { AppController } from './app.controller';
-// import { AppService } from './app.service';
-// import { TodoModule } from './todo/todo.module';
 import 'dotenv/config';
 import { Todo } from './todo/entities/todo.entity';
+import { User } from './user/entities/user.entity';
 import { ConfigModule } from '@nestjs/config';
 import { TodoController } from './todo/todo.controller';
 import { TodoService } from './todo/todo.service';
+// import { UserController } from './user/user.controller';
+import { AuthService } from './auth/auth.service';
+import { AuthController } from './auth/auth.controller'
+// import { UserService } from './user/user.service';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,15 +21,17 @@ import { TodoService } from './todo/todo.service';
       port: 5433,
       password: process.env.DB_PASSWORD,
       username: process.env.DB_USERNAME,
-      entities: [Todo],
+      entities: [Todo, User],
       database: process.env.DB_NAME,
       synchronize: true,
       logging: true,
     }),
-    TypeOrmModule.forFeature([Todo]),
+    TypeOrmModule.forFeature([Todo, User]),
     ConfigModule.forRoot(),
+    UserModule,
+    AuthModule,
   ],
-  controllers: [TodoController],
-  providers: [TodoService],
+  controllers: [TodoController, AuthController],
+  providers: [TodoService, AuthService],
 })
 export class AppModule {}
