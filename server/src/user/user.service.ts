@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
+// import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
@@ -21,12 +21,8 @@ export class UserService {
    * we have defined what are the keys we are expecting from body
    * @returns promise of user
    */
-  createUser(createUserDto: CreateUserDto) {
-    const user: User = new User();
-    user.email = createUserDto.email;
-    user.username = createUserDto.username;
-    user.password = createUserDto.password;
-    return this.userRepository.save(user);
+  async createUser(email: string, username: string, password: string) {
+    return await this.userRepository.save({ email, username, password });
   }
 
   /**
