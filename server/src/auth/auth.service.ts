@@ -3,11 +3,16 @@ import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UserService) {}
+  constructor(private userService: UserService) {}
 
-  async login(username: string, password: string): Promise<any> {
-    const user = await this.usersService.findOneUser(username);
-    console.log(user);
+  async login(username: string, pass: string) {
+    const user = await this.userService.findOneUser(username);
+    if (user?.password !== pass) {
+      console.log('USER:', user);
+    } else {
+      console.log('NO USER');
+    }
+
     // if (user?.password !== pass) {
     //   throw new UnauthorizedException();
     // }

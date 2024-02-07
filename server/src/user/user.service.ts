@@ -21,8 +21,9 @@ export class UserService {
    * we have defined what are the keys we are expecting from body
    * @returns promise of user
    */
-  createUser(createUserDto: CreateUserDto): Promise<User> {
+  createUser(createUserDto: CreateUserDto) {
     const user: User = new User();
+    user.email = createUserDto.email;
     user.username = createUserDto.username;
     user.password = createUserDto.password;
     return this.userRepository.save(user);
@@ -32,7 +33,7 @@ export class UserService {
    * this function is used to get all the user's list
    * @returns promise of array of users
    */
-  findAllUsers(): Promise<User[]> {
+  findAllUsers() {
     return this.userRepository.find();
   }
 
@@ -41,8 +42,8 @@ export class UserService {
    * @param id is type of number, which represent the id of user.
    * @returns promise of user
    */
-  async findOneUser(username: string): Promise<User> {
-    return await this.userRepository.findOneBy({ username });
+  async findOneUser(username: string) {
+    return await this.userRepository.findOne({ where: { username } });
   }
 
   /**
@@ -54,6 +55,7 @@ export class UserService {
    */
   updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     const user: User = new User();
+    user.email = updateUserDto.email;
     user.username = updateUserDto.username;
     user.password = updateUserDto.password;
     user.id = id;
