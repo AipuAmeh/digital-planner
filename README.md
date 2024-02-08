@@ -14,7 +14,7 @@ To review my current work, copy the url of my main branch and clone it into your
 
  - Once this branch is in your environment, create a .env file based off of the .envExample file for your own confidential secrets.
  - Install any packages on your environment by running `npm install`.
- - Then start both the server and client folders, by running `npm start:dev`.
+ - Then start both the server and client folders, by running `npm run develop` in the main terminal.
  - Navigate to [http://localhost:3000/todo](http://localhost:3000/todo) to see my first feature, adding and deleting a todo/reflection!
 
 ## Credits
