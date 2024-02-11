@@ -42,9 +42,9 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('/user')
   getUserData(@Request() req) {
-    console.log('REQ USER', req.user);
-    const username = req.user.username
+    console.log('REQ USERNAME', req.user);
+    const username = req.user.username;
     //call auth service, user service, and get user and all associated data and return it with data
-    return req.user;
+    return this.authService.getUser(username);
   }
 }

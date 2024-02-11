@@ -38,4 +38,14 @@ export class AuthService {
     );
     console.log('USER:', user);
   }
+
+  async getUser(username: string) {
+    const user = await this.userService.findOneUser(username);
+    console.log(user);
+    if (user == null) {
+      throw new UnauthorizedException();
+    } else {
+      return user;
+    }
+  }
 }
