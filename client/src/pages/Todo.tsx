@@ -35,7 +35,6 @@ function Todo() {
     return name === 'todo' ? setTodoInput(value) : setReflection(value);
   };
 
-
   const handleClick = async () => {
     try {
       const response = await axios.post("http://localhost:3001/todo", {

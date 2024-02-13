@@ -12,9 +12,6 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// type signup = {
-
-// }
 
 function Signup() {
     const navigate = useNavigate();
@@ -33,15 +30,27 @@ function Signup() {
 
     const handleClick = async () => {
         try {
+            if (formState.username && formState.email && formState.password === " ") {
+                return; 
+            } else {
             const response = await axios.post("http://localhost:3001/auth/signup", {
-            username: formState.username,
-            email: formState.email,
-            password: formState.password
-            })
-            alert('Welcome to digital planner!!');
-            // console.log(response);
-            navigate(`/todo/`);
-            return response;
+                    username: formState.username,
+                    email: formState.email,
+                    password: formState.password
+                    })
+                  
+                    console.log('MY RESPONSE', response);
+                const token = response.config.data;
+                localStorage.setItem('token', token);
+               setFormState({
+                username: '',
+                email: '',
+                password: ''
+               });
+                // should be a toast message for success and toast message for error
+                alert('Welcome to digital planner!!');
+                    navigate(`/todo/`);
+                }
         } catch (error) {
             console.log(error);
         }
