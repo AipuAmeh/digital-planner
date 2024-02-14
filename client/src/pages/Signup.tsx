@@ -32,8 +32,13 @@ const Signup = () => {
 
     const handleClick = async () => {
         try {
-            if (formState.username || formState.email || formState.password === " ") {
-                return; 
+            if (formState.username === "" || formState.email === "" || formState.password === " ") {
+                return toast({
+                    title: 'Error',
+                    description: 'Please create an account.',
+                    status: 'error',
+                    duration: 2000,
+                  });; 
             } else {
             const response = await axios.post("http://localhost:3001/auth/signup", {
                     username: formState.username,
