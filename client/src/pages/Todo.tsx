@@ -15,8 +15,7 @@ type todosObject = {
     todaysDate: any;
   };
 
-
-function Todo() {
+const Todo = () => {
 
   const [todoInput, setTodoInput] = useState('');
   const [reflection, setReflection] = useState('');

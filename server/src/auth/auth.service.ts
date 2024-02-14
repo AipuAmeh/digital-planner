@@ -45,7 +45,11 @@ export class AuthService {
     if (user == null) {
       throw new UnauthorizedException();
     } else {
-      return user;
+      return {
+        email: user.email,
+        username: user.username,
+        id: user.id,
+      };
     }
   }
 }

@@ -1,16 +1,22 @@
 import React from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
 import './index.css';
+import axios from 'axios';
 
 import App from './App';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Todo from './pages/Todo';
+import Profile from './pages/Profile';
+// import { useToast } from '@chakra-ui/react'
+
 
 const router = createBrowserRouter([
+
   {
+
     path: '/',
     element: <App/>,
     // errorElement: 
@@ -26,6 +32,26 @@ const router = createBrowserRouter([
       {
         path: '/todo',
         element: <Todo />
+      },
+      {
+        path: '/profile',
+        element: <Profile />,
+        loader: async () => {
+         const token = localStorage.getItem('token');
+         if (token) {
+          try {
+            const response = await axios.get("http://localhost:3001/auth/profile", {
+              headers: { Authorization:  `Bearer ${token}`}
+              })
+              return response.data;
+          } catch (error) {
+            console.log('ERROR', error);
+            return redirect('/login');
+          }} else {
+            console.log('NO TOKEN');
+            return redirect('/');
+          }
+        }
       }
     ]
   }
