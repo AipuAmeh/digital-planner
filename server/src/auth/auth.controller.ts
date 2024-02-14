@@ -44,7 +44,6 @@ export class AuthController {
   getUserData(@Request() req) {
     if (req.user) {
       const username = req.user.username;
-      //call auth service, user service, and get user and all associated data and return it with data
       return this.authService.getUser(username);
     } else {
       return 'No User';

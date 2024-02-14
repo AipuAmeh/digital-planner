@@ -10,6 +10,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Todo from './pages/Todo';
 import Profile from './pages/Profile';
+import Home from './pages/Home';
 // import { useToast } from '@chakra-ui/react'
 
 
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        element: <Home />
+      },
+      {
+        path: '/signup',
         element: <Signup />
       }, 
       {
@@ -49,7 +54,7 @@ const router = createBrowserRouter([
             return redirect('/login');
           }} else {
             console.log('NO TOKEN');
-            return redirect('/');
+            return redirect('/signup');
           }
         }
       }

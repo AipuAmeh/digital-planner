@@ -8,7 +8,7 @@ const Profile = () => {
     console.log('LOADER DATA', data);
 
     const LogoutButton = () => {
-        navigate('/');
+        navigate('/signup');
        localStorage.removeItem('token');
      
     };
