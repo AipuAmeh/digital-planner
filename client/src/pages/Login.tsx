@@ -9,9 +9,10 @@ import {
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '@chakra-ui/react'
 
-
-function Login() {
+const Login = () => {
+    const toast = useToast();
     const navigate = useNavigate();
     const [formState, setFormState] = useState({
         username: '',
@@ -36,6 +37,9 @@ function Login() {
     // now that token is in storage, get token when going to users profile page
     const handleClick = async () => {
         try {
+            if (formState.username === "" || formState.password === "") {
+                return   
+            } else {        
             const response = await axios.post("http://localhost:3001/auth/login/", {
                 username: formState.username,
                 password: formState.password
@@ -47,10 +51,22 @@ function Login() {
                 password: ''
             }
             );
-            navigate('/todo');
-            alert("You're logged in!");
+            toast({
+                title: 'Successfully logged in.',
+                description: `Welcome back ${formState.username}!`,
+                status: 'success',
+                duration: 2000,
+              })
+                navigate('/todo');
+        }
         } catch (error) {
-            
+            console.log(error);
+            toast({
+                title: 'Error',
+                description: 'Unable to log in.',
+                status: 'error',
+                duration: 2000,
+              });
         }
     }
 

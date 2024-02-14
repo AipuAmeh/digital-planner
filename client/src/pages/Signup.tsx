@@ -11,9 +11,11 @@ import {
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '@chakra-ui/react'
 
 
-function Signup() {
+const Signup = () => {
+    const toast = useToast();
     const navigate = useNavigate();
     const [formState, setFormState] = useState({
         username: '',
@@ -30,7 +32,7 @@ function Signup() {
 
     const handleClick = async () => {
         try {
-            if (formState.username && formState.email && formState.password === " ") {
+            if (formState.username || formState.email || formState.password === " ") {
                 return; 
             } else {
             const response = await axios.post("http://localhost:3001/auth/signup", {
@@ -46,13 +48,23 @@ function Signup() {
                 username: '',
                 email: '',
                 password: ''
-               });
-                // should be a toast message for success and toast message for error
-                alert('Welcome to digital planner!!');
-                    navigate(`/todo/`);
+               }); 
+                toast({
+                    title: 'Successfully logged in.',
+                    description: `Welcome back ${formState.username}!`,
+                    status: 'success',
+                    duration: 2000,
+                  })
+                    navigate('/todo');
                 }
         } catch (error) {
             console.log(error);
+            toast({
+                title: 'Error',
+                description: 'Unable to log in.',
+                status: 'error',
+                duration: 2000,
+              });
         }
     };
     
