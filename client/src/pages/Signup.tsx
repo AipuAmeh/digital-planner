@@ -47,7 +47,7 @@ const Signup = () => {
                     })
                   
                     console.log('MY RESPONSE', response);
-                const token = response.config.data;
+                const token = response.data.access_token;
                 localStorage.setItem('token', token);
                setFormState({
                 username: '',
@@ -55,8 +55,8 @@ const Signup = () => {
                 password: ''
                }); 
                 toast({
-                    title: 'Successfully logged in.',
-                    description: `Welcome back ${formState.username}!`,
+                    title: 'Successfully created an account.',
+                    description: `Welcome ${formState.username}!`,
                     status: 'success',
                     duration: 2000,
                   })
