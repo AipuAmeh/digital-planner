@@ -1,4 +1,4 @@
-import { 
+import {
   Body,
   Post,
   Controller,
@@ -6,6 +6,7 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 
@@ -14,11 +15,6 @@ type LoginDTO = {
   password: string;
 };
 
-type SignupDTO = {
-  email: string;
-  username: string;
-  password: string;
-};
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -30,21 +26,19 @@ export class AuthController {
   }
 
   @Post('/signup')
-  async signup(@Body() body: SignupDTO) {
-    console.log(body);
-    return await this.authService.signup(
-      body.email,
-      body.username,
-      body.password,
-    );
+  async signup(@Body() body: CreateUserDto) {
+    console.log('BODY:', body);
+    return await this.authService.signup(body);
   }
 
   @UseGuards(AuthGuard)
-  @Get('/user')
+  @Get('/profile')
   getUserData(@Request() req) {
-    console.log('REQ USER', req.user);
-    const username = req.user.username
-    //call auth service, user service, and get user and all associated data and return it with data
-    return req.user;
+    if (req.user) {
+      const username = req.user.username;
+      return this.authService.getUser(username);
+    } else {
+      return 'No User';
+    }
   }
 }

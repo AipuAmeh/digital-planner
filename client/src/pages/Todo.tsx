@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Input, Spacer } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, Spacer } from "@chakra-ui/react";
 import { Textarea } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
@@ -15,8 +15,7 @@ type todosObject = {
     todaysDate: any;
   };
 
-
-function Todo() {
+const Todo = () => {
 
   const [todoInput, setTodoInput] = useState('');
   const [reflection, setReflection] = useState('');
@@ -34,7 +33,6 @@ function Todo() {
     const { name, value } = e.target;
     return name === 'todo' ? setTodoInput(value) : setReflection(value);
   };
-
 
   const handleClick = async () => {
     try {
@@ -72,11 +70,13 @@ function Todo() {
       {/* <header className="header"></header> */}
       <main>
         <Center>
-          <form
+          <FormControl
+          w='65%'
+          pt="5em"
             onSubmit={handleClick}
             className="todo-form">
             <h2>Today's Date: {date}</h2>
-            <h2 className="todo-title">Todo Task</h2>
+            <FormLabel>Todo Task</FormLabel>
             <Input
               className="input"
               placeholder="Basic usage"
@@ -85,7 +85,7 @@ function Todo() {
               value={todoInput}
               onChange={handleChange}
             />
-            <h3 className="todo-title">Intentions</h3>
+            <FormLabel mt={4}>Intentions</FormLabel>
             <Textarea
               className="todo-text-area"
               placeholder="Here is a sample placeholder"
@@ -96,17 +96,19 @@ function Todo() {
             <Spacer />
             <Center>
               <Button
-                maxW="md"
+                width='200px'
                 mt="20px"
                 className="save-todo"
-                colorScheme="teal"
+                backgroundColor='#371236' 
+                _hover={{ bg: '#B0A3D4' }}
+                color='white'
                 size="lg"
                 type="submit"
               >
                 Save Todo
               </Button>
             </Center>
-          </form>
+          </FormControl>
         </Center>
         <h1>Todos:</h1>
         <Center>
@@ -116,7 +118,12 @@ function Todo() {
             {
               data.map((todos: todosObject) => {
                 return (
-                  <Card backgroundColor="teal" key={todos?.id} size={"sm"} color='white' >
+                  <Card 
+                  backgroundColor='#371236' 
+                  key={todos?.id} 
+                  size={"sm"} 
+                  color='white'
+                  p='1em' >
                     <CardHeader
                       fontSize='lg'>Todo: {todos?.todo}</CardHeader>
                     <CardBody
@@ -124,10 +131,14 @@ function Todo() {
                       fontSize='md'>Intention: {todos?.reflectionText}</CardBody>
                     <Center>
                       <Button
-                        maxW={'50%'}
+                        maxW={'60%'}
                         size={'sm'}
+                        _hover={{ bg: '#B0A3D4' }}
                         onClick={() => deleteHandler(todos?.id)}
-                        colorScheme='blue'>Delete</Button>
+                        color='black'
+                        width='200px'
+                        backgroundColor='#CEBACF' >
+                          Delete</Button>
                     </Center>
 
                   </Card>
