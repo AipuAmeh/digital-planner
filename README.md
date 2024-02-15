@@ -10,12 +10,16 @@ Follow along with me as I code! Visit my Trello board to stay up to date with th
 
 To review my current work, copy the url of my main branch and clone it into your local repository. 
 
+## This Week:
+
+This week I worked on my Feature 1.5, which is setting up a user account and being able to log in, signup, and view the users personal profile.
+
 ### Running the Application
 
  - Once this branch is in your environment, create a .env file based off of the .envExample file for your own confidential secrets.
  - Install any packages on your environment by running `npm install`.
  - Then start both the server and client folders, by running `npm run develop` in the main terminal.
- - Navigate to [http://localhost:3000/todo](http://localhost:3000/todo) to see my first feature, adding and deleting a todo/reflection!
+ - Navigate to [http://localhost:3000/](http://localhost:3000/) to view the homepage with the option to either signup or login to your account. Test the functionality by signing in, hard refreshing to view logout button, and logging back in again. Notice how you are only able to view the users profile page if you are logged in. 
 
 ## Credits
 
