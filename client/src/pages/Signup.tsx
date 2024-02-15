@@ -6,7 +6,8 @@ import {
     Button,
     Stack,
     Center,
-    Input
+    Input,
+    Text
 } from '@chakra-ui/react'
 import axios from 'axios';
 import { useState } from 'react';
@@ -47,7 +48,7 @@ const Signup = () => {
                     })
                   
                     console.log('MY RESPONSE', response);
-                const token = response.config.data;
+                const token = response.data.access_token;
                 localStorage.setItem('token', token);
                setFormState({
                 username: '',
@@ -55,8 +56,8 @@ const Signup = () => {
                 password: ''
                }); 
                 toast({
-                    title: 'Successfully logged in.',
-                    description: `Welcome back ${formState.username}!`,
+                    title: 'Successfully created an account.',
+                    description: `Welcome ${formState.username}!`,
                     status: 'success',
                     duration: 2000,
                   })
@@ -75,10 +76,13 @@ const Signup = () => {
     
     return (
         <Stack>
+                    <Text mx='auto' pt='2em' fontSize='3xl'>Create an Account</Text>
          <Center>
             <FormControl isRequired
             display="flex" 
-            flexDirection="column" w="50%"
+            flexDirection="column" 
+            w='65%'
+            pt="3em"
             >
                     <FormLabel>Username</FormLabel>
                     <Input
@@ -107,8 +111,13 @@ const Signup = () => {
                         value={formState.password}
                         onChange={handleChange}/>
                         <Center>
-                        <Button m={8} colorScheme='teal' size='lg'
+                        <Button m={8} 
+                        size='lg'
                         type='submit'
+                        color='white'
+                        width='200px'
+                        backgroundColor='#371236' 
+                        _hover={{ bg: '#B0A3D4' }}
                         onClick={handleClick}
                         >
                         Button

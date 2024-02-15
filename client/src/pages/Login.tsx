@@ -4,7 +4,8 @@ import {
     Button,
     Stack,
     Center,
-    Input
+    Input,
+    Text
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { useState } from 'react';
@@ -55,6 +56,7 @@ const Login = () => {
                     duration: 2000,
                 })
                 navigate('/todo');
+                window.location.reload();
             }
         } catch (error) {
             console.log(error);
@@ -70,10 +72,12 @@ const Login = () => {
 
     return (
         <Stack>
+              <Text mx='auto' pt='2em' fontSize='3xl'>Log in to your Account</Text>
             <Center>
+              
                 <FormControl isRequired
                     display="flex"
-                    flexDirection="column" w="50%"
+                    flexDirection="column" w='65%' pt="3em"
                 >
                     <FormLabel>Username</FormLabel>
                     <Input
@@ -94,7 +98,12 @@ const Login = () => {
                         onChange={handleChange}
                     />
                     <Center>
-                        <Button m={8} colorScheme='teal' size='lg'
+                        <Button m={8} 
+                         size='lg'
+                        color='white'
+                        width='200px'
+                        backgroundColor='#371236' 
+                        _hover={{ bg: '#B0A3D4' }}
                             type='submit'
                             onClick={handleClick}
                         >
