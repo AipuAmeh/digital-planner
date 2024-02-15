@@ -78,7 +78,9 @@ const Signup = () => {
          <Center>
             <FormControl isRequired
             display="flex" 
-            flexDirection="column" w="50%"
+            flexDirection="column" 
+            w='65%'
+            pt="5em"
             >
                     <FormLabel>Username</FormLabel>
                     <Input
@@ -112,7 +114,8 @@ const Signup = () => {
                         type='submit'
                         color='white'
                         width='200px'
-                        backgroundColor='#7D80DA' 
+                        backgroundColor='#371236' 
+                        _hover={{ bg: '#B0A3D4' }}
                         onClick={handleClick}
                         >
                         Button

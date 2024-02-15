@@ -1,27 +1,18 @@
 import { useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { Box, Button, Center } from '@chakra-ui/react';
 
 const Profile = () => {
     const data = useLoaderData();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     console.log('LOADER DATA', data);
 
-    const LogoutButton = () => {
-        navigate('/signup');
-       localStorage.removeItem('token');
-     
-    };
+
 
     return (
         <Box>This is my profile page.
             <Center>
-                <Button m={8} colorScheme='teal' size='lg'
-                    type='submit'
-                    onClick={LogoutButton}
-                >
-                    Button
-                </Button>
+
             </Center>
         </Box>
 

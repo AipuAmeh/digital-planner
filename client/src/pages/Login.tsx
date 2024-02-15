@@ -55,6 +55,7 @@ const Login = () => {
                     duration: 2000,
                 })
                 navigate('/todo');
+                window.location.reload();
             }
         } catch (error) {
             console.log(error);
@@ -73,7 +74,7 @@ const Login = () => {
             <Center>
                 <FormControl isRequired
                     display="flex"
-                    flexDirection="column" w="50%"
+                    flexDirection="column" w='65%' pt="5em"
                 >
                     <FormLabel>Username</FormLabel>
                     <Input
@@ -98,7 +99,8 @@ const Login = () => {
                          size='lg'
                         color='white'
                         width='200px'
-                        backgroundColor='#7D80DA' 
+                        backgroundColor='#371236' 
+                        _hover={{ bg: '#B0A3D4' }}
                             type='submit'
                             onClick={handleClick}
                         >
