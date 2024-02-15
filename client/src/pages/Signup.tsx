@@ -107,8 +107,12 @@ const Signup = () => {
                         value={formState.password}
                         onChange={handleChange}/>
                         <Center>
-                        <Button m={8} colorScheme='teal' size='lg'
+                        <Button m={8} 
+                        size='lg'
                         type='submit'
+                        color='white'
+                        width='200px'
+                        backgroundColor='#7D80DA' 
                         onClick={handleClick}
                         >
                         Button

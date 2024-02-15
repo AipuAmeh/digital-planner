@@ -8,10 +8,18 @@ const Home = () => {
 
        
        <Box display="flex" flexDirection="column" gap="1em" justifyContent='center' id="call-buttons" mt='8em'>
-          <Button colorScheme='teal' size='lg' >
+          <Button 
+          backgroundColor='#7D80DA' 
+          color='white' 
+          size='lg'
+          width='200px' >
    <Link to='/login'>Login</Link>
   </Button>
-  <Button colorScheme='teal' size='lg'>
+  <Button 
+  backgroundColor='#7D80DA' 
+  color='white' 
+  size='lg'
+  width='200px'>
    <Link to='/signup'>Signup</Link>
   </Button>
        </Box>

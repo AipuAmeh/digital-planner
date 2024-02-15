@@ -97,7 +97,7 @@ const Todo = () => {
                 maxW="md"
                 mt="20px"
                 className="save-todo"
-                colorScheme="teal"
+                backgroundColor='#7D80DA' 
                 size="lg"
                 type="submit"
               >
@@ -114,7 +114,7 @@ const Todo = () => {
             {
               data.map((todos: todosObject) => {
                 return (
-                  <Card backgroundColor="teal" key={todos?.id} size={"sm"} color='white' >
+                  <Card backgroundColor='#7D80DA' key={todos?.id} size={"sm"} color='white' >
                     <CardHeader
                       fontSize='lg'>Todo: {todos?.todo}</CardHeader>
                     <CardBody
@@ -125,7 +125,10 @@ const Todo = () => {
                         maxW={'50%'}
                         size={'sm'}
                         onClick={() => deleteHandler(todos?.id)}
-                        colorScheme='blue'>Delete</Button>
+                        color='white'
+                        width='200px'
+                        backgroundColor='#7D80DA' >
+                          Delete</Button>
                     </Center>
 
                   </Card>

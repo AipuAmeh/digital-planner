@@ -1,30 +1,19 @@
 
-import { Flex } from "@chakra-ui/react";
 import "./App.css";
 import { Outlet } from 'react-router-dom';
-import { Link } from 'react-router-dom'
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import { Box } from "@chakra-ui/react";
 
 function App() {
   return (
-    <>
-    <Flex>
-    <header id='header'>
+    <Box bgGradient='linear(to-l, #CEBACF, #B0A3D4)' h='100vh'>
       <Header />
-    <Link to='/login'>Login</Link>
-    <Link to='/signup'>Signup</Link>
-    <Link to='/todo'>Todo</Link>
-    </header>
-    </Flex>
-
-    <main>
+    <main max-height='100vh'>
       <Outlet />
     </main>
-    <footer>
       <Footer />
-    </footer>
-    </>
+    </Box>
   )
 }
 
