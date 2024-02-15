@@ -6,7 +6,8 @@ import {
     Button,
     Stack,
     Center,
-    Input
+    Input,
+    Text
 } from '@chakra-ui/react'
 import axios from 'axios';
 import { useState } from 'react';
@@ -75,12 +76,13 @@ const Signup = () => {
     
     return (
         <Stack>
+                    <Text mx='auto' pt='2em' fontSize='3xl'>Create an Account</Text>
          <Center>
             <FormControl isRequired
             display="flex" 
             flexDirection="column" 
             w='65%'
-            pt="5em"
+            pt="3em"
             >
                     <FormLabel>Username</FormLabel>
                     <Input

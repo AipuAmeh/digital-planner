@@ -4,7 +4,8 @@ import {
     Button,
     Stack,
     Center,
-    Input
+    Input,
+    Text
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { useState } from 'react';
@@ -71,10 +72,12 @@ const Login = () => {
 
     return (
         <Stack>
+              <Text mx='auto' pt='2em' fontSize='3xl'>Log in to your Account</Text>
             <Center>
+              
                 <FormControl isRequired
                     display="flex"
-                    flexDirection="column" w='65%' pt="5em"
+                    flexDirection="column" w='65%' pt="3em"
                 >
                     <FormLabel>Username</FormLabel>
                     <Input
