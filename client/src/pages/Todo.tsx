@@ -19,12 +19,12 @@ const Todo = () => {
 
   const [todoInput, setTodoInput] = useState('');
   const [reflection, setReflection] = useState('');
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<todosObject[]>([]);
  
   useEffect(() => {
     axios.get("http://localhost:3001/todo/")
       .then((response) => {
-        console.log(response);
+        console.log('TODO DATA:', response.data);
         setData(response.data)
       })
   }, []);
@@ -40,15 +40,14 @@ const Todo = () => {
         todo: todoInput,
         reflectionText: reflection
       });
-
       alert(`Your Todo is ${todoInput}`);
       setTodoInput('');
-      setReflection('');
+      setReflection('');  
+      setData([...data, response.data])   
       console.log(response)
     } catch (error) {
       console.error(error)
     }
-
   };
 
   const deleteTodo = async (id: number) => {
@@ -73,7 +72,6 @@ const Todo = () => {
           <FormControl
           w='65%'
           pt="5em"
-            onSubmit={handleClick}
             className="todo-form">
             <h2>Today's Date: {date}</h2>
             <FormLabel>Todo Task</FormLabel>
@@ -104,6 +102,7 @@ const Todo = () => {
                 color='white'
                 size="lg"
                 type="submit"
+                onClick={handleClick}
               >
                 Save Todo
               </Button>

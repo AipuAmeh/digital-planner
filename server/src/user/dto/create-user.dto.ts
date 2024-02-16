@@ -9,6 +9,8 @@ import {
 const passwordRegEx =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,20}$/;
 
+// why is validation not working correctly
+
 export class CreateUserDto {
   @IsNotEmpty()
   @IsEmail(null, { message: 'Please provide valid Email.' })
@@ -22,6 +24,7 @@ export class CreateUserDto {
   username: string;
 
   @IsNotEmpty()
+  @MinLength(8, { message: 'Password must have at least 8 characters' })
   @Matches(passwordRegEx, {
     message: `Password must contain Minimum 8 and maximum 20 characters, 
     at least one uppercase letter, 

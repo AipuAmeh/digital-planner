@@ -82,6 +82,7 @@ const Login = () => {
                     <FormLabel>Username</FormLabel>
                     <Input
                         className="input"
+                        id="login-username"
                         placeholder="Username"
                         type="text"
                         name="username"
@@ -91,6 +92,7 @@ const Login = () => {
                     <FormLabel mt={4}>Password</FormLabel>
                     <Input
                         className="input"
+                        id="login-password"
                         placeholder="Password"
                         type="password"
                         name="password"
@@ -110,7 +112,6 @@ const Login = () => {
                             Button
                         </Button>
                     </Center>
-
                 </FormControl>
             </Center>
 

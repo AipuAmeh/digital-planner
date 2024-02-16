@@ -87,6 +87,7 @@ const Signup = () => {
                     <FormLabel>Username</FormLabel>
                     <Input
                         className="input"
+                        id="signup-username"
                         placeholder="Username"
                         type="text"
                         name="username"
@@ -105,6 +106,7 @@ const Signup = () => {
                     <FormLabel mt={4}>Password</FormLabel>
                     <Input
                         className="input"
+                        id="signup-password"
                         placeholder="Password"
                         type="password"
                         name="password" 
