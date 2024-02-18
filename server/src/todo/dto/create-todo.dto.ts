@@ -8,6 +8,6 @@ export class CreateTodoDto {
   @IsNotEmpty()
   reflectionText: string;
 
-  @IsDate()
+  @IsDate(null)
   todaysDate: Date;
 }

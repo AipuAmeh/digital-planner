@@ -40,12 +40,14 @@ const Todo = () => {
         todo: todoInput,
         reflectionText: reflection
       });
-      alert(`Your Todo is ${todoInput}`);
-      setTodoInput('');
-      setReflection('');  
-      setData([...data, response.data])   
-      console.log(response)
+      console.log(response.data);
+      // alert(`Your Todo is ${todoInput}`);
+      // setTodoInput('');
+      // setReflection('');
+      // setData([...data, response.data])   
+  
     } catch (error) {
+      console.log('DATA', data);
       console.error(error)
     }
   };
@@ -66,7 +68,6 @@ const Todo = () => {
 
   return (
     <div className="App">
-      {/* <header className="header"></header> */}
       <main>
         <Center>
           <FormControl
@@ -101,7 +102,7 @@ const Todo = () => {
                 _hover={{ bg: '#B0A3D4' }}
                 color='white'
                 size="lg"
-                type="submit"
+                type="button"
                 onClick={handleClick}
               >
                 Save Todo
@@ -111,8 +112,6 @@ const Todo = () => {
         </Center>
         <h1>Todos:</h1>
         <Center>
-
-
           <Stack className="rendered-todos" spacing='6' maxW='sm'>
             {
               data.map((todos: todosObject) => {
