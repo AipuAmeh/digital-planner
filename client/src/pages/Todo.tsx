@@ -19,12 +19,11 @@ const Todo = () => {
 
   const [todoInput, setTodoInput] = useState('');
   const [reflection, setReflection] = useState('');
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<todosObject[]>([]);
  
   useEffect(() => {
     axios.get("http://localhost:3001/todo/")
       .then((response) => {
-        console.log(response);
         setData(response.data)
       })
   }, []);
@@ -40,15 +39,14 @@ const Todo = () => {
         todo: todoInput,
         reflectionText: reflection
       });
-
-      alert(`Your Todo is ${todoInput}`);
       setTodoInput('');
       setReflection('');
-      console.log(response)
+      setData([...data, response.data])   
+  
     } catch (error) {
+      console.log('DATA', data);
       console.error(error)
     }
-
   };
 
   const deleteTodo = async (id: number) => {
@@ -67,13 +65,11 @@ const Todo = () => {
 
   return (
     <div className="App">
-      {/* <header className="header"></header> */}
       <main>
         <Center>
           <FormControl
           w='65%'
           pt="5em"
-            onSubmit={handleClick}
             className="todo-form">
             <h2>Today's Date: {date}</h2>
             <FormLabel>Todo Task</FormLabel>
@@ -103,7 +99,8 @@ const Todo = () => {
                 _hover={{ bg: '#B0A3D4' }}
                 color='white'
                 size="lg"
-                type="submit"
+                type="button"
+                onClick={handleClick}
               >
                 Save Todo
               </Button>
@@ -112,8 +109,6 @@ const Todo = () => {
         </Center>
         <h1>Todos:</h1>
         <Center>
-
-
           <Stack className="rendered-todos" spacing='6' maxW='sm'>
             {
               data.map((todos: todosObject) => {

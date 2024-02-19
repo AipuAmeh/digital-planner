@@ -40,9 +40,9 @@ export class AuthService {
     if (user) {
       const payload = { sub: user.id, username: user.username };
       return { access_token: await this.jwtService.signAsync(payload) };
-    } 
+    }
 
-    console.log('TOKEN' );
+    console.log('TOKEN');
   }
 
   async getUser(username: string) {

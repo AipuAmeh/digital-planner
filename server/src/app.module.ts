@@ -8,7 +8,7 @@ import { TodoController } from './todo/todo.controller';
 import { TodoService } from './todo/todo.service';
 // import { UserController } from './user/user.controller';
 import { AuthService } from './auth/auth.service';
-import { AuthController } from './auth/auth.controller'
+import { AuthController } from './auth/auth.controller';
 // import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';

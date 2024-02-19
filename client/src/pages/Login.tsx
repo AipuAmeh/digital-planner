@@ -27,9 +27,10 @@ const Login = () => {
             [name]: value,
         });
     };
-
+// add logic if user does not exist
     const handleClick = async () => {
         try {
+            
             if (formState.username === "" || formState.password === "") {
                 return toast({
                     title: 'Error',
@@ -43,12 +44,21 @@ const Login = () => {
                     password: formState.password
                 });
                 const token = response.data.access_token;
+                if (token === undefined) {
+                    return toast({
+                        title: 'Error',
+                        description: 'User does not exist.',
+                        status: 'error',
+                        duration: 2000,
+                    });
+                }
                 localStorage.setItem('token', token);
                 setFormState({
                     username: '',
                     password: ''
                 }
                 );
+                // if (formState.username !== )
                 toast({
                     title: 'Successfully logged in.',
                     description: `Welcome back ${formState.username}!`,
@@ -82,6 +92,7 @@ const Login = () => {
                     <FormLabel>Username</FormLabel>
                     <Input
                         className="input"
+                        id="login-username"
                         placeholder="Username"
                         type="text"
                         name="username"
@@ -91,6 +102,7 @@ const Login = () => {
                     <FormLabel mt={4}>Password</FormLabel>
                     <Input
                         className="input"
+                        id="login-password"
                         placeholder="Password"
                         type="password"
                         name="password"
@@ -110,7 +122,6 @@ const Login = () => {
                             Button
                         </Button>
                     </Center>
-
                 </FormControl>
             </Center>
 

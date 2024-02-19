@@ -23,6 +23,7 @@ const Signup = () => {
         email: '',
         password: ''
     });
+    
     const handleChange = (e: any) => {
         const {name, value } = e.target;
    setFormState({
@@ -61,13 +62,16 @@ const Signup = () => {
                     status: 'success',
                     duration: 2000,
                   })
+
                     navigate('/todo');
+                    window.location.reload();
                 }
         } catch (error) {
             console.log(error);
+            console.log(formState);
             toast({
                 title: 'Error',
-                description: 'Unable to log in.',
+                description: 'Unable to create an account.',
                 status: 'error',
                 duration: 2000,
               });
@@ -87,6 +91,7 @@ const Signup = () => {
                     <FormLabel>Username</FormLabel>
                     <Input
                         className="input"
+                        id="signup-username"
                         placeholder="Username"
                         type="text"
                         name="username"
@@ -105,6 +110,7 @@ const Signup = () => {
                     <FormLabel mt={4}>Password</FormLabel>
                     <Input
                         className="input"
+                        id="signup-password"
                         placeholder="Password"
                         type="password"
                         name="password" 
