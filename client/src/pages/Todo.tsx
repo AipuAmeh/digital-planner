@@ -24,7 +24,6 @@ const Todo = () => {
   useEffect(() => {
     axios.get("http://localhost:3001/todo/")
       .then((response) => {
-        console.log('TODO DATA:', response.data);
         setData(response.data)
       })
   }, []);
@@ -40,11 +39,9 @@ const Todo = () => {
         todo: todoInput,
         reflectionText: reflection
       });
-      console.log(response.data);
-      // alert(`Your Todo is ${todoInput}`);
-      // setTodoInput('');
-      // setReflection('');
-      // setData([...data, response.data])   
+      setTodoInput('');
+      setReflection('');
+      setData([...data, response.data])   
   
     } catch (error) {
       console.log('DATA', data);
