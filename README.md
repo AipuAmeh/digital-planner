@@ -23,7 +23,6 @@ This week I worked on my Feature 3, which is calling a Bible API.
  - Navigate to [http://localhost:3000/](http://localhost:3000/) to view the homepage with the option to either signup or login to your account.
  - Test the functionality by signing in, hard refreshing to view logout button, and logging back in again.
  - Notice how you are only able to view the users profile page if you are logged in.
- - On the Profile page, look at developer tools to view the Verse of the Day logged to the console!
 
 ## Credits
 
