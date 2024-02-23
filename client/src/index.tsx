@@ -13,7 +13,6 @@ import Profile from './pages/Profile';
 import Home from './pages/Home';
 // import { useToast } from '@chakra-ui/react'
 
-
 const router = createBrowserRouter([
 
   {
@@ -36,9 +35,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/todo',
-        element: <Todo />
+        element: <Todo />,
       },
       {
+        // todo will eventually be a component that user can create todos on their profile
+        // will be turned into modal
         path: '/profile',
         element: <Profile />,
         loader: async () => {
@@ -56,7 +57,7 @@ const router = createBrowserRouter([
             console.log('NO TOKEN');
             return redirect('/signup');
           }
-        }
+        },
       }
     ]
   }
