@@ -27,7 +27,7 @@ const Login = () => {
             [name]: value,
         });
     };
-// add logic if user does not exist
+// ADD LOGIC FOR AUTOMATICALLY LOGGING OUT ON CLICK
     const handleClick = async () => {
         try {
             
