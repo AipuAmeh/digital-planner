@@ -58,33 +58,6 @@ const router = createBrowserRouter([
             return redirect('/signup');
           }
         },
-        // children: [
-        //   {
-        //     element: <Profile />,
-        //     path:'/profile',
-        //     loader: async () => {
-        //       const token = localStorage.getItem('token');
-        //       const options = {
-        //         method: 'GET',
-        //         url:  'http://labs.bible.org/api/?',
-        //           params: {
-        //             passage: 'votd',
-        //             formatting: 'plain'
-        //           },
-        //     };
-        //       if (token) {
-        //         try {
-        //           const verseResponse = await axios.request(options);
-        //           console.log('VERSE:', verseResponse.data);
-        //           // localStorage.setItem('verse', verseResponse); 
-        //           return verseResponse;
-        //       } catch (error) {
-        //           console.error(error);
-        //       }
-        //       }
-        //     }
-        //   }
-        // ]
       }
     ]
   }
