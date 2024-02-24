@@ -36,9 +36,6 @@ const Header = () => {
                 <h2><Link to='/profile'>Profile</Link></h2>
                 <h2><Link to='/todo'>Todo</Link></h2>
             </Flex>
-            <Flex justify='center'>
-                <Text fontSize='6xl' fontStyle='san-serif'>Digital Planner</Text>
-            </Flex>
 
 
         </Box>
