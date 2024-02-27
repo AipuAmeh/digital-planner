@@ -38,18 +38,20 @@ getBibleVerses();
                 <Text fontSize='2xl' pt='3em'>Verse of the Day: </Text>
               <Text fontSize='xl' p='2em'>{verse}</Text>
             </Center>
-            <Stack spacing='4' maxWidth='75%'>
-  {['md', 'md', 'md', 'md'].map((size) => (
+            <Stack spacing='4' px='4em' display='flex'>
+            {['md', 'md', 'md', 'md', 'md', 'md', 'md', 'md', 'md', 'md'].map((size) => (
     <Card key={size} size={size}>
       <CardHeader>
-        <Heading size='md'> {size}</Heading>
+        <Heading size='md'> Todo:</Heading>
       </CardHeader>
       <CardBody>
-        <Text>size = {size}</Text>
+        <Text>Reflection:</Text>
       </CardBody>
     </Card>
   ))}
+
 </Stack>
+
            </Box>
 
     )
