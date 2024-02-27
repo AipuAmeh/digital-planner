@@ -38,6 +38,7 @@ const Signup = () => {
             [name]: value,
         });
     };
+// show password checklist once input is clicked
 
     const handleClick = async () => {
         try {
@@ -123,7 +124,7 @@ const Signup = () => {
                             type={show ? 'text' : 'password'}
                             name="password"
                             value={formState.password}
-                            onChange={handleChange} />
+                            onChange={handleChange}/>
                         <InputRightElement width='4.5rem'>
                             <Button 
                             h='1.75rem' 

@@ -1,6 +1,6 @@
 
 import { useLoaderData } from "react-router-dom";
-import { Box, Center } from '@chakra-ui/react';
+import { Box, Card, CardBody, CardHeader, Center, Flex, Heading, Stack } from '@chakra-ui/react';
 import {  Text } from '@chakra-ui/react'
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -33,12 +33,24 @@ const Profile = () => {
 getBibleVerses();
     return (
         <Box>
-            <Text fontSize='xl' display='flex'  pl='2em'> Welcome back {data.username}!</Text>
+            <Text fontSize='md' display='flex'  pl='2em' justifyContent='flex-end' noOfLines={[1, 2]}> Welcome back {data.username}!</Text>
             <Center display='flex' flexDirection='column'>
-                <Text fontSize='2xl'>Verse of the Day: </Text>
+                <Text fontSize='2xl' pt='3em'>Verse of the Day: </Text>
               <Text fontSize='xl' p='2em'>{verse}</Text>
             </Center>
-        </Box>
+            <Stack spacing='4' maxWidth='75%'>
+  {['md', 'md', 'md', 'md'].map((size) => (
+    <Card key={size} size={size}>
+      <CardHeader>
+        <Heading size='md'> {size}</Heading>
+      </CardHeader>
+      <CardBody>
+        <Text>size = {size}</Text>
+      </CardBody>
+    </Card>
+  ))}
+</Stack>
+           </Box>
 
     )
 }
