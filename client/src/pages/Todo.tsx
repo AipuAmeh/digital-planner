@@ -96,7 +96,7 @@ const Todo = () => {
                 mt="20px"
                 className="save-todo"
                 backgroundColor='#371236' 
-                _hover={{ bg: '#B0A3D4' }}
+                _hover={{ bg: '#F7F9F7', color: 'black' }}
                 color='white'
                 size="lg"
                 type="button"
@@ -128,7 +128,7 @@ const Todo = () => {
                       <Button
                         maxW={'60%'}
                         size={'sm'}
-                        _hover={{ bg: '#B0A3D4' }}
+                        _hover={{ bg: '#F7F9F7', color: 'black' }}
                         onClick={() => deleteHandler(todos?.id)}
                         color='black'
                         width='200px'

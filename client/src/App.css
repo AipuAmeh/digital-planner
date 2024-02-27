@@ -1,3 +1,6 @@
+#root {
+  max-height: 100vh;
+}
 
 .App {
   text-align: center;
@@ -24,6 +27,13 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.dancing-script, .site-title {
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: 300px;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .todo-form {
