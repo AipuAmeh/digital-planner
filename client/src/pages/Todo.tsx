@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { FormControl, FormLabel, Input, Spacer } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, Modal, ModalContent, ModalOverlay, Spacer, useDisclosure, ModalCloseButton } from "@chakra-ui/react";
 import { Textarea } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import axios from "axios";
 import { Card, CardHeader, CardBody, Stack } from '@chakra-ui/react'
+import React from "react";
 
 const date = new Date().toDateString();
 
@@ -16,6 +17,9 @@ type todosObject = {
   };
 
 const Todo = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const initialRef = React.useRef(null);
+  const finalRef = React.useRef(null);
 
   const [todoInput, setTodoInput] = useState('');
   const [reflection, setReflection] = useState('');
@@ -65,13 +69,20 @@ const Todo = () => {
 
   return (
     <div className="App">
-      <main>
+           <Button onClick={onOpen}>Add Event</Button>
+      <Modal
+        initialFocusRef={initialRef}
+        finalFocusRef={finalRef}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <ModalOverlay />
+      <ModalContent>
         <Center>
           <FormControl
           w='65%'
           pt="5em"
             className="todo-form">
-            <h2>Today's Date: {date}</h2>
             <FormLabel>Todo Task</FormLabel>
             <Input
               className="input"
@@ -104,11 +115,13 @@ const Todo = () => {
               >
                 Save Todo
               </Button>
+              <ModalCloseButton />
             </Center>
           </FormControl>
         </Center>
-        <h1>Todos:</h1>
-        <Center>
+      </ModalContent>
+      </Modal>
+      <Center>
           <Stack className="rendered-todos" spacing='6' maxW='sm'>
             {
               data.map((todos: todosObject) => {
@@ -142,7 +155,6 @@ const Todo = () => {
             }
           </Stack>
         </Center>
-      </main>
     </div>
   );
 }

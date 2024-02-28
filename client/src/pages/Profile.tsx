@@ -5,6 +5,8 @@ import {  Text } from '@chakra-ui/react'
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+const date = new Date().toDateString();
+
 const Profile = () => {
     const data:any  = useLoaderData();
     const [verse, setVerse] = useState('');
@@ -65,6 +67,7 @@ getBibleVerses();
         <Box>
             <Text fontSize='md' display='flex'  pl='2em' justifyContent='flex-end' noOfLines={[1, 2]}> Welcome back {data.username}!</Text>
             <Center display='flex' flexDirection='column'>
+            <h2>Today's Date: {date}</h2>
                 {/* <Text fontSize='2xl' pt='3em' >Verse of the Day: </Text> */}
               <Text fontSize='2xl' p='3em' className="verse">{verse}</Text>
             </Center>

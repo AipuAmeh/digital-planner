@@ -70,7 +70,7 @@ const Login = () => {
                     status: 'success',
                     duration: 2000,
                 })
-                navigate('/todo');
+                navigate('/profile');
                 window.location.reload();
             }
         } catch (error) {
