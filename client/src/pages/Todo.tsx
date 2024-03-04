@@ -42,13 +42,6 @@ const Todo = () => {
 
   const handlePriorityChange = (e:any) => {
     setPriority(e?.target.value);
-    // if (priority === 'red' ) {
-    //   todoCard?.setAttribute('style', 'border: solid 3px red');
-    // } else if (priority === 'yellow') {
-    //   todoCard?.setAttribute('style', 'border: solid 3px yellow');
-    // } else if (priority === 'green') {
-    //   todoCard?.setAttribute('style', 'border: solid 3px green');
-    // }
   };
 
 
@@ -197,6 +190,7 @@ const Todo = () => {
                         width='200px'
                         backgroundColor='#CEBACF' >
                           Delete</Button>
+                        <p>  {priority}</p>
                     </Center>
                  
                   </Card>
