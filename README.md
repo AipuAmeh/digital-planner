@@ -12,7 +12,7 @@ To review my current work, copy the url of my main branch and clone it into your
 
 ## This Week:
 
-This week I worked on my Feature 3, which is calling a Bible API. 
+This week I worked on my Feature 4, which is creating color-coded Priority. 
 
 ### Running the Application
 
@@ -21,8 +21,8 @@ This week I worked on my Feature 3, which is calling a Bible API.
  - Navigate into the folder titled `server` and run `npm install`.
  - Then start both the server and client folders, by running `npm run develop` in the main terminal.
  - Navigate to [http://localhost:3000/](http://localhost:3000/) to view the homepage with the option to either signup or login to your account.
- - Test the functionality by signing in, hard refreshing to view logout button, and logging back in again.
- - Notice how you are only able to view the users profile page if you are logged in.
+ - Navigate to [http://localhost:3000/todo](http://localhost:3000/todo) to create a task item. 
+
 
 ## Credits
 
