@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FormControl, FormLabel, Input, Modal, ModalContent, ModalOverlay, Spacer, useDisclosure, ModalCloseButton } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, Modal, ModalContent, ModalOverlay, Spacer, useDisclosure, ModalCloseButton, Checkbox, Flex } from "@chakra-ui/react";
 import { Textarea } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
@@ -24,7 +24,10 @@ const Todo = () => {
   const [todoInput, setTodoInput] = useState('');
   const [reflection, setReflection] = useState('');
   const [data, setData] = useState<todosObject[]>([]);
- 
+  const [priority, setPriority] = useState('');
+
+  const todoCard = document.querySelector('.todo-card');
+
   useEffect(() => {
     axios.get("http://localhost:3001/todo/")
       .then((response) => {
@@ -37,6 +40,19 @@ const Todo = () => {
     return name === 'todo' ? setTodoInput(value) : setReflection(value);
   };
 
+  const handlePriorityChange = (e:any) => {
+    setPriority(e?.target.value);
+    // if (priority === 'red' ) {
+    //   todoCard?.setAttribute('style', 'border: solid 3px red');
+    // } else if (priority === 'yellow') {
+    //   todoCard?.setAttribute('style', 'border: solid 3px yellow');
+    // } else if (priority === 'green') {
+    //   todoCard?.setAttribute('style', 'border: solid 3px green');
+    // }
+  };
+
+
+
   const handleClick = async () => {
     try {
       const response = await axios.post("http://localhost:3001/todo", {
@@ -45,7 +61,7 @@ const Todo = () => {
       });
       setTodoInput('');
       setReflection('');
-      setData([...data, response.data])   
+      setData([...data, response.data]);
   
     } catch (error) {
       console.log('DATA', data);
@@ -64,7 +80,7 @@ const Todo = () => {
 
   const deleteHandler = async (id: number) => {
     deleteTodo(id);
-    setData(data.filter((todoData: todosObject) => todoData.id !== id))
+    setData(data.filter((todoData: todosObject) => todoData.id !== id));
   };
 
   return (
@@ -82,7 +98,7 @@ const Todo = () => {
           <FormControl
           w='65%'
           pt="5em"
-            className="todo-form">
+            className="todo-card">
             <FormLabel>Todo Task</FormLabel>
             <Input
               className="input"
@@ -101,6 +117,39 @@ const Todo = () => {
               onChange={handleChange}
             />
             <Spacer />
+            <Flex flexDirection='column'>
+            <FormLabel>Priority</FormLabel>
+            <select
+          
+            value={priority}
+            onChange={handlePriorityChange}
+            className="w-full border rounded p-2"
+          >
+            <option value="High">High Priority</option>
+            <option value="Medium">Medium Priority</option>
+            <option value="Low">Low Priority</option>
+          </select>
+            {/* <Checkbox 
+            size='md'
+            name='urgent' 
+            onChange={handlePriority}>
+    Checkbox
+  </Checkbox>
+  <Checkbox 
+  size='md'
+  name='moderate'
+  onChange={handlePriority} >
+    Checkbox
+  </Checkbox>
+  <Checkbox 
+  size='md'
+  name='easy'
+  onChange={handlePriority}>
+    Checkbox
+  </Checkbox> */}
+            </Flex>
+           
+
             <Center>
               <Button
                 width='200px'
@@ -127,10 +176,11 @@ const Todo = () => {
               data.map((todos: todosObject) => {
                 return (
                   <Card 
-                  backgroundColor='#371236' 
+                  className="todo-card"
+                  backgroundColor='white' 
                   key={todos?.id} 
                   size={"sm"} 
-                  color='white'
+                  color='black'
                   p='1em' >
                     <CardHeader
                       fontSize='lg'>Todo: {todos?.todo}</CardHeader>
@@ -148,7 +198,7 @@ const Todo = () => {
                         backgroundColor='#CEBACF' >
                           Delete</Button>
                     </Center>
-
+                 
                   </Card>
                 )
               })
