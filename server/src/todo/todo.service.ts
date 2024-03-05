@@ -15,6 +15,7 @@ export class TodoService {
     const newTodo: Todo = new Todo();
     newTodo.todo = createTodoDto.todo;
     newTodo.reflectionText = createTodoDto.reflectionText;
+    newTodo.priority = createTodoDto.priority;
     return this.todoRepository.save(newTodo);
   }
 

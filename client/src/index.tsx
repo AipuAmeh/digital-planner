@@ -1,7 +1,7 @@
 import React from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, redirect, RouterProvider,} from 'react-router-dom';
 import './index.css';
 import axios from 'axios';
 
@@ -43,12 +43,14 @@ const router = createBrowserRouter([
         path: '/profile',
         element: <Profile />,
         loader: async () => {
+          // const navigate = useNavigate();
          const token = localStorage.getItem('token');
          if (token) {
           try {
             const response = await axios.get("http://localhost:3001/auth/profile", {
               headers: { Authorization:  `Bearer ${token}`}
               })
+             redirect('/profile');
               return response.data;
           } catch (error) {
             console.log('ERROR', error);

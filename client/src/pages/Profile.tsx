@@ -1,6 +1,6 @@
 
 import { useLoaderData } from "react-router-dom";
-import { Box, Button, Card, CardBody, CardHeader, Center, Flex, Heading, Input, Stack } from '@chakra-ui/react';
+import { Box, Button, Card, CardBody, CardHeader, Center, Stack } from '@chakra-ui/react';
 import {  Text } from '@chakra-ui/react'
 import axios from "axios";
 import { useState, useEffect } from "react";

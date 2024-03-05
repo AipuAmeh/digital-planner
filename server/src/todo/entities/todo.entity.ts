@@ -19,4 +19,7 @@ export class Todo {
 
   @CreateDateColumn()
   todaysDate: Date;
+
+  @Column()
+  priority: string;
 }

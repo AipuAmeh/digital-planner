@@ -8,6 +8,7 @@ export class CreateTodoDto {
   @IsNotEmpty()
   reflectionText: string;
 
+  priority: string;
   // @IsDate()
   // todaysDate: Date;
 }
