@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 // import "./App.css";
-import { FormControl, FormLabel, Input, Spacer, Text, useDisclosure } from "@chakra-ui/react";
+import { Checkbox, Flex, FormControl, FormLabel, Input, Spacer, Text, useDisclosure } from "@chakra-ui/react";
 import { Textarea } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import axios from "axios";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react'
 import { Card, CardHeader, CardBody, Stack } from '@chakra-ui/react'
+import React from "react";
 const date = new Date().toDateString();
 
 // want to make form a modal
@@ -17,60 +18,84 @@ const date = new Date().toDateString();
 //   reflectionText: string
 //   todaysDate: any;
 // };
+type todosObject = {
+  id: number,
+  todo: string,
+  reflectionText: string
+  todaysDate: any
+  priority: string
+  color: string
+};
 
 function TodoModal() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const initialRef = React.useRef(null);
+  const finalRef = React.useRef(null);
 
   const [todoInput, setTodoInput] = useState('');
   const [reflection, setReflection] = useState('');
-  const [data, setData] = useState([]);
+  const [priority, setPriority] = useState('');
 
 
+  const [data, setData] = useState<todosObject[]>([]);
 
-//   useEffect(() => {
-//     axios.get("http://localhost:3001/todo/")
-//       .then((response) => {
-//         console.log(response);
-//         setData(response.data)
-
-//       })
-//   }, []);
+  useEffect(() => {
+    axios.get("http://localhost:3001/todo/")
+      .then((response) => {
+        setData(response.data)
+      })
+  }, []);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     return name === 'todo' ? setTodoInput(value) : setReflection(value);
   };
 
+  const handlePriorityChange = (e:any) => {
+    const {name,  value } = e.target;
 
-  const handleClick = async () => {
-    const response = await axios.post("http://localhost:3001/todo", {
-      todo: todoInput,
-      reflectionText: reflection
-    });
-
-    alert(`Your Todo is ${todoInput}`);
-    setTodoInput('');
-    setReflection('');
-    setData(data);
-    console.log(response)
+    if (name === value) {
+      return setPriority(value);
+    }
   };
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const handleClick = async () => {
+    try {
+      const response = await axios.post("http://localhost:3001/todo", {
+        todo: todoInput,
+        reflectionText: reflection,
+        priority: priority
+      });
+
+      setTodoInput('');
+      setReflection('');
+      setData([...data, response.data]);
+      
+  
+    } catch (error) {
+      console.log('DATA', data);
+      console.error(error)
+    }
+  };
+
+
   return (
-    <div >
-      <header className="header"></header>
-      <main>
+    <div className="App">
+           <Button onClick={onOpen}>Add Event</Button>
+      <Modal
+        initialFocusRef={initialRef}
+        finalFocusRef={finalRef}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <ModalOverlay />
+      <ModalContent pb={5}>
         <Center>
-        <Button onClick={onOpen}>Open Modal</Button>
-          <Modal 
-           isOpen={isOpen} onClose={onClose}
-            >
-                <ModalOverlay />
-                <ModalContent>
-            <h2>Today's Date: {date}</h2>
-            <ModalCloseButton />
-           
-            <FormControl>
-            <FormLabel className="todo-title">Todo Task</FormLabel>
+          <FormControl
+          w='65%'
+          pt="5em"
+            className="todo-card">
+            <FormLabel>Todo Task</FormLabel>
             <Input
               className="input"
               placeholder="Basic usage"
@@ -79,9 +104,7 @@ function TodoModal() {
               value={todoInput}
               onChange={handleChange}
             />
-            </FormControl>
-            <FormControl>
-            <FormLabel className="todo-title">Intentions</FormLabel>
+            <FormLabel mt={4}>Intentions</FormLabel>
             <Textarea
               className="todo-text-area"
               placeholder="Here is a sample placeholder"
@@ -89,46 +112,58 @@ function TodoModal() {
               value={reflection}
               onChange={handleChange}
             />
-            </FormControl>
             <Spacer />
+            <Flex flexDirection='column'>
+            <FormLabel mt={4}>Priority</FormLabel>
+            <Checkbox 
+            size='md'
+            name='High' 
+            value="High"
+            
+            onChange={handlePriorityChange}
+            >
+    High Priority
+  </Checkbox>
+  <Checkbox 
+  size='md'
+  name='Medium' 
+  value="Medium"
+  onChange={handlePriorityChange}
+  >
+    Medium Priority
+  </Checkbox>
+  <Checkbox 
+  size='md'
+  name='Low' 
+  value="Low"
+  onChange={handlePriorityChange}
+  >
+    Low Priority
+  </Checkbox>
+            </Flex>
             <Center>
               <Button
-                maxW="md"
+                width='200px'
                 mt="20px"
+                
                 className="save-todo"
-                colorScheme="teal"
+                backgroundColor='#371236' 
+                _hover={{ bg: '#F7F9F7', color: 'black' }}
+                color='white'
                 size="lg"
-                type="submit"
-                // onClose={onClose}
+                type="button"
                 onClick={handleClick}
               >
                 Save Todo
-                
               </Button>
+              <ModalCloseButton />
             </Center>
-            </ModalContent>
-          </Modal>
+          </FormControl>
         </Center>
-        {/* <h1>Todos:</h1> */}
-        {/* <Center> */}
-
-       
-        {/* <Stack className="rendered-todos" spacing='6' maxW='sm'>
-        {
-          data.map((todos: todosObject) => {
-            return (    
-                <Card backgroundColor="teal" key={"sm"} size={"sm"} color='white'>
-                  <CardHeader fontSize='lg'>Todo: {todos?.todo}</CardHeader>
-                  <CardBody fontSize='md'>Intention: {todos?.reflectionText}</CardBody>
-                </Card>           
-            )
-          }) 
-        }
-          </Stack>
-          </Center> */}
-      </main>
+      </ModalContent>
+      </Modal>
     </div>
-  );
+  )
 }
 
 export default TodoModal;

@@ -22,21 +22,11 @@ const Profile = () => {
     priority: string
   };
 
-  const dateFormat = (todos: todosObject) => {
-    const dateString = todos?.todaysDate;
-   dateString.toLocaleString();
-   dateFormat(todos?.todaysDate);
-  //  console.log()
-  };
- 
-
   const style = {
     border: {
       'border': 'solid 4px #371236'
     },
-    cardBorder: {
-      'border': 'solid 2px #371236'
-    }
+
   };
 
   useEffect(() => {

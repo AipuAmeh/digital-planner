@@ -70,8 +70,12 @@ const Login = () => {
                     status: 'success',
                     duration: 2000,
                 })
-                navigate('/profile');
-                window.location.reload();
+
+                if (token) {
+                    navigate('/profile');
+                    window.location.reload();
+                };
+              
             }
         } catch (error) {
             console.log(error);

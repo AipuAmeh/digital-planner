@@ -13,6 +13,7 @@ type todosObject = {
     reflectionText: string
     todaysDate: any
     priority: string
+    color: string
   };
 
 const Todo = () => {
@@ -23,11 +24,15 @@ const Todo = () => {
   const [todoInput, setTodoInput] = useState('');
   const [reflection, setReflection] = useState('');
   const [priority, setPriority] = useState('');
-  const [highPriorityColor, setHighColor] = useState('');
-  const [mediumPriorityColor, setMediumColor] = useState('');
-  const [lowPriorityColor, setLowColor] = useState('');
+
 
   const [data, setData] = useState<todosObject[]>([]);
+
+  const style = {
+    border: {
+      'border': 'solid 4px #371236'
+    },
+  };
 
   useEffect(() => {
     axios.get("http://localhost:3001/todo/")
@@ -58,7 +63,7 @@ const Todo = () => {
         reflectionText: reflection,
         priority: priority
       });
-      
+
       setTodoInput('');
       setReflection('');
       setData([...data, response.data]);
@@ -86,7 +91,7 @@ const Todo = () => {
 
   return (
     <div className="App">
-           <Button onClick={onOpen}>Add Event</Button>
+           <Button onClick={onOpen}>Add Task</Button>
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
@@ -155,7 +160,7 @@ const Todo = () => {
                 backgroundColor='#371236' 
                 _hover={{ bg: '#F7F9F7', color: 'black' }}
                 color='white'
-                size="lg"
+                size="md"
                 type="button"
                 onClick={handleClick}
               >
@@ -167,28 +172,28 @@ const Todo = () => {
         </Center>
       </ModalContent>
       </Modal>
-      <Center>
-          <Stack className="rendered-todos" spacing='6' maxW='sm'>      
-            {
+
+      <Stack className="rendered-todos" spacing='6' px='2em'>
+        {
               data.map((todos: todosObject) => {
                 return (
                   <Card 
-                  className="todo-card"
-                  backgroundColor='white' 
+                  maxW={'100%'}
+                  backgroundColor='#FFFFFA' 
+                  style={style.border}
                   key={todos?.id} 
                   size={"sm"} 
                   color='black'
                   p='1em' >
                     <CardHeader
-                      fontSize='lg'>Todo: {todos?.todo}
-                        <Text
-                        color={highPriorityColor || lowPriorityColor || mediumPriorityColor}
-                        >{todos?.priority}</Text>
-                      </CardHeader>
+                      fontSize='lg'>
+                        <Text 
+                        fontWeight='800'> Created Date: {todos?.todaysDate}</Text>
+                        <Text mt='1em'>{todos?.todo}</Text>
+                        </CardHeader>
                     <CardBody
-                      onChange={(e: any) => setReflection(e.target.value)}
-                      fontSize='md'>Intention: {todos?.reflectionText}</CardBody>
-                    <Center>
+                      fontSize='md'>{todos?.reflectionText}</CardBody>
+                        <Flex justify='flex-end'>
                       <Button
                         maxW={'60%'}
                         size={'sm'}
@@ -198,15 +203,12 @@ const Todo = () => {
                         width='200px'
                         backgroundColor='#CEBACF' >
                           Delete</Button>
-                      
-                    </Center>
-                 
+                    </Flex>
                   </Card>
                 )
               })
             }
-          </Stack>
-        </Center>
+      </Stack>       
     </div>
   
   );
