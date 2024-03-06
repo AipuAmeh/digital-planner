@@ -41,4 +41,15 @@ export class AuthController {
       return 'No User';
     }
   }
+
+  @UseGuards(AuthGuard)
+  @Get('/user-todos')
+  getUserTodos(@Request() req) {
+    if (req.user) {
+      const username = req.user.username;
+      return this.authService.getUser(username);
+    } else {
+      return 'No User';
+    }
+  }
 }

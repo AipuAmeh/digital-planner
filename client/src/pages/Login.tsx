@@ -35,8 +35,7 @@ const Login = () => {
     };
 // ADD LOGIC FOR LOGGING OUT AUTOMATICALLY
     const handleClick = async () => {
-        try {
-            
+        try {          
             if (formState.username === "" || formState.password === "") {
                 return toast({
                     title: 'Error',
@@ -49,6 +48,7 @@ const Login = () => {
                     username: formState.username,
                     password: formState.password
                 });
+              
                 const token = response.data.access_token;
                 if (token === undefined) {
                     return toast({
@@ -70,8 +70,12 @@ const Login = () => {
                     status: 'success',
                     duration: 2000,
                 })
-                navigate('/todo');
-                window.location.reload();
+
+                if (token) {
+                    navigate('/profile');
+                    window.location.reload();
+                };
+              
             }
         } catch (error) {
             console.log(error);

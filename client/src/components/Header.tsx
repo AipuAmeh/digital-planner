@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { Link, useNavigate } from 'react-router-dom'
 
 const token = localStorage.getItem('token');

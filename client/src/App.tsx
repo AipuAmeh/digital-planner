@@ -9,9 +9,12 @@ function App() {
   return (
     <Box bgGradient='linear(to-l, #CEBACF, #B0A3D4)' h='100vh'>
       <Header />
-    <main>
+      <Box bgGradient='linear(to-l, #CEBACF, #B0A3D4)'>
+      <main>
       <Outlet />
     </main>
+      </Box>
+
       <Footer />
     </Box>
   )
