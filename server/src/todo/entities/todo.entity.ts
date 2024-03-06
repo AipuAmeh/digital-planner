@@ -17,9 +17,10 @@ export class Todo {
   @Column({ type: 'varchar', length: 250 })
   reflectionText: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'date' })
   todaysDate: Date;
 
   @Column()
   priority: string;
+
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FormControl, FormLabel, Input, Modal, ModalContent, ModalOverlay, Spacer, useDisclosure, ModalCloseButton, Checkbox, Flex } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, Modal, ModalContent, ModalOverlay, Spacer, useDisclosure, ModalCloseButton, Checkbox, Flex, Heading, Select } from "@chakra-ui/react";
 import { Textarea, Text } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
@@ -7,13 +7,12 @@ import axios from "axios";
 import { Card, CardHeader, CardBody, Stack } from '@chakra-ui/react'
 import React from "react";
 
-// const date = new Date().toDateString();
-
 type todosObject = {
     id: number,
     todo: string,
     reflectionText: string
-    todaysDate: any;
+    todaysDate: any
+    priority: string
   };
 
 const Todo = () => {
@@ -23,10 +22,12 @@ const Todo = () => {
 
   const [todoInput, setTodoInput] = useState('');
   const [reflection, setReflection] = useState('');
-  const [data, setData] = useState<todosObject[]>([]);
   const [priority, setPriority] = useState('');
+  const [highPriorityColor, setHighColor] = useState('');
+  const [mediumPriorityColor, setMediumColor] = useState('');
+  const [lowPriorityColor, setLowColor] = useState('');
 
-  // const todoCard = document.querySelector('.todo-card');
+  const [data, setData] = useState<todosObject[]>([]);
 
   useEffect(() => {
     axios.get("http://localhost:3001/todo/")
@@ -40,9 +41,13 @@ const Todo = () => {
     return name === 'todo' ? setTodoInput(value) : setReflection(value);
   };
 
-  // const handlePriorityChange = (e:any) => {
-  //   setPriority(e?.target.value);
-  // };
+  const handlePriorityChange = (e:any) => {
+    const {name,  value } = e.target;
+
+    if (name === value) {
+      return setPriority(value);
+    }
+  };
 
 
 
@@ -50,11 +55,14 @@ const Todo = () => {
     try {
       const response = await axios.post("http://localhost:3001/todo", {
         todo: todoInput,
-        reflectionText: reflection
+        reflectionText: reflection,
+        priority: priority
       });
+      
       setTodoInput('');
       setReflection('');
       setData([...data, response.data]);
+      
   
     } catch (error) {
       console.log('DATA', data);
@@ -86,7 +94,7 @@ const Todo = () => {
         onClose={onClose}
       >
         <ModalOverlay />
-      <ModalContent>
+      <ModalContent pb={5}>
         <Center>
           <FormControl
           w='65%'
@@ -111,11 +119,13 @@ const Todo = () => {
             />
             <Spacer />
             <Flex flexDirection='column'>
-            <FormLabel>Priority</FormLabel>
+            <FormLabel mt={4}>Priority</FormLabel>
             <Checkbox 
             size='md'
             name='High' 
             value="High"
+            
+            onChange={handlePriorityChange}
             >
     High Priority
   </Checkbox>
@@ -123,6 +133,7 @@ const Todo = () => {
   size='md'
   name='Medium' 
   value="Medium"
+  onChange={handlePriorityChange}
   >
     Medium Priority
   </Checkbox>
@@ -130,16 +141,16 @@ const Todo = () => {
   size='md'
   name='Low' 
   value="Low"
+  onChange={handlePriorityChange}
   >
     Low Priority
-  </Checkbox> */
+  </Checkbox>
             </Flex>
-           
-
             <Center>
               <Button
                 width='200px'
                 mt="20px"
+                
                 className="save-todo"
                 backgroundColor='#371236' 
                 _hover={{ bg: '#F7F9F7', color: 'black' }}
@@ -169,7 +180,11 @@ const Todo = () => {
                   color='black'
                   p='1em' >
                     <CardHeader
-                      fontSize='lg'>Todo: {todos?.todo}</CardHeader>
+                      fontSize='lg'>Todo: {todos?.todo}
+                        <Text
+                        color={highPriorityColor || lowPriorityColor || mediumPriorityColor}
+                        >{todos?.priority}</Text>
+                      </CardHeader>
                     <CardBody
                       onChange={(e: any) => setReflection(e.target.value)}
                       fontSize='md'>Intention: {todos?.reflectionText}</CardBody>
@@ -183,7 +198,7 @@ const Todo = () => {
                         width='200px'
                         backgroundColor='#CEBACF' >
                           Delete</Button>
-                        <p>  {priority}</p>
+                      
                     </Center>
                  
                   </Card>
@@ -193,6 +208,7 @@ const Todo = () => {
           </Stack>
         </Center>
     </div>
+  
   );
 }
 

@@ -1,23 +1,42 @@
 
 import { useLoaderData } from "react-router-dom";
-import { Box, Button, Card, CardBody, CardHeader, Center, Stack } from '@chakra-ui/react';
-import {  Text } from '@chakra-ui/react'
+import { Box, Button, Card, CardBody, CardHeader, Center, Flex, Heading, Stack, Textarea } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react'
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { AddIcon, PlusSquareIcon } from '@chakra-ui/icons'
 
 const date = new Date().toDateString();
 
 const Profile = () => {
-    const data:any  = useLoaderData();
-    const [verse, setVerse] = useState('');
-    const [todoData, setData] = useState<todosObject[]>([]);
-   console.log('LOADER DATA:', data);
+  const data: any = useLoaderData();
+  const [verse, setVerse] = useState('');
+  const [todoData, setData] = useState<todosObject[]>([]);
+  console.log('LOADER DATA:', data);
 
-   type todosObject = {
+  type todosObject = {
     id: number,
     todo: string,
     reflectionText: string
-    todaysDate: any;
+    todaysDate: any
+    priority: string
+  };
+
+  const dateFormat = (todos: todosObject) => {
+    const dateString = todos?.todaysDate;
+   dateString.toLocaleString();
+   dateFormat(todos?.todaysDate);
+  //  console.log()
+  };
+ 
+
+  const style = {
+    border: {
+      'border': 'solid 4px #371236'
+    },
+    cardBorder: {
+      'border': 'solid 2px #371236'
+    }
   };
 
   useEffect(() => {
@@ -42,53 +61,58 @@ const Profile = () => {
     setData(todoData.filter((todoData: todosObject) => todoData.id !== id))
   };
 
-    const options = {
-        method: 'GET',
-        url:  'https://labs.bible.org/api/?',
-          params: {
-            passage: 'votd',
-            formatting: 'plain'
-          },
-        origin: true
-    };
+  const options = {
+    method: 'GET',
+    url: 'https://labs.bible.org/api/?',
+    params: {
+      passage: 'votd',
+      formatting: 'plain'
+    },
+    origin: true
+  };
 
-    const getBibleVerses = async () => {
-        try {
-            const verseResponse = await axios.request(options);
-            console.log(verseResponse.data);
-            setVerse(verseResponse.data);
-            return 
-        } catch (error) {
-            console.error(error);
-        }
+  const getBibleVerses = async () => {
+    try {
+      const verseResponse = await axios.request(options);
+      console.log(verseResponse.data);
+      setVerse(verseResponse.data);
+      return
+    } catch (error) {
+      console.error(error);
     }
-getBibleVerses();
-    return (
-        <Box>
-            <Text fontSize='md' display='flex'  pl='2em' justifyContent='flex-end' noOfLines={[1, 2]}> Welcome back {data.username}!</Text>
-            <Center display='flex' flexDirection='column'>
-            <h2>Today's Date: {date}</h2>
-                {/* <Text fontSize='2xl' pt='3em' >Verse of the Day: </Text> */}
-              <Text fontSize='2xl' p='3em' className="verse">{verse}</Text>
-            </Center>
-            <Stack  className="rendered-todos" spacing='6' px='2em'>
+  }
+  getBibleVerses();
+  return (
+    <Box>
+      <Text fontSize='md' display='flex' pl='2em' justifyContent='flex-end' noOfLines={[1, 2]}> Welcome back {data.username}!</Text>
+      <Center display='flex' flexDirection='column'>
+     
+        {/* <Text fontSize='2xl' pt='3em' >Verse of the Day: </Text> */}
+        <Text fontSize='3xl' p='3em' className="verse">{verse}</Text>
 
-            
-            {
+        <Text fontSize='xl' pb='2em'>{date}</Text>
+      </Center>
+      <Stack className="rendered-todos" spacing='6' px='2em'>
+        {
+          
               todoData.map((todos: todosObject) => {
                 return (
                   <Card 
-                  backgroundColor='#371236' 
+                  backgroundColor='#FFFFFA' 
+                  style={style.border}
                   key={todos?.id} 
                   size={"sm"} 
-                  color='white'
+                  color='black'
                   p='1em' >
                     <CardHeader
-                      fontSize='lg'>Todo: {todos?.todo}</CardHeader>
+                      fontSize='lg'>
+                        <Text 
+                        fontWeight='800'> Created Date: {todos?.todaysDate}</Text>
+                        <Text mt='1em'>{todos?.todo}</Text>
+                        </CardHeader>
                     <CardBody
-                      // onChange={(e: any) => setReflection(e.target.value)}
-                      fontSize='md'>Intention: {todos?.reflectionText}</CardBody>
-                        <Center>
+                      fontSize='md'>{todos?.reflectionText}</CardBody>
+                        <Flex justify='flex-end'>
                       <Button
                         maxW={'60%'}
                         size={'sm'}
@@ -98,124 +122,19 @@ getBibleVerses();
                         width='200px'
                         backgroundColor='#CEBACF' >
                           Delete</Button>
-                    </Center>
+                    </Flex>
          
 
                   </Card>
                 )
               })
             }
-            </Stack>
-            {/* <Stack spacing='4' px='4em' display='flex'>
-             
-    <Card  id='hour-7' size='md' className='time-block'>
-    <Text pl='2em'>7AM</Text>  
-      <CardHeader display='flex'>
-        <Heading size='md'> Todo:
-        <textarea className="description pl-3"></textarea>
-        </Heading>
-      </CardHeader>
-      <CardBody>
-        <Text>Reflection:</Text>
-      </CardBody>
-    </Card>
+      </Stack>
+     
 
-    <Card  id='hour-8' size='md' className='time-block'>
-    <Text pl='2em'>8AM</Text>  
-      <CardHeader>
-        <Heading size='md'> Todo:</Heading>
-      </CardHeader>
-      <CardBody>
-        <Text>Reflection:</Text>
-      </CardBody>
-    </Card>
+    </Box>
 
-    <Card  id='hour-10' size='md' className='time-block'>
-    <Text pl='2em'>10AM</Text>  
-      <CardHeader>
-        <Heading size='md'> Todo:</Heading>
-      </CardHeader>
-      <CardBody>
-        <Text>Reflection:</Text>
-      </CardBody>
-    </Card>
-
-    <Card  id='hour-11' size='md' className='time-block'>
-    <Text pl='2em'>11AM</Text>  
-      <CardHeader>
-        <Heading size='md'> Todo:</Heading>
-      </CardHeader>
-      <CardBody>
-        <Text>Reflection:</Text>
-      </CardBody>
-    </Card>
-
-    <Card  id='hour-12' size='md' className='time-block'>
-    <Text pl='2em'>12AM</Text>  
-      <CardHeader>
-        <Heading size='md'> Todo:</Heading>
-      </CardHeader>
-      <CardBody>
-        <Text>Reflection:</Text>
-      </CardBody>
-    </Card>
-
-    <Card  id='hour-1' size='md' className='time-block'>
-    <Text pl='2em'>1PM</Text>  
-      <CardHeader>
-        <Heading size='md'> Todo:</Heading>
-      </CardHeader>
-      <CardBody>
-        <Text>Reflection:</Text>
-      </CardBody>
-    </Card>
-
-    <Card  id='hour-2' size='md' className='time-block'>
-    <Text pl='2em'>2PM</Text>  
-      <CardHeader>
-        <Heading size='md'> Todo:</Heading>
-      </CardHeader>
-      <CardBody>
-        <Text>Reflection:</Text>
-      </CardBody>
-    </Card>
-
-    <Card  id='hour-3' size='md' className='time-block'>
-    <Text pl='2em'>3PM</Text>  
-      <CardHeader>
-        <Heading size='md'> Todo:
-        </Heading>
-      </CardHeader>
-      <CardBody>
-        <Text>Reflection:</Text>
-      </CardBody>
-    </Card>
-
-    <Card  id='hour-4' size='md' className='time-block'>
-    <Text pl='2em'>4PM</Text>  
-      <CardHeader>
-        <Heading size='md'> Todo:</Heading>
-      </CardHeader>
-      <CardBody>
-        <Text>Reflection:</Text>
-      </CardBody>
-    </Card>
-
-    <Card  id='hour-5' size='md' className='time-block'>
-    <Text pl='2em'>5PM</Text>  
-      <CardHeader>
-        <Heading size='md'> Todo:</Heading>
-      </CardHeader>
-      <CardBody>
-        <Text>Reflection:</Text>
-      </CardBody>
-    </Card>
-
-</Stack> */}
-
-           </Box>
-
-    )
+  )
 }
 
 

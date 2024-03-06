@@ -9,6 +9,4 @@ export class CreateTodoDto {
   reflectionText: string;
 
   priority: string;
-  // @IsDate()
-  // todaysDate: Date;
 }
