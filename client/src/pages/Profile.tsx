@@ -37,19 +37,6 @@ const Profile = () => {
       })
   }, []);
 
-  const deleteTodo = async (id: number) => {
-    try {
-      const response = await axios.delete(`http://localhost:3001/todo/${id}`);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const deleteHandler = async (id: number) => {
-    deleteTodo(id);
-    setData(todoData.filter((todoData: todosObject) => todoData.id !== id))
-  };
 
   const options = {
     method: 'GET',
@@ -76,51 +63,10 @@ const Profile = () => {
     <Box>
       <Text fontSize='md' display='flex' pl='2em' justifyContent='flex-end' noOfLines={[1, 2]}> Welcome back {data.username}!</Text>
       <Center display='flex' flexDirection='column'>
-     
-        {/* <Text fontSize='2xl' pt='3em' >Verse of the Day: </Text> */}
         <Text fontSize='3xl' p='3em' className="verse">{verse}</Text>
 
         <Text fontSize='xl' pb='2em'>{date}</Text>
       </Center>
-      <Stack className="rendered-todos" spacing='6' px='2em'>
-        {
-          
-              todoData.map((todos: todosObject) => {
-                return (
-                  <Card 
-                  backgroundColor='#FFFFFA' 
-                  style={style.border}
-                  key={todos?.id} 
-                  size={"sm"} 
-                  color='black'
-                  p='1em' >
-                    <CardHeader
-                      fontSize='lg'>
-                        <Text 
-                        fontWeight='800'>{todos?.todaysDate}</Text>
-                        <Text mt='1em'>{todos?.todo}</Text>
-                        </CardHeader>
-                    <CardBody
-                      fontSize='md'>{todos?.reflectionText}</CardBody>
-                        <Flex justify='flex-end'>
-                      <Button
-                        maxW={'60%'}
-                        size={'sm'}
-                        _hover={{ bg: '#F7F9F7', color: 'black' }}
-                        onClick={() => deleteHandler(todos?.id)}
-                        color='black'
-                        width='200px'
-                        backgroundColor='#CEBACF' >
-                          Delete</Button>
-                    </Flex>
-         
-
-                  </Card>
-                )
-              })
-            }
-      </Stack>
-     
 
     </Box>
 

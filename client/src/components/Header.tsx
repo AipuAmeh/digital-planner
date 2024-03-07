@@ -34,7 +34,7 @@ const Header = () => {
                     }
                 </Box>
                 <h2><Link to='/profile'>Profile</Link></h2>
-                <h2><Link to='/todo'>Todo</Link></h2>
+                <h2><Link to='/todo'>Tasks</Link></h2>
             </Flex>
 
 
