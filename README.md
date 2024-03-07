@@ -1,4 +1,4 @@
-# Digital Planner
+# Chic Days - Digital Planner Application
 
 ## Description
 
@@ -12,7 +12,7 @@ To review my current work, copy the url of my main branch and clone it into your
 
 ## This Week:
 
-This week I worked on my Feature 4, which is creating color-coded Priority. 
+This week I worked on my Feature 4, which is priorities for a user's tasks. 
 
 ### Running the Application
 
@@ -21,7 +21,7 @@ This week I worked on my Feature 4, which is creating color-coded Priority.
  - Navigate into the folder titled `server` and run `npm install`.
  - Then start both the server and client folders, by running `npm run develop` in the main terminal.
  - Navigate to [http://localhost:3000/](http://localhost:3000/) to view the homepage with the option to either signup or login to your account.
- - Navigate to [http://localhost:3000/todo](http://localhost:3000/todo) to create a task item. 
+ - Click on the 'tasks' page to create a task, intention behind the task, and add it to the page. 
 
 
 ## Credits
