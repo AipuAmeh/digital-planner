@@ -43,7 +43,7 @@ const router = createBrowserRouter([
           try {
             const response = await axios.get("http://localhost:3001/auth/profile", {
               headers: { Authorization:  `Bearer ${token}`}
-              })
+              });
              redirect('/profile');
               return response.data;
           } catch (error) {
@@ -56,8 +56,6 @@ const router = createBrowserRouter([
         },
       },
       {
-        // todo will eventually be a component that user can create todos on their profile
-        // will be turned into modal
         path: '/todo',
         element: <Todo />,
         loader: async () => {

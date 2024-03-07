@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FormControl, FormLabel, Input, Modal, ModalContent, ModalOverlay, Spacer, useDisclosure, ModalCloseButton, Checkbox, Flex, Heading, Select } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, Modal, ModalContent, ModalOverlay, Spacer, useDisclosure, ModalCloseButton, Checkbox, Flex, Heading, Select, Box } from "@chakra-ui/react";
 import { Textarea, Text } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
@@ -57,20 +57,24 @@ const Todo = () => {
 
 
   const handleClick = async () => {
+    const token = localStorage.getItem('token');
     try {
-      const response = await axios.post("http://localhost:3001/todo", {
-        todo: todoInput,
-        reflectionText: reflection,
-        priority: priority
-      });
-
+      const response = await axios.post("http://localhost:3001/auth/create-todo", {
+      todo: todoInput,
+      reflectionText: reflection,
+      priority: priority
+      }, {
+        headers: { Authorization:  `Bearer ${token}`}
+        });
+        console.log('RESPONSE:', response);
+        console.log('RESPONSE DATA:', response.data);
       setTodoInput('');
       setReflection('');
+      window.location.reload();
       setData([...data, response.data]);
       
   
     } catch (error) {
-      console.log('DATA', data);
       console.error(error)
     }
   };
@@ -90,7 +94,7 @@ const Todo = () => {
   };
 
   return (
-    <div className="App">
+    <Box className="App">
            <Button onClick={onOpen}>Add Task</Button>
       <Modal
         initialFocusRef={initialRef}
@@ -172,28 +176,36 @@ const Todo = () => {
         </Center>
       </ModalContent>
       </Modal>
-
-      <Stack className="rendered-todos" spacing='6' px='2em'>
+      <Stack 
+      className="rendered-todos" spacing='6' px='2em'>
         {
               data.map((todos: todosObject) => {
                 return (
                   <Card 
-                  maxW={'100%'}
                   backgroundColor='#FFFFFA' 
                   style={style.border}
                   key={todos?.id} 
                   size={"sm"} 
                   color='black'
                   p='1em' >
+                    <Flex justify='flex-start'>
                     <CardHeader
                       fontSize='lg'>
                         <Text 
-                        fontWeight='800'> Created Date: {todos?.todaysDate}</Text>
+                        fontWeight='800'> {todos?.todaysDate}</Text>
                         <Text mt='1em'>{todos?.todo}</Text>
                         </CardHeader>
                     <CardBody
-                      fontSize='md'>{todos?.reflectionText}</CardBody>
-                        <Flex justify='flex-end'>
+                      fontSize='md'>
+                        <Text>
+                        {todos?.reflectionText}
+                          </Text>
+                          
+                          </CardBody>
+
+                    </Flex>
+                
+                        <Flex justify='flex-end' >
                       <Button
                         maxW={'60%'}
                         size={'sm'}
@@ -209,7 +221,7 @@ const Todo = () => {
               })
             }
       </Stack>       
-    </div>
+    </Box>
   
   );
 }
