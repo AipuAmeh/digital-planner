@@ -1,30 +1,24 @@
 import { useState, useEffect } from "react";
-import { FormControl, FormLabel, Input, Modal, ModalContent, ModalOverlay, Spacer, useDisclosure, ModalCloseButton, Checkbox, Flex, Heading, Select, Box } from "@chakra-ui/react";
-import { Textarea, Text } from "@chakra-ui/react";
+import { Spacer,  Flex, Box } from "@chakra-ui/react";
+import {  Text } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
-import { Center } from "@chakra-ui/react";
+
 import axios from "axios";
 import { Card, CardHeader, CardBody, Stack } from '@chakra-ui/react'
 import React from "react";
+import TodoModal from "../components/TodoModal";
 
 type todosObject = {
-    id: number,
-    todo: string,
-    reflectionText: string
-    todaysDate: any
-    priority: string
-    color: string
-  };
+  id: number,
+  todo: string,
+  reflectionText: string
+  todaysDate: any
+  priority: string
+  color: string
+};
+const date = new Date().toDateString();
 
 const Todo = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const initialRef = React.useRef(null);
-  const finalRef = React.useRef(null);
-
-  const [todoInput, setTodoInput] = useState('');
-  const [reflection, setReflection] = useState('');
-  const [priority, setPriority] = useState('');
-
 
   const [data, setData] = useState<todosObject[]>([]);
 
@@ -41,43 +35,6 @@ const Todo = () => {
       })
   }, []);
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    return name === 'todo' ? setTodoInput(value) : setReflection(value);
-  };
-
-  const handlePriorityChange = (e:any) => {
-    const {name,  value } = e.target;
-
-    if (name === value) {
-      return setPriority(value);
-    }
-  };
-
-
-
-  const handleClick = async () => {
-    const token = localStorage.getItem('token');
-    try {
-      const response = await axios.post("http://localhost:3001/auth/create-todo", {
-      todo: todoInput,
-      reflectionText: reflection,
-      priority: priority
-      }, {
-        headers: { Authorization:  `Bearer ${token}`}
-        });
-        console.log('RESPONSE:', response);
-        console.log('RESPONSE DATA:', response.data);
-      setTodoInput('');
-      setReflection('');
-      window.location.reload();
-      setData([...data, response.data]);
-      
-  
-    } catch (error) {
-      console.error(error)
-    }
-  };
 
   const deleteTodo = async (id: number) => {
     try {
@@ -95,134 +52,72 @@ const Todo = () => {
 
   return (
     <Box className="App">
-           <Button onClick={onOpen}>Add Task</Button>
-      <Modal
-        initialFocusRef={initialRef}
-        finalFocusRef={finalRef}
-        isOpen={isOpen}
-        onClose={onClose}
-      >
-        <ModalOverlay />
-      <ModalContent pb={5}>
-        <Center>
-          <FormControl
-          w='65%'
-          pt="5em"
-            className="todo-card">
-            <FormLabel>Todo Task</FormLabel>
-            <Input
-              className="input"
-              placeholder="Basic usage"
-              type="text"
-              name='todo'
-              value={todoInput}
-              onChange={handleChange}
-            />
-            <FormLabel mt={4}>Intentions</FormLabel>
-            <Textarea
-              className="todo-text-area"
-              placeholder="Here is a sample placeholder"
-              name='reflectionText'
-              value={reflection}
-              onChange={handleChange}
-            />
-            <Spacer />
-            <Flex flexDirection='column'>
-            <FormLabel mt={4}>Priority</FormLabel>
-            <Checkbox 
-            size='md'
-            name='High' 
-            value="High"
-            
-            onChange={handlePriorityChange}
-            >
-    High Priority
-  </Checkbox>
-  <Checkbox 
-  size='md'
-  name='Medium' 
-  value="Medium"
-  onChange={handlePriorityChange}
-  >
-    Medium Priority
-  </Checkbox>
-  <Checkbox 
-  size='md'
-  name='Low' 
-  value="Low"
-  onChange={handlePriorityChange}
-  >
-    Low Priority
-  </Checkbox>
-            </Flex>
-            <Center>
-              <Button
-                width='200px'
-                mt="20px"
-                
-                className="save-todo"
-                backgroundColor='#371236' 
-                _hover={{ bg: '#F7F9F7', color: 'black' }}
-                color='white'
-                size="md"
-                type="button"
-                onClick={handleClick}
-              >
-                Save Todo
-              </Button>
-              <ModalCloseButton />
-            </Center>
-          </FormControl>
-        </Center>
-      </ModalContent>
-      </Modal>
-      <Stack 
-      className="rendered-todos" spacing='6' px='2em'>
-        {
-              data.map((todos: todosObject) => {
-                return (
-                  <Card 
-                  backgroundColor='#FFFFFA' 
-                  style={style.border}
-                  key={todos?.id} 
-                  size={"sm"} 
-                  color='black'
-                  p='1em' >
-                    <Flex justify='flex-start'>
-                    <CardHeader
-                      fontSize='lg'>
-                        <Text 
-                        fontWeight='800'> {todos?.todaysDate}</Text>
-                        <Text mt='1em'>{todos?.todo}</Text>
-                        </CardHeader>
-                    <CardBody
-                      fontSize='md'>
-                        <Text>
-                        {todos?.reflectionText}
-                          </Text>
-                          
-                          </CardBody>
 
-                    </Flex>
-                
-                        <Flex justify='flex-end' >
-                      <Button
-                        maxW={'60%'}
-                        size={'sm'}
-                        _hover={{ bg: '#F7F9F7', color: 'black' }}
-                        onClick={() => deleteHandler(todos?.id)}
-                        color='black'
-                        width='200px'
-                        backgroundColor='#CEBACF' >
-                          Delete</Button>
-                    </Flex>
-                  </Card>
-                )
-              })
-            }
-      </Stack>       
+<Text 
+className="verse"
+fontSize='2xl'
+mt='5em' 
+mb='2em'>{date}</Text>
+
+      <TodoModal />
+      <Stack
+        className="rendered-todos" 
+        spacing='6' 
+        mx='10'>
+        {
+          data.map((todos: todosObject) => {
+            return (
+              <Card
+                overflow='hidden'
+                // justify='space-between'
+                backgroundColor='#FFFFFA'
+                style={style.border}
+                key={todos?.id}
+                size='sm'
+                color='black'
+                pb='1em'>
+                <CardHeader
+                display='flex'
+                alignContent='flex-end'
+                  fontSize='lg'>
+                  <Text
+                    fontWeight='800'
+                  > {todos?.todaysDate}</Text>
+                  <Spacer></Spacer>
+                  <Text  
+                  mr='1em'
+                  fontWeight='700'>{todos?.priority}</Text>
+                </CardHeader>
+                <CardBody
+                  fontSize='md'>
+                  <Text my='10px'>{todos?.todo}</Text>
+                  <Text>
+                    {todos?.reflectionText}
+                  </Text>
+
+                </CardBody>
+
+                <Flex 
+                justify='flex-end' 
+                mr='1em'
+                >
+                  <Button
+                    maxW={'60%'}
+                    size={'sm'}
+                    _hover={{ bg: '#F7F9F7', color: 'black' }}
+                    onClick={() => deleteHandler(todos?.id)}
+                    color='black'
+                    width='200px'
+                    backgroundColor='#CEBACF' >
+                    Delete</Button>
+                </Flex>
+              </Card>
+            )
+          })
+        }
+      </Stack>
     </Box>
-  
+
   );
 }
 

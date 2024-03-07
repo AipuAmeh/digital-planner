@@ -1,23 +1,14 @@
-import { useState, useEffect } from "react";
-// import "./App.css";
-import { Checkbox, Flex, FormControl, FormLabel, Input, Spacer, Text, useDisclosure } from "@chakra-ui/react";
+import { useState } from "react";
+import { Checkbox, Flex, FormControl, FormLabel, Input, Spacer, useDisclosure } from "@chakra-ui/react";
 import { Textarea } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import axios from "axios";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react'
-import { Card, CardHeader, CardBody, Stack } from '@chakra-ui/react'
-import React from "react";
-const date = new Date().toDateString();
+import { Modal, ModalOverlay, ModalContent, ModalCloseButton } from '@chakra-ui/react'
 
-// want to make form a modal
-// want to style page so that day is split into blocks
-// on add button modal pops up and you can add todo for that block
-// type todosObject = {
-//   todo: string,
-//   reflectionText: string
-//   todaysDate: any;
-// };
+import React from "react";
+// const date = new Date().toDateString();
+
 type todosObject = {
   id: number,
   todo: string,
@@ -39,13 +30,6 @@ function TodoModal() {
 
   const [data, setData] = useState<todosObject[]>([]);
 
-  useEffect(() => {
-    axios.get("http://localhost:3001/todo/")
-      .then((response) => {
-        setData(response.data)
-      })
-  }, []);
-
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     return name === 'todo' ? setTodoInput(value) : setReflection(value);
@@ -57,23 +41,28 @@ function TodoModal() {
     if (name === value) {
       return setPriority(value);
     }
+
   };
 
   const handleClick = async () => {
+    const token = localStorage.getItem('token');
     try {
-      const response = await axios.post("http://localhost:3001/todo", {
+      const response = await axios.post("http://localhost:3001/auth/create-todo", {
         todo: todoInput,
         reflectionText: reflection,
         priority: priority
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
       });
-
+      console.log('RESPONSE:', response);
+      console.log('RESPONSE DATA:', response.data);
       setTodoInput('');
       setReflection('');
+      window.location.reload();
       setData([...data, response.data]);
-      
-  
+
+
     } catch (error) {
-      console.log('DATA', data);
       console.error(error)
     }
   };
@@ -81,7 +70,9 @@ function TodoModal() {
 
   return (
     <div className="App">
-           <Button onClick={onOpen}>Add Event</Button>
+ <Button 
+      size='lg'
+      onClick={onOpen} mb='5em'>Add Task</Button>
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
@@ -98,7 +89,7 @@ function TodoModal() {
             <FormLabel>Todo Task</FormLabel>
             <Input
               className="input"
-              placeholder="Basic usage"
+              placeholder="What do you want to do..."
               type="text"
               name='todo'
               value={todoInput}
@@ -107,7 +98,7 @@ function TodoModal() {
             <FormLabel mt={4}>Intentions</FormLabel>
             <Textarea
               className="todo-text-area"
-              placeholder="Here is a sample placeholder"
+              placeholder="Why do you want to do it..."
               name='reflectionText'
               value={reflection}
               onChange={handleChange}
@@ -117,28 +108,27 @@ function TodoModal() {
             <FormLabel mt={4}>Priority</FormLabel>
             <Checkbox 
             size='md'
-            name='High' 
-            value="High"
-            
+            name='Extremely Important!' 
+            value="Extremely Important!"   
             onChange={handlePriorityChange}
             >
-    High Priority
+    Extremely Important!
   </Checkbox>
   <Checkbox 
   size='md'
-  name='Medium' 
-  value="Medium"
+  name='Coming soon.' 
+  value="Coming soon."
   onChange={handlePriorityChange}
   >
-    Medium Priority
+    Coming soon.
   </Checkbox>
   <Checkbox 
   size='md'
-  name='Low' 
-  value="Low"
+  name='Not Urgent.' 
+  value="Not Urgent."
   onChange={handlePriorityChange}
   >
-    Low Priority
+    Not Urgent.
   </Checkbox>
             </Flex>
             <Center>
