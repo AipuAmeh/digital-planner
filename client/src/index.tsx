@@ -1,7 +1,7 @@
 import React from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, redirect, RouterProvider,} from 'react-router-dom';
 import './index.css';
 import axios from 'axios';
 
@@ -34,21 +34,17 @@ const router = createBrowserRouter([
         element: <Login />
       },
       {
-        path: '/todo',
-        element: <Todo />,
-      },
-      {
-        // todo will eventually be a component that user can create todos on their profile
-        // will be turned into modal
         path: '/profile',
         element: <Profile />,
         loader: async () => {
+          // const navigate = useNavigate();
          const token = localStorage.getItem('token');
          if (token) {
           try {
             const response = await axios.get("http://localhost:3001/auth/profile", {
               headers: { Authorization:  `Bearer ${token}`}
-              })
+              });
+             redirect('/profile');
               return response.data;
           } catch (error) {
             console.log('ERROR', error);
@@ -58,7 +54,29 @@ const router = createBrowserRouter([
             return redirect('/signup');
           }
         },
-      }
+      },
+      {
+        path: '/todo',
+        element: <Todo />,
+        loader: async () => {
+          // const navigate = useNavigate();
+         const token = localStorage.getItem('token');
+         if (token) {
+          try {
+            const response = await axios.get("http://localhost:3001/auth/user-todos", {
+              headers: { Authorization:  `Bearer ${token}`}
+              })
+             redirect('/profile');
+              return response.data;
+          } catch (error) {
+            console.log('ERROR', error);
+            return redirect('/login');
+          }} else {
+            console.log('NO TOKEN');
+            return redirect('/signup');
+          }
+        },
+      },
     ]
   }
 ])

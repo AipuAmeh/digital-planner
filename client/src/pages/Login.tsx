@@ -5,12 +5,15 @@ import {
     Stack,
     Center,
     Input,
-    Text
+    Text,
+    InputGroup,
+    InputRightElement
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react'
+import React from 'react';
 
 const Login = () => {
     const toast = useToast();
@@ -19,7 +22,10 @@ const Login = () => {
         username: '',
         password: ''
     });
+    const [show, setShow] = React.useState(false);
 
+    const handlePasswordClick = () => setShow(!show);
+    
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setFormState({
@@ -27,10 +33,9 @@ const Login = () => {
             [name]: value,
         });
     };
-// ADD LOGIC FOR AUTOMATICALLY LOGGING OUT ON CLICK
+// ADD LOGIC FOR LOGGING OUT AUTOMATICALLY
     const handleClick = async () => {
-        try {
-            
+        try {          
             if (formState.username === "" || formState.password === "") {
                 return toast({
                     title: 'Error',
@@ -43,6 +48,7 @@ const Login = () => {
                     username: formState.username,
                     password: formState.password
                 });
+              
                 const token = response.data.access_token;
                 if (token === undefined) {
                     return toast({
@@ -58,15 +64,18 @@ const Login = () => {
                     password: ''
                 }
                 );
-                // if (formState.username !== )
                 toast({
                     title: 'Successfully logged in.',
                     description: `Welcome back ${formState.username}!`,
                     status: 'success',
                     duration: 2000,
                 })
-                navigate('/todo');
-                window.location.reload();
+
+                if (token) {
+                    navigate('/profile');
+                    window.location.reload();
+                };
+              
             }
         } catch (error) {
             console.log(error);
@@ -100,26 +109,41 @@ const Login = () => {
                         onChange={handleChange}
                     />
                     <FormLabel mt={4}>Password</FormLabel>
+                    <InputGroup>
                     <Input
                         className="input"
                         id="login-password"
                         placeholder="Password"
-                        type="password"
+                        type={show ? 'text' : 'password'}
                         name="password"
                         value={formState.password}
                         onChange={handleChange}
                     />
+                    <InputRightElement width='4.5rem'>
+                            <Button 
+                            h='1.75rem' 
+                            size='sm' 
+                            backgroundColor='#371236'
+                            _hover={{ bg: '#F7F9F7', color: 'black' }}
+                            color='white' 
+                            onClick={handlePasswordClick}>
+                                {show ? 'Hide' : 'Show'}
+                            
+                            </Button>
+                        </InputRightElement>
+                    </InputGroup>
+      
                     <Center>
                         <Button m={8} 
                          size='lg'
                         color='white'
                         width='200px'
                         backgroundColor='#371236' 
-                        _hover={{ bg: '#B0A3D4' }}
+                        _hover={{ bg: '#F7F9F7', color: 'black' }}
                             type='submit'
                             onClick={handleClick}
                         >
-                            Button
+                            Login
                         </Button>
                     </Center>
                 </FormControl>

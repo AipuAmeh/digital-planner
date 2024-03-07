@@ -3,11 +3,14 @@ import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { TodoService } from 'src/todo/todo.service';
+// import { CreateTodoDto } from './dto/create-todo.dto';
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
+    private todoService: TodoService,
   ) {}
 
   async login(username: string, pass: string) {
@@ -41,8 +44,6 @@ export class AuthService {
       const payload = { sub: user.id, username: user.username };
       return { access_token: await this.jwtService.signAsync(payload) };
     }
-
-    console.log('TOKEN');
   }
 
   async getUser(username: string) {
@@ -57,5 +58,19 @@ export class AuthService {
         id: user.id,
       };
     }
+  }
+
+  async createTodo(
+    todo: string,
+    reflectionText: string,
+    priority: string,
+    userId: number,
+  ) {
+    return await this.todoService.createTodo(
+      todo,
+      reflectionText,
+      priority,
+      userId,
+    );
   }
 }
