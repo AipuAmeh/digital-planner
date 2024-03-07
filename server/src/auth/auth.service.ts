@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { TodoService } from 'src/todo/todo.service';
+import { CreateTodoDto } from './dto/create-todo.dto';
 @Injectable()
 export class AuthService {
   constructor(
@@ -57,5 +58,9 @@ export class AuthService {
         id: user.id,
       };
     }
+  }
+
+  async createTodo(createTodoDto: CreateTodoDto) {
+    return await this.todoService.createTodo(createTodoDto);
   }
 }

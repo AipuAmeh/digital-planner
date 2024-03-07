@@ -43,7 +43,7 @@ const router = createBrowserRouter([
           try {
             const response = await axios.get("http://localhost:3001/auth/profile", {
               headers: { Authorization:  `Bearer ${token}`}
-              })
+              });
              redirect('/profile');
               return response.data;
           } catch (error) {

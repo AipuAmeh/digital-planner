@@ -57,12 +57,21 @@ const Todo = () => {
 
 
   const handleClick = async () => {
+    const token = localStorage.getItem('token');
     try {
-      const response = await axios.post("http://localhost:3001/todo", {
-        todo: todoInput,
-        reflectionText: reflection,
-        priority: priority
-      });
+      const response = await axios.post("http://localhost:3001/auth/create-todo", {
+      todo: todoInput,
+      reflectionText: reflection,
+      priority: priority
+      }, {
+        headers: { Authorization:  `Bearer ${token}`}
+        });
+    
+      // const response = await axios.post("http://localhost:3001/todo", {
+      //   todo: todoInput,
+      //   reflectionText: reflection,
+      //   priority: priority
+      // });
 
       setTodoInput('');
       setReflection('');

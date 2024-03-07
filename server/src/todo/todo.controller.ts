@@ -8,8 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { TodoService } from './todo.service';
-import { CreateTodoDto } from './dto/create-todo.dto';
-import { UpdateTodoDto } from './dto/update-todo.dto';
+import { CreateTodoDto } from '../auth/dto/create-todo.dto';
+import { UpdateTodoDto } from '../auth/dto/update-todo.dto';
 
 @Controller('todo')
 export class TodoController {
