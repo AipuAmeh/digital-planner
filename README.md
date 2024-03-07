@@ -8,7 +8,7 @@ Follow along with me as I code! Visit my Trello board to stay up to date with th
 
 ## Tools
 
-[my badge\](https://badgen.net/badge/hello/world/red?icon=twitter)
+!\[my badge\](https://badgen.net/badge/hello/world/red?icon=twitter)\!
 
 ## Installation
 
