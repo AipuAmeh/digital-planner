@@ -15,14 +15,21 @@ export class TodoService {
     return await this.todoRepository.find({ where: { user: { id } } });
   }
 
-  async createTodo(createTodoDto: CreateTodoDto) {
-    // await this.todoRepository.save({
-    //   todo: createTodoDto.todo,
-    //   reflectionText: createTodoDto.reflectionText,
-    //   priority: createTodoDto.priority,
-    //   userId: createTodoDto.id,
-    // });
-    // return this.findUserProjects(createTodoDto.id);
+  async createTodo(
+    todo: string,
+    reflectionText: string,
+    priority: string,
+    userId: number,
+  ) {
+    await this.todoRepository.save({
+      todo,
+      reflectionText,
+      priority,
+      user: {
+        id: userId,
+      },
+    });
+    return this.findUserProjects(userId);
   }
 
   findAllTodos(): Promise<Todo[]> {

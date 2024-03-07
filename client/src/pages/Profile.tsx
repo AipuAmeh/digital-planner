@@ -97,7 +97,7 @@ const Profile = () => {
                     <CardHeader
                       fontSize='lg'>
                         <Text 
-                        fontWeight='800'> Created Date: {todos?.todaysDate}</Text>
+                        fontWeight='800'>{todos?.todaysDate}</Text>
                         <Text mt='1em'>{todos?.todo}</Text>
                         </CardHeader>
                     <CardBody

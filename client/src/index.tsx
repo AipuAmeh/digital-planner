@@ -56,8 +56,6 @@ const router = createBrowserRouter([
         },
       },
       {
-        // todo will eventually be a component that user can create todos on their profile
-        // will be turned into modal
         path: '/todo',
         element: <Todo />,
         loader: async () => {

@@ -8,18 +8,18 @@ import {
   Delete,
 } from '@nestjs/common';
 import { TodoService } from './todo.service';
-import { CreateTodoDto } from '../auth/dto/create-todo.dto';
+// import { CreateTodoDto } from '../auth/dto/create-todo.dto';
 import { UpdateTodoDto } from '../auth/dto/update-todo.dto';
 
 @Controller('todo')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
-  @Post('')
-  async createTodo(@Body() createTodoDto: CreateTodoDto) {
-    console.log(createTodoDto);
-    return this.todoService.createTodo(createTodoDto);
-  }
+  // @Post('')
+  // async createTodo(@Body() createTodoDto: CreateTodoDto) {
+  //   console.log(createTodoDto);
+  //   return this.todoService.createTodo(createTodoDto);
+  // }
 
   @Get()
   findAllTodos() {
