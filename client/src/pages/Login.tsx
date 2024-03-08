@@ -69,11 +69,11 @@ const Login = () => {
                     description: `Welcome back ${formState.username}!`,
                     status: 'success',
                     duration: 2000,
+                    position: 'top-right'
                 })
 
                 if (token) {
                     navigate('/profile');
-                    window.location.reload();
                 };
               
             }

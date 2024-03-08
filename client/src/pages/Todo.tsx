@@ -7,6 +7,7 @@ import axios from "axios";
 import { Card, CardHeader, CardBody, Stack } from '@chakra-ui/react'
 import React from "react";
 import TodoModal from "../components/TodoModal";
+import { useLoaderData } from "react-router-dom";
 
 type todosObject = {
   id: number,
@@ -19,22 +20,16 @@ type todosObject = {
 const date = new Date().toDateString();
 
 const Todo = () => {
-
-  const [data, setData] = useState<todosObject[]>([]);
+const data:any = useLoaderData();
+console.log('TODO LOADER DATA:', data.todos.data);
+const loadedData = data.todos.data;
+  const [todoData, setData] = useState<todosObject[]>([]);
 
   const style = {
     border: {
       'border': 'solid 4px #371236'
     },
   };
-
-  useEffect(() => {
-    axios.get("http://localhost:3001/todo/")
-      .then((response) => {
-        setData(response.data)
-      })
-  }, []);
-
 
   const deleteTodo = async (id: number) => {
     try {
@@ -45,9 +40,12 @@ const Todo = () => {
     }
   };
 
+  // not deleting immediately, figure out why
   const deleteHandler = async (id: number) => {
     deleteTodo(id);
-    setData(data.filter((todoData: todosObject) => todoData.id !== id));
+    loadedData.filter((todoData: todosObject) => todoData.id !== id);
+    
+    // setData(data.filter((todoData: todosObject) => todoData.id !== id));
   };
 
   return (
@@ -65,7 +63,7 @@ mb='2em'>{date}</Text>
         spacing='6' 
         mx='10'>
         {
-          data.map((todos: todosObject) => {
+          loadedData.map((todos: todosObject) => {
             return (
               <Card
                 overflow='hidden'

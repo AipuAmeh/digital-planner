@@ -19,7 +19,7 @@ const router = createBrowserRouter([
 
     path: '/',
     element: <App/>,
-    // errorElement: 
+    // create errorElement page
     children: [
       {
         index: true,
@@ -44,7 +44,6 @@ const router = createBrowserRouter([
             const response = await axios.get("http://localhost:3001/auth/profile", {
               headers: { Authorization:  `Bearer ${token}`}
               });
-             redirect('/profile');
               return response.data;
           } catch (error) {
             console.log('ERROR', error);
@@ -60,21 +59,20 @@ const router = createBrowserRouter([
         element: <Todo />,
         loader: async () => {
           // const navigate = useNavigate();
-         const token = localStorage.getItem('token');
-         if (token) {
-          try {
-            const response = await axios.get("http://localhost:3001/auth/user-todos", {
-              headers: { Authorization:  `Bearer ${token}`}
-              })
-             redirect('/profile');
-              return response.data;
-          } catch (error) {
-            console.log('ERROR', error);
-            return redirect('/login');
-          }} else {
-            console.log('NO TOKEN');
-            return redirect('/signup');
-          }
+    try {
+      const token = localStorage.getItem('token');
+      const user = await axios.get("http://localhost:3001/auth/user-todos", {
+       headers: { Authorization:  `Bearer ${token}`}
+       });
+       console.log(user);
+       const todos = await axios.get("http://localhost:3001/todo", {
+         headers: { Authorization:  `Bearer ${token}`}
+       });
+       return { user, todos };
+    } catch (error) {
+      console.error(error);
+    }
+
         },
       },
     ]
