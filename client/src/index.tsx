@@ -1,7 +1,7 @@
 import React from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, redirect, RouterProvider,} from 'react-router-dom';
+import { createBrowserRouter, redirect, RouterProvider, } from 'react-router-dom';
 import './index.css';
 import axios from 'axios';
 
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
   {
 
     path: '/',
-    element: <App/>,
+    element: <App />,
     // create errorElement page
     children: [
       {
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <Signup />
-      }, 
+      },
       {
         path: '/login',
         element: <Login />
@@ -38,17 +38,18 @@ const router = createBrowserRouter([
         element: <Profile />,
         loader: async () => {
           // const navigate = useNavigate();
-         const token = localStorage.getItem('token');
-         if (token) {
-          try {
-            const response = await axios.get("http://localhost:3001/auth/profile", {
-              headers: { Authorization:  `Bearer ${token}`}
+          const token = localStorage.getItem('token');
+          if (token) {
+            try {
+              const response = await axios.get("http://localhost:3001/auth/profile", {
+                headers: { Authorization: `Bearer ${token}` }
               });
               return response.data;
-          } catch (error) {
-            console.log('ERROR', error);
-            return redirect('/login');
-          }} else {
+            } catch (error) {
+              console.log('ERROR', error);
+              return redirect('/login');
+            }
+          } else {
             console.log('NO TOKEN');
             return redirect('/signup');
           }
@@ -58,20 +59,18 @@ const router = createBrowserRouter([
         path: '/todo',
         element: <Todo />,
         loader: async () => {
-          // const navigate = useNavigate();
-    try {
-      const token = localStorage.getItem('token');
-      const user = await axios.get("http://localhost:3001/auth/user-todos", {
-       headers: { Authorization:  `Bearer ${token}`}
-       });
-       console.log(user);
-       const todos = await axios.get("http://localhost:3001/todo", {
-         headers: { Authorization:  `Bearer ${token}`}
-       });
-       return { user, todos };
-    } catch (error) {
-      console.error(error);
-    }
+          try {
+            const token = localStorage.getItem('token');
+            const user = await axios.get("http://localhost:3001/auth/user-todos", {
+              headers: { Authorization: `Bearer ${token}` }
+            });
+            const todos = await axios.get("http://localhost:3001/todo", {
+              headers: { Authorization: `Bearer ${token}` }
+            });
+            return { user, todos };
+          } catch (error) {
+            console.error(error);
+          }
 
         },
       },

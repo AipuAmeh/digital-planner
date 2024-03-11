@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { Spacer,  Flex, Box } from "@chakra-ui/react";
-import {  Text } from "@chakra-ui/react";
+import { useState } from "react";
+import { Spacer, Flex, Box } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 
 import axios from "axios";
@@ -20,9 +20,9 @@ type todosObject = {
 const date = new Date().toDateString();
 
 const Todo = () => {
-const data:any = useLoaderData();
-console.log('TODO LOADER DATA:', data.todos.data);
-const loadedData = data.todos.data;
+  const data: any = useLoaderData();
+  console.log('TODO LOADER DATA:', data.todos.data);
+  const loadedData = data.todos.data;
   const [todoData, setData] = useState<todosObject[]>([]);
 
   const style = {
@@ -30,6 +30,8 @@ const loadedData = data.todos.data;
       'border': 'solid 4px #371236'
     },
   };
+
+
 
   const deleteTodo = async (id: number) => {
     try {
@@ -44,23 +46,23 @@ const loadedData = data.todos.data;
   const deleteHandler = async (id: number) => {
     deleteTodo(id);
     loadedData.filter((todoData: todosObject) => todoData.id !== id);
-    
+    window.location.reload();
     // setData(data.filter((todoData: todosObject) => todoData.id !== id));
   };
 
   return (
     <Box className="App">
 
-<Text 
-className="verse"
-fontSize='2xl'
-mt='5em' 
-mb='2em'>{date}</Text>
+      <Text
+        className="verse"
+        fontSize='2xl'
+        mt='5em'
+        mb='2em'>{date}</Text>
 
       <TodoModal />
       <Stack
-        className="rendered-todos" 
-        spacing='6' 
+        className="rendered-todos"
+        spacing='6'
         mx='10'>
         {
           loadedData.map((todos: todosObject) => {
@@ -75,16 +77,17 @@ mb='2em'>{date}</Text>
                 color='black'
                 pb='1em'>
                 <CardHeader
-                display='flex'
-                alignContent='flex-end'
+                  display='flex'
+                  alignContent='flex-end'
                   fontSize='lg'>
                   <Text
                     fontWeight='800'
                   > {todos?.todaysDate}</Text>
                   <Spacer></Spacer>
-                  <Text  
-                  mr='1em'
-                  fontWeight='700'>{todos?.priority}</Text>
+                  <Text
+                    color={todos?.priority === 'Extremely Important!' ? "red" : todos?.priority === 'Coming soon.' ? "orange" : "green"}
+                    mr='1em'
+                    fontWeight='700'>{todos?.priority}</Text>
                 </CardHeader>
                 <CardBody
                   fontSize='md'>
@@ -95,12 +98,22 @@ mb='2em'>{date}</Text>
 
                 </CardBody>
 
-                <Flex 
-                justify='flex-end' 
-                mr='1em'
+                <Flex
+                  gap='3'
+                  flexDirection='column'
+                  justify='flex-end'
+                  ml='1em'
                 >
                   <Button
-                    maxW={'60%'}
+                    // maxW={'60%'}
+                    size={'sm'}
+                    _hover={{ bg: '#F7F9F7', color: 'black' }}
+                    color='black'
+                    width='200px'
+                    backgroundColor='#CEBACF' >
+                    Edit Task</Button>
+                  <Button
+                    // maxW={'60%'}
                     size={'sm'}
                     _hover={{ bg: '#F7F9F7', color: 'black' }}
                     onClick={() => deleteHandler(todos?.id)}

@@ -3,7 +3,7 @@ import { Checkbox, Flex, FormControl, FormLabel, Input, Spacer, useDisclosure } 
 import { Textarea } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
-import axios from "axios";
+// import axios from "axios";
 import { Modal, ModalOverlay, ModalContent, ModalCloseButton } from '@chakra-ui/react'
 
 import React from "react";
@@ -18,7 +18,7 @@ type todosObject = {
   color: string
 };
 
-function TodoModal() {
+function EditTodoModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -43,29 +43,33 @@ function TodoModal() {
     }
 
   };
+  // working on editing todo
+//   const editTodo = async(id: number) => {
+//     try {
+//       const response = await axios.patch(`http://localhost:3001/todo/${id}`);
+//       console.log(response.data);
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
 
-  const handleClick = async () => {
-    const token = localStorage.getItem('token');
-    try {
-      const response = await axios.post("http://localhost:3001/auth/create-todo", {
-        todo: todoInput,
-        reflectionText: reflection,
-        priority: priority
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      console.log('RESPONSE:', response);
-      console.log('RESPONSE DATA:', response.data);
-      setTodoInput('');
-      setReflection('');
-      window.location.reload();
-      setData([...data, response.data]);
-
-
-    } catch (error) {
-      console.error(error)
-    }
-  };
+//   const handleClick = async () => {
+//     try {
+//       const response = await axios.patch(`http://localhost:3001/todo/${id}`, {
+//         todo: todoInput,
+//         reflectionText: reflection,
+//         priority: priority
+//       });
+//       console.log('RESPONSE:', response);
+//       console.log('RESPONSE DATA:', response.data);
+//       setTodoInput('');
+//       setReflection('');
+//       window.location.reload();
+//       setData([...data, response.data]);
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   };
 
 
   return (
@@ -146,7 +150,7 @@ function TodoModal() {
                 color='white'
                 size="lg"
                 type="button"
-                onClick={handleClick}
+                // onClick={handleClick}
               >
                 Save Todo
               </Button>
@@ -160,4 +164,4 @@ function TodoModal() {
   )
 }
 
-export default TodoModal;
+export default EditTodoModal;

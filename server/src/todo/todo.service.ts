@@ -43,7 +43,8 @@ export class TodoService {
   updateTodo(id: number, updateTodoDto: UpdateTodoDto): Promise<Todo> {
     const updatedTodo: Todo = new Todo();
     updatedTodo.todo = updateTodoDto.todo;
-    updatedTodo.reflectionText = updateTodoDto.todo;
+    updatedTodo.reflectionText = updateTodoDto.reflectionText;
+    updatedTodo.priority = updateTodoDto.priority;
     updatedTodo.id = id;
     return this.todoRepository.save(updatedTodo);
   }
