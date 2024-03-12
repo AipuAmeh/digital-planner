@@ -8,6 +8,8 @@ import { Card, CardHeader, CardBody, Stack } from '@chakra-ui/react'
 import React from "react";
 import TodoModal from "../components/TodoModal";
 import { useLoaderData } from "react-router-dom";
+import EditTodoModal from "../components/EditTodoModal";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
 type todosObject = {
   id: number,
@@ -23,7 +25,8 @@ const Todo = () => {
   const data: any = useLoaderData();
   console.log('TODO LOADER DATA:', data.todos.data);
   const loadedData = data.todos.data;
-  const [todoData, setData] = useState<todosObject[]>([]);
+  // const [todoData, setData] = useState<todosObject[]>([]);
+  const [showState, setShow] = useState(false);
 
   const style = {
     border: {
@@ -31,7 +34,14 @@ const Todo = () => {
     },
   };
 
-
+const editIcon = async () => {
+  console.log('TRYING TO OPEN ACCORDION');
+//  setShow(true);
+ return (
+  <EditTodoModal />
+ );
+  
+};
 
   const deleteTodo = async (id: number) => {
     try {
@@ -43,6 +53,7 @@ const Todo = () => {
   };
 
   // not deleting immediately, figure out why
+  // works for now but may not be permanent
   const deleteHandler = async (id: number) => {
     deleteTodo(id);
     loadedData.filter((todoData: todosObject) => todoData.id !== id);
@@ -100,27 +111,23 @@ const Todo = () => {
 
                 <Flex
                   gap='3'
-                  flexDirection='column'
+                  flexDirection='row'
                   justify='flex-end'
-                  ml='1em'
+                  mr='2em'
                 >
-                  <Button
-                    // maxW={'60%'}
-                    size={'sm'}
-                    _hover={{ bg: '#F7F9F7', color: 'black' }}
-                    color='black'
-                    width='200px'
-                    backgroundColor='#CEBACF' >
-                    Edit Task</Button>
-                  <Button
-                    // maxW={'60%'}
-                    size={'sm'}
-                    _hover={{ bg: '#F7F9F7', color: 'black' }}
+                    <EditIcon 
+                    boxSize={6}
+                    color='#371236'
+                    cursor='pointer'
+                    onClick={editIcon}
+                    />
+                    <DeleteIcon 
+                    boxSize={6}
+                    color='#371236'
                     onClick={() => deleteHandler(todos?.id)}
-                    color='black'
-                    width='200px'
-                    backgroundColor='#CEBACF' >
-                    Delete</Button>
+                    cursor='pointer'
+                    />
+                    <EditTodoModal/>
                 </Flex>
               </Card>
             )
