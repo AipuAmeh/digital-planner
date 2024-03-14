@@ -6,6 +6,8 @@ const token = localStorage.getItem('token');
 const Header = () => {
     const navigate = useNavigate();
 
+// make auth page for logging out upon expiration
+
     const LogoutButton = () => { 
         navigate('/');
         window.location.reload();

@@ -69,7 +69,7 @@ const Login = () => {
                     description: `Welcome back ${formState.username}!`,
                     status: 'success',
                     duration: 2000,
-                    position: 'top-right'
+                    position: 'top-left'
                 })
 
                 if (token) {

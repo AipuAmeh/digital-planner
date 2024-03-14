@@ -4,12 +4,12 @@ import { Text } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 
 import axios from "axios";
-import { Card, CardHeader, CardBody, Stack } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, Stack, Input } from '@chakra-ui/react'
 import React from "react";
 import TodoModal from "../components/TodoModal";
 import { useLoaderData } from "react-router-dom";
 import EditTodoModal from "../components/EditTodoModal";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { CheckIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
 type todosObject = {
   id: number,
@@ -26,22 +26,44 @@ const Todo = () => {
   console.log('TODO LOADER DATA:', data.todos.data);
   const loadedData = data.todos.data;
   // const [todoData, setData] = useState<todosObject[]>([]);
-  const [showState, setShow] = useState(false);
+  const [updateField, setUpdateField] = useState(false);
+  const [updatedTodo, setUpdatedTodo] = useState('');
+  const [updatedReflectionText, setUpdatedReflectionText] = useState('');
+  // const [updatedPriority, setUpdatedPriority] = useState('');
+
 
   const style = {
     border: {
       'border': 'solid 4px #371236'
     },
   };
-
-const editIcon = async () => {
-  console.log('TRYING TO OPEN ACCORDION');
-//  setShow(true);
- return (
-  <EditTodoModal />
- );
-  
+const handleEditChange = (e:any) => {
+  const { name, value } = e.target;
+  return name === 'todo' ? setUpdatedTodo(value) : setUpdatedReflectionText(value);
 };
+
+const editIcon = async (id: number) => {
+  // if (e.target.)
+ 
+  setUpdateField(true);
+
+// try {
+//   const response = await axios.patch(`http://localhost:3001/todo/${id}`, {
+//     todo: updatedTodo,
+//     reflectionText: updatedReflectionText,
+//     // priority: loadedData.priority
+//   });
+//   setUpdateField(false);
+//   console.log(response.data);
+// } catch (error) {
+//   console.error(error);
+// }
+};
+
+const editTodoHandler = async (id:number) => {
+  editIcon(id);
+setUpdateField(false);
+}
 
   const deleteTodo = async (id: number) => {
     try {
@@ -71,6 +93,7 @@ const editIcon = async () => {
         mb='2em'>{date}</Text>
 
       <TodoModal />
+    
       <Stack
         className="rendered-todos"
         spacing='6'
@@ -100,35 +123,56 @@ const editIcon = async () => {
                     mr='1em'
                     fontWeight='700'>{todos?.priority}</Text>
                 </CardHeader>
+                {/* { updateField ? 
+                <>
+                <Input
+                name='todo'
+                value={updatedTodo}
+                onChange={handleEditChange} />
+                <Input 
+                 name='reflectionText'
+                 value={updatedReflectionText}
+                 onChange={handleEditChange}/>
+                </> : */}
                 <CardBody
                   fontSize='md'>
                   <Text my='10px'>{todos?.todo}</Text>
                   <Text>
                     {todos?.reflectionText}
                   </Text>
-
+                
                 </CardBody>
-
+          {/* } */}
+          {/* <EditTodoModal /> */}
                 <Flex
                   gap='3'
                   flexDirection='row'
                   justify='flex-end'
                   mr='2em'
                 >
+  
+                  {/* { updateField ? 
+                  <CheckIcon 
+                  boxSize={6}
+                  onClick={() => editTodoHandler(todos?.id)}
+                  /> :
                     <EditIcon 
                     boxSize={6}
                     color='#371236'
                     cursor='pointer'
-                    onClick={editIcon}
+                    onClick={() => editIcon(todos?.id)}
                     />
+                  } */}
+                   <EditTodoModal />
                     <DeleteIcon 
                     boxSize={6}
                     color='#371236'
                     onClick={() => deleteHandler(todos?.id)}
                     cursor='pointer'
                     />
-                    <EditTodoModal/>
+                   
                 </Flex>
+                
               </Card>
             )
           })
