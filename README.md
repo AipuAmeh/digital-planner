@@ -34,7 +34,8 @@ To review my current work, copy the url of my main branch and clone it into your
    npm install
    ```
  - Navigate into the folder titled
-   ```server
+   ```
+   server
    ```
    and run
    ```sh
