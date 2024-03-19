@@ -3,11 +3,11 @@ import { Checkbox, Flex, FormControl, FormLabel, Input, Spacer, useDisclosure } 
 import { Textarea } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
-import axios from "axios";
 import { Modal, ModalOverlay, ModalContent, ModalCloseButton } from '@chakra-ui/react'
-
+import { EditIcon } from "@chakra-ui/icons";
 import React from "react";
-// const date = new Date().toDateString();
+import axios from "axios";
+
 
 type todosObject = {
   id: number,
@@ -17,8 +17,8 @@ type todosObject = {
   priority: string
   color: string
 };
-
-function TodoModal() {
+// trying to push to dev
+function EditTodoModal(props: { id: number; }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -26,8 +26,6 @@ function TodoModal() {
   const [todoInput, setTodoInput] = useState('');
   const [reflection, setReflection] = useState('');
   const [priority, setPriority] = useState('');
-
-
   const [data, setData] = useState<todosObject[]>([]);
 
   const handleChange = (e: any) => {
@@ -43,39 +41,32 @@ function TodoModal() {
     }
 
   };
-
-  const handleClick = async () => {
-    const token = localStorage.getItem('token');
+  const editTodoHandler = async(id: number) => {
     try {
-      const response = await axios.post("http://localhost:3001/auth/create-todo", {
+      const response = await axios.patch(`http://localhost:3001/todo/${id}`, {
         todo: todoInput,
         reflectionText: reflection,
         priority: priority
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
       });
-      console.log('RESPONSE DATA:', response.data);
+      console.log('EDITED RESPONSE:',response.data);
       setTodoInput('');
       setReflection('');
       window.location.reload();
       setData([...data, response.data]);
-
-
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 
 
   return (
     <div className="App">
- <Button 
-      size='lg'
-      onClick={onOpen} 
-      mb='5em'
-      backgroundColor='#371236'
-      _hover={{ bg: '#F7F9F7', color: 'black' }}
-      color='white'>Add Task</Button>
+         <EditIcon 
+                    boxSize={6}
+                    color='#371236'
+                    cursor='pointer'
+                    onClick={onOpen}
+                    />
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
@@ -145,9 +136,9 @@ function TodoModal() {
                 color='white'
                 size="lg"
                 type="button"
-                onClick={handleClick}
+                onClick={() => editTodoHandler(props.id)}
               >
-                Save Todo
+                Save Changes
               </Button>
               <ModalCloseButton />
             </Center>
@@ -159,4 +150,4 @@ function TodoModal() {
   )
 }
 
-export default TodoModal;
+export default EditTodoModal;

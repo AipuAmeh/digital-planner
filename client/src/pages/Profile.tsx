@@ -11,33 +11,14 @@ const date = new Date().toDateString();
 const Profile = () => {
   const data: any = useLoaderData();
   const [verse, setVerse] = useState('');
-  const [todoData, setData] = useState<todosObject[]>([]);
-  console.log('LOADER DATA:', data);
+console.log('LOADER DATA:',data)
+  // const style = {
+  //   border: {
+  //     'border': 'solid 4px #371236'
+  //   },
 
-  type todosObject = {
-    id: number,
-    todo: string,
-    reflectionText: string
-    todaysDate: any
-    priority: string
-  };
-
-  const style = {
-    border: {
-      'border': 'solid 4px #371236'
-    },
-
-  };
-
-  useEffect(() => {
-    axios.get("http://localhost:3001/todo/")
-      .then((response) => {
-        setData(response.data);
-        console.log(response.data);
-      })
-  }, []);
-
-
+  // };
+// use loader data to add user info for account details
   const options = {
     method: 'GET',
     url: 'https://labs.bible.org/api/?',
@@ -61,7 +42,6 @@ const Profile = () => {
   getBibleVerses();
   return (
     <Box>
-      <Text fontSize='md' display='flex' pl='2em' justifyContent='flex-end' noOfLines={[1, 2]}> Welcome back {data.username}!</Text>
       <Center display='flex' flexDirection='column'>
         <Text fontSize='3xl' p='3em' className="verse">{verse}</Text>
 
