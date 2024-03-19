@@ -26,18 +26,32 @@ To review my current work, copy the url of my main branch and clone it into your
  - Once this branch is in your environment, create a .env file based off of the .envExample file for your own confidential secrets.
   
  - Navigate into the folder titled
-   ```sh
+   ```
    client
    ```
     and run
-   ```npm install```.
- - Navigate into the folder titled `server` and run `npm install`.
- - Then start both the server and client folders, by running `npm run develop` in the main terminal.
- - Navigate to [http://localhost:3000/](http://localhost:3000/) to view the homepage with the option to either signup or login to your account.
- - Click on the 'tasks' page to create a task, intention behind the task, and add it to the page. 
+   ```sh
+   npm install
+   ```.
+ - Navigate into the folder titled
+   ```server
+   ```
+   and run
+   ```sh
+   npm install
+   ```.
+ - Start both the Server and Client folders in the main terminal, by running
+   ```sh
+   npm run develop
+   ```
+  .
+ - Navigate to [http://localhost:3000/](http://localhost:3000/) to view the homepage.
+ - (!! IMPORTANT !!) Make sure to create a `.env` file in the root of your project. Use the `.envEXAMPLE` as a template for your database name, username, password, and a random password for your JWT secret.
 
+## Usage
 
 ## Credits
 
 ## License
 
+Distributed under the MIT License. See [MIT](https://choosealicense.com/licenses/mit/) for more information.
