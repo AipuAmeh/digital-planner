@@ -15,12 +15,6 @@ import { UpdateTodoDto } from '../auth/dto/update-todo.dto';
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
-  // @Post('')
-  // async createTodo(@Body() createTodoDto: CreateTodoDto) {
-  //   console.log(createTodoDto);
-  //   return this.todoService.createTodo(createTodoDto);
-  // }
-
   @Get()
   findAllTodos() {
     return this.todoService.findAllTodos();

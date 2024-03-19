@@ -6,12 +6,16 @@ const token = localStorage.getItem('token');
 const Header = () => {
     const navigate = useNavigate();
 
+// make auth page for logging out upon expiration
+
     const LogoutButton = () => { 
         navigate('/');
         window.location.reload();
         localStorage.removeItem('token');
     };
 
+    // create context
+    // add loader data for header if token 
     return (
         <Box>
             <Flex direction='row' gap='5' justify="flex-end" mr='3em' pt='1em'>
