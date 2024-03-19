@@ -26,17 +26,13 @@ To review my current work, copy the url of my main branch and clone it into your
  - Once this branch is in your environment, create a .env file based off of the .envExample file for your own confidential secrets.
   
  - Navigate into the folder titled
-   ```
-   client
-   ```
+   `client`
     and run
    ```sh
    npm install
    ```
  - Navigate into the folder titled
-   ```
-   server
-   ```
+   `server`
    and run
    ```sh
    npm install
