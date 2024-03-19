@@ -32,14 +32,14 @@ To review my current work, copy the url of my main branch and clone it into your
     and run
    ```sh
    npm install
-   ```.
+   ```
  - Navigate into the folder titled
    ```server
    ```
    and run
    ```sh
    npm install
-   ```.
+   ```
  - Start both the Server and Client folders in the main terminal, by running
    ```sh
    npm run develop
