@@ -54,7 +54,6 @@ function TodoModal() {
       }, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      console.log('RESPONSE:', response);
       console.log('RESPONSE DATA:', response.data);
       setTodoInput('');
       setReflection('');

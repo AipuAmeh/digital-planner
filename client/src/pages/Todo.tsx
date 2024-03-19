@@ -123,17 +123,6 @@ setUpdateField(false);
                     mr='1em'
                     fontWeight='700'>{todos?.priority}</Text>
                 </CardHeader>
-                {/* { updateField ? 
-                <>
-                <Input
-                name='todo'
-                value={updatedTodo}
-                onChange={handleEditChange} />
-                <Input 
-                 name='reflectionText'
-                 value={updatedReflectionText}
-                 onChange={handleEditChange}/>
-                </> : */}
                 <CardBody
                   fontSize='md'>
                   <Text my='10px'>{todos?.todo}</Text>
@@ -142,28 +131,13 @@ setUpdateField(false);
                   </Text>
                 
                 </CardBody>
-          {/* } */}
-          {/* <EditTodoModal /> */}
                 <Flex
                   gap='3'
                   flexDirection='row'
                   justify='flex-end'
                   mr='2em'
                 >
-  
-                  {/* { updateField ? 
-                  <CheckIcon 
-                  boxSize={6}
-                  onClick={() => editTodoHandler(todos?.id)}
-                  /> :
-                    <EditIcon 
-                    boxSize={6}
-                    color='#371236'
-                    cursor='pointer'
-                    onClick={() => editIcon(todos?.id)}
-                    />
-                  } */}
-                   <EditTodoModal />
+                   <EditTodoModal id={todos?.id}/>
                     <DeleteIcon 
                     boxSize={6}
                     color='#371236'

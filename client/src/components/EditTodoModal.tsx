@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Checkbox, Flex, FormControl, FormLabel, Input, Spacer, useDisclosure } from "@chakra-ui/react";
+import { Checkbox, Flex, FormControl, FormLabel, Input, Spacer, useDisclosure } from "@chakra-ui/react";
 import { Textarea } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
-// import axios from "axios";
 import { Modal, ModalOverlay, ModalContent, ModalCloseButton } from '@chakra-ui/react'
 import { EditIcon } from "@chakra-ui/icons";
 import React from "react";
 import axios from "axios";
-// const date = new Date().toDateString();
+
 
 type todosObject = {
   id: number,
@@ -19,7 +18,7 @@ type todosObject = {
   color: string
 };
 
-function EditTodoModal() {
+function EditTodoModal(props: { id: number; }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -27,54 +26,37 @@ function EditTodoModal() {
   const [todoInput, setTodoInput] = useState('');
   const [reflection, setReflection] = useState('');
   const [priority, setPriority] = useState('');
-
-
   const [data, setData] = useState<todosObject[]>([]);
 
-  // const handleChange = (e: any) => {
-  //   const { name, value } = e.target;
-  //   return name === 'todo' ? setTodoInput(value) : setReflection(value);
-  // };
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    return name === 'todo' ? setTodoInput(value) : setReflection(value);
+  };
 
-  // const handlePriorityChange = (e:any) => {
-  //   const {name,  value } = e.target;
+  const handlePriorityChange = (e:any) => {
+    const {name,  value } = e.target;
 
-  //   if (name === value) {
-  //     return setPriority(value);
-  //   }
+    if (name === value) {
+      return setPriority(value);
+    }
 
-  // };
-  // working on editing todo
-  // const editTodoHandler = async(id: number) => {
-  //   try {
-  //     const response = await axios.patch(`http://localhost:3001/todo/${id}`, {
-  //       todo: todoInput,
-  //       reflectionText: reflection,
-  //       priority: priority
-  //     });
-  //     console.log(response.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const handleClick = async () => {
-  //   try {
-    //   const response = await axios.patch(`http://localhost:3001/todo/${id}`, {
-    //     todo: todoInput,
-    //     reflectionText: reflection,
-    //     priority: priority
-    //   });
-    //   console.log('RESPONSE:', response);
-    //   console.log('RESPONSE DATA:', response.data);
-    //   setTodoInput('');
-    //   setReflection('');
-    //   window.location.reload();
-    //   setData([...data, response.data]);
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // };
+  };
+  const editTodoHandler = async(id: number) => {
+    try {
+      const response = await axios.patch(`http://localhost:3001/todo/${id}`, {
+        todo: todoInput,
+        reflectionText: reflection,
+        priority: priority
+      });
+      console.log('EDITED RESPONSE:',response.data);
+      setTodoInput('');
+      setReflection('');
+      window.location.reload();
+      setData([...data, response.data]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
   return (
@@ -83,7 +65,6 @@ function EditTodoModal() {
                     boxSize={6}
                     color='#371236'
                     cursor='pointer'
-                    // onClick={() => editIcon(todos?.id)}
                     onClick={onOpen}
                     />
       <Modal
@@ -105,16 +86,16 @@ function EditTodoModal() {
               placeholder="What do you want to do..."
               type="text"
               name='todo'
-              // value={todoInput}
-              // onChange={handleChange}
+              value={todoInput}
+              onChange={handleChange}
             />
             <FormLabel mt={4}>Intentions</FormLabel>
             <Textarea
               className="todo-text-area"
               placeholder="Why do you want to do it..."
               name='reflectionText'
-              // value={reflection}
-              // onChange={handleChange}
+              value={reflection}
+              onChange={handleChange}
             />
             <Spacer />
             <Flex flexDirection='column'>
@@ -123,7 +104,7 @@ function EditTodoModal() {
             size='md'
             name='Extremely Important!' 
             value="Extremely Important!"   
-            // onChange={handlePriorityChange}
+            onChange={handlePriorityChange}
             >
     Extremely Important!
   </Checkbox>
@@ -131,7 +112,7 @@ function EditTodoModal() {
   size='md'
   name='Coming soon.' 
   value="Coming soon."
-  // onChange={handlePriorityChange}
+  onChange={handlePriorityChange}
   >
     Coming soon.
   </Checkbox>
@@ -139,7 +120,7 @@ function EditTodoModal() {
   size='md'
   name='Not Urgent.' 
   value="Not Urgent."
-  // onChange={handlePriorityChange}
+  onChange={handlePriorityChange}
   >
     Not Urgent.
   </Checkbox>
@@ -155,7 +136,7 @@ function EditTodoModal() {
                 color='white'
                 size="lg"
                 type="button"
-                // onClick={handleClick}
+                onClick={() => editTodoHandler(props.id)}
               >
                 Save Changes
               </Button>
