@@ -17,7 +17,7 @@ type todosObject = {
   priority: string
   color: string
 };
-// trying to push to dev
+
 function EditTodoModal(props: { id: number; }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);

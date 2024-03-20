@@ -53,6 +53,7 @@ export class AuthService {
       throw new UnauthorizedException();
     } else {
       return {
+        password: user.password,
         email: user.email,
         username: user.username,
         id: user.id,
