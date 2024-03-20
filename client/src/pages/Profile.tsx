@@ -13,6 +13,9 @@ const Profile = () => {
   const data: any = useLoaderData();
   const [verse, setVerse] = useState('');
   const [show, setShowState] = useState(false);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
 console.log('LOADER DATA:',data);
 
@@ -25,10 +28,6 @@ console.log('LOADER DATA:',data);
     },
     origin: true
   };
-
-  const handleNewEditClick = () => {
-    setShowState(true);
-  }
   const getBibleVerses = async () => {
     try {
       const verseResponse = await axios.request(options);
@@ -40,6 +39,23 @@ console.log('LOADER DATA:',data);
     }
   }
   getBibleVerses();
+
+  const handleNewEditClick = () => {
+    setShowState(true);
+  };
+
+  const saveEdits = () => {
+    setShowState(false);
+  };
+
+  const handleChange = (e:any) => {
+    const {name, value } = e.target;
+    if (name === 'username') {
+      setUsername(value);
+    }
+  }
+
+
   // truncate Bible verse and show more upon click
   // add media queries
   return (
@@ -53,8 +69,17 @@ console.log('LOADER DATA:',data);
           {
             show ?
           <>
-               <Input></Input>
-      <CheckIcon />
+               <Input
+               name='username'
+               value={username}
+               onChange={handleChange}
+               ></Input>
+      <CheckIcon 
+       boxSize={5}
+       color='#371236'
+      onClick={saveEdits}
+      cursor='pointer'
+      />
 
           </>
       : <>
