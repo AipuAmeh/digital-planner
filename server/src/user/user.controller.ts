@@ -30,7 +30,7 @@ export class UserController {
     return this.userService.findOneUser(username);
   }
 
-  @Patch(':id')
+  @Patch('/update-user/:id')
   updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.updateUser(+id, updateUserDto);
   }

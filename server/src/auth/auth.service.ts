@@ -5,6 +5,9 @@ import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { TodoService } from 'src/todo/todo.service';
 import { UpdateUserDto } from 'src/user/dto/update-user.dto';
+import { User } from 'src/user/entities/user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 // import { CreateTodoDto } from './dto/create-todo.dto';
 @Injectable()
@@ -46,16 +49,6 @@ export class AuthService {
       const payload = { sub: user.id, username: user.username };
       return { access_token: await this.jwtService.signAsync(payload) };
     }
-  }
-
-  async editUser(id:number , updateUserDto: UpdateUserDto){
-   
-    // const user = await this.userService.updateUser({
-    //   email: updateUserDto.email,
-    //   username: updateUserDto.username,
-    //  password: updateUserDto.password
-    //   id = updateUserDto.id
-    // })
   }
 
   async getUser(username: string) {

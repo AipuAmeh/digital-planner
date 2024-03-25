@@ -47,12 +47,6 @@ export class AuthController {
   }
 
   @UseGuards(AuthGuard)
-  @Patch(':id')
-  async editUser(@Body() body: UpdateUserDto) {
-    console.log('EDITED BODY:', body);
-  }
-
-  @UseGuards(AuthGuard)
   @Get('/user-todos')
   getUserTodos(@Request() req) {
     if (req.user) {
