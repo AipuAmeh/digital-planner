@@ -4,6 +4,11 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { TodoService } from 'src/todo/todo.service';
+import { UpdateUserDto } from 'src/user/dto/update-user.dto';
+import { User } from 'src/user/entities/user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 // import { CreateTodoDto } from './dto/create-todo.dto';
 @Injectable()
 export class AuthService {
@@ -53,6 +58,7 @@ export class AuthService {
       throw new UnauthorizedException();
     } else {
       return {
+        password: user.password,
         email: user.email,
         username: user.username,
         id: user.id,

@@ -1,16 +1,15 @@
 import { useState } from "react";
-import { Spacer, Flex, Box } from "@chakra-ui/react";
-import { Text } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
-
+import { Spacer, Flex, Box, Text } from "@chakra-ui/react";
 import axios from "axios";
-import { Card, CardHeader, CardBody, Stack, Input } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, Stack} from '@chakra-ui/react'
 import React from "react";
 import TodoModal from "../components/TodoModal";
 import { useLoaderData } from "react-router-dom";
 import EditTodoModal from "../components/EditTodoModal";
-import { CheckIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 
+// add full month calendar 
+// add media queries
 type todosObject = {
   id: number,
   todo: string,
@@ -25,11 +24,6 @@ const Todo = () => {
   const data: any = useLoaderData();
   console.log('TODO LOADER DATA:', data.todos.data);
   const loadedData = data.todos.data;
-  // const [todoData, setData] = useState<todosObject[]>([]);
-  const [updateField, setUpdateField] = useState(false);
-  const [updatedTodo, setUpdatedTodo] = useState('');
-  const [updatedReflectionText, setUpdatedReflectionText] = useState('');
-  // const [updatedPriority, setUpdatedPriority] = useState('');
 
 
   const style = {
@@ -37,33 +31,6 @@ const Todo = () => {
       'border': 'solid 4px #371236'
     },
   };
-const handleEditChange = (e:any) => {
-  const { name, value } = e.target;
-  return name === 'todo' ? setUpdatedTodo(value) : setUpdatedReflectionText(value);
-};
-
-const editIcon = async (id: number) => {
-  // if (e.target.)
- 
-  setUpdateField(true);
-
-// try {
-//   const response = await axios.patch(`http://localhost:3001/todo/${id}`, {
-//     todo: updatedTodo,
-//     reflectionText: updatedReflectionText,
-//     // priority: loadedData.priority
-//   });
-//   setUpdateField(false);
-//   console.log(response.data);
-// } catch (error) {
-//   console.error(error);
-// }
-};
-
-const editTodoHandler = async (id:number) => {
-  editIcon(id);
-setUpdateField(false);
-}
 
   const deleteTodo = async (id: number) => {
     try {
@@ -103,7 +70,6 @@ setUpdateField(false);
             return (
               <Card
                 overflow='hidden'
-                // justify='space-between'
                 backgroundColor='#FFFFFA'
                 style={style.border}
                 key={todos?.id}

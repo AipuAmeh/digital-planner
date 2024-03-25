@@ -6,11 +6,13 @@ import {
   UseGuards,
   Request,
   Req,
+  Patch,
 } from '@nestjs/common';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { CreateTodoDto } from './dto/create-todo.dto';
+import { UpdateUserDto } from 'src/user/dto/update-user.dto';
 // import { TodoService } from 'src/todo/todo.service';
 
 type LoginDTO = {
@@ -30,7 +32,6 @@ export class AuthController {
 
   @Post('/signup')
   async signup(@Body() body: CreateUserDto) {
-    console.log('BODY:', body);
     return await this.authService.signup(body);
   }
 
@@ -65,7 +66,7 @@ export class AuthController {
       createTodoDto.todo,
       createTodoDto.reflectionText,
       createTodoDto.priority,
-      req.user.sub
+      req.user.sub,
     );
   }
 }

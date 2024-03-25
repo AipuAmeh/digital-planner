@@ -53,13 +53,13 @@ export class UserService {
    * @param updateUserDto this is partial type of createUserDto.
    * @returns promise of udpate user
    */
-  updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    const user: User = new User();
-    user.email = updateUserDto.email;
-    user.username = updateUserDto.username;
-    user.password = updateUserDto.password;
-    user.id = id;
-    return this.userRepository.save(user);
+  async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    const updatedUser: User = new User();
+    updatedUser.email = updateUserDto.email;
+    updatedUser.username = updateUserDto.username;
+    updatedUser.password = updateUserDto.password;
+    updatedUser.id = id;
+    return await this.userRepository.save(updatedUser);
   }
 
   /**
