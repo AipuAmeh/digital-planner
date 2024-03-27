@@ -1,11 +1,12 @@
 
 import { useLoaderData } from "react-router-dom";
-import { Box,  Center, Flex, HStack, Input } from '@chakra-ui/react';
+import { Avatar, Box,  Center, Flex, HStack, Input, WrapItem } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react'
 import axios from "axios";
 import { useState } from "react";
 import { CheckIcon, EditIcon} from '@chakra-ui/icons'
-
+import { IconButton } from '@chakra-ui/react'
+import UserDetailsRow from "../components/Profile/UserDetailsRow";
 
 
 
@@ -44,8 +45,18 @@ console.log('LOADER DATA:',data);
     setShowState(true);
   };
 
-  const saveEdits = () => {
+  const saveEdits = async (id:number) => {
     setShowState(false);
+    try {
+      const response = await axios.patch(`http://localhost:3001/user/update-user/${id}`, {
+        username: username,
+        email: email,
+        password: password
+      });
+      console.log('EDITED USER:', response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleChange = (e:any) => {
@@ -53,63 +64,34 @@ console.log('LOADER DATA:',data);
     if (name === 'username') {
       setUsername(value);
     }
-  }
+
+    if (name === 'email') {
+      setEmail(value) 
+    } else {
+      setPassword(value)
+    }
+  };
 
 
   // truncate Bible verse and show more upon click
-  // add media queries
+  // add media queries for responsive design
   return (
     <Box>
       <Center display='flex' flexDirection='column'>
         <Text mt='3em' fontSize='3xl'>My Profile</Text>
-        <Text fontSize='2xl' p='3em' className="verse" noOfLines={[1, 2, 3]}>{verse}</Text>
-        <Flex flexDirection='column' border='solid #371236 2px' boxShadow='md'  p='2em'>
-        <HStack spacing='50px' >
-          <Text p='4' fontSize='20px'>Username:</Text>
-          {
-            show ?
-          <>
-               <Input
-               name='username'
-               value={username}
-               onChange={handleChange}
-               ></Input>
-      <CheckIcon 
-       boxSize={5}
-       color='#371236'
-      onClick={saveEdits}
-      cursor='pointer'
-      />
+        <Text fontSize='2xl' pt='3em' px='3em' pb='1em' className="verse" noOfLines={[1, 2, 3]}>{verse}</Text>
+<Box  display='flex' className='account-details' w="60%" gap={8} m="0 auto" py={20} >
+  <Box>
+    <Avatar name={data.username} size='2xl' bg=' #371236'/>
+  </Box>
+  <Box  w='100%' display='flex' flexDirection='column' gap={3}>
+    <UserDetailsRow field="Username" value={data.username} username={data.username}/>
+    <UserDetailsRow field="Email Address" value={data.email} username={data.username}/>
+    <UserDetailsRow field="Password" value="********" username={data.username}/>
+  </Box>
 
-          </>
-      : <>
-               <Text fontSize='20px' p='4'>{data.username}</Text>
-          <EditIcon 
-             boxSize={5}
-             color='#371236'
-             onClick={handleNewEditClick}
-             cursor='pointer'
-          /> 
-      </>
-          }
-        </HStack>
-        <HStack spacing='50px'  >
-          <Text p='4' fontSize='20px'>Email:</Text>
-          <Text fontSize='20' p='4'>{data.email}</Text>
-          <EditIcon 
-             boxSize={5}
-             color='#371236'
-          />
-        </HStack>
-        <HStack spacing='50px'  >
-          <Text p='4' fontSize='20px'>Password:</Text>
-          <Text fontSize='20' p='4'>******</Text>
-          <EditIcon
-             boxSize={5}
-             color='#371236'
-           />
-        </HStack>
-        </Flex>
+
+</Box>
       </Center>
 
     </Box>
