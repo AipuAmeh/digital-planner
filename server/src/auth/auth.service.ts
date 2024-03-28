@@ -52,11 +52,20 @@ export class AuthService {
     }
   }
 
-  // creating new id instead of updating that particular user
   async changeAccountDetails(accountDetailDTO: AccountDetailDto) {
     const user = await this.userService.findOneUser(accountDetailDTO.username);
-    user[accountDetailDTO.field] = accountDetailDTO.value;
-    return await this.userService.createUser(user);
+    if (accountDetailDTO.field === 'password') {
+      const plainTextPassword = accountDetailDTO.value;
+      const hashPassword = await this.hashPassword(plainTextPassword);
+      user[accountDetailDTO.field] = hashPassword;
+    } else {
+      user[accountDetailDTO.field] = accountDetailDTO.value;
+    }
+    const updatedUser = await this.userService.createUser(user);
+    return {
+      username: updatedUser.username,
+      email: updatedUser.email,
+    };
   }
 
   async getUser(username: string) {

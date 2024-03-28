@@ -66,6 +66,7 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('/user-todos')
   getUserTodos(@Request() req) {
+    console.log(req.user);
     if (req.user) {
       const username = req.user.username;
       return this.authService.getUser(username);
@@ -77,8 +78,6 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Post('/create-todo')
   async createTodo(@Body() createTodoDto: CreateTodoDto, @Request() req) {
-    console.log(createTodoDto);
-    console.log('USER REQUEST', req.user.sub);
     return this.authService.createTodo(
       createTodoDto.todo,
       createTodoDto.reflectionText,

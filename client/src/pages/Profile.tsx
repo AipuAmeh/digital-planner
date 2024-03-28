@@ -8,17 +8,18 @@ import { CheckIcon, EditIcon} from '@chakra-ui/icons'
 import { IconButton } from '@chakra-ui/react'
 import UserDetailsRow from "../components/Profile/UserDetailsRow";
 
-
+export type Data = {
+  email: string,
+  password: string,
+  username: string
+}
 
 const Profile = () => {
-  const data: any = useLoaderData();
+  const loaderData = useLoaderData() as Data;
+  const [data, setData] = useState(loaderData);
   const [verse, setVerse] = useState('');
-  const [show, setShowState] = useState(false);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-console.log('LOADER DATA:',data);
+// console.log('LOADER DATA:',data);
 
   const options = {
     method: 'GET',
@@ -41,37 +42,6 @@ console.log('LOADER DATA:',data);
   }
   getBibleVerses();
 
-  const handleNewEditClick = () => {
-    setShowState(true);
-  };
-
-  const saveEdits = async (id:number) => {
-    setShowState(false);
-    try {
-      const response = await axios.patch(`http://localhost:3001/user/update-user/${id}`, {
-        username: username,
-        email: email,
-        password: password
-      });
-      console.log('EDITED USER:', response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleChange = (e:any) => {
-    const {name, value } = e.target;
-    if (name === 'username') {
-      setUsername(value);
-    }
-
-    if (name === 'email') {
-      setEmail(value) 
-    } else {
-      setPassword(value)
-    }
-  };
-
 
   // truncate Bible verse and show more upon click
   // add media queries for responsive design
@@ -82,12 +52,12 @@ console.log('LOADER DATA:',data);
         <Text fontSize='2xl' pt='3em' px='3em' pb='1em' className="verse" noOfLines={[1, 2, 3]}>{verse}</Text>
 <Box  display='flex' className='account-details' w="60%" gap={8} m="0 auto" py={20} >
   <Box>
-    <Avatar name={data.username} size='2xl' bg=' #371236'/>
+    <Avatar name={data.username} size='2xl' bg='#371236' color='white'/>
   </Box>
   <Box  w='100%' display='flex' flexDirection='column' gap={3}>
-    <UserDetailsRow field="Username" value={data.username} username={data.username}/>
-    <UserDetailsRow field="Email Address" value={data.email} username={data.username}/>
-    <UserDetailsRow field="Password" value="********" username={data.username}/>
+    <UserDetailsRow field="Username" value={data.username} username={data.username} setData={setData}/>
+    <UserDetailsRow field="Email" value={data.email} username={data.username} setData={setData}/>
+    <UserDetailsRow field="Password" value="********" username={data.username} setData={setData}/>
   </Box>
 
 
