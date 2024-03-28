@@ -13,6 +13,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateUserDto } from 'src/user/dto/update-user.dto';
+import { IsNotEmpty } from 'class-validator';
 // import { TodoService } from 'src/todo/todo.service';
 
 type LoginDTO = {
@@ -20,6 +21,16 @@ type LoginDTO = {
   password: string;
 };
 
+export class AccountDetailDto {
+  @IsNotEmpty()
+  username: string;
+
+  @IsNotEmpty()
+  field: string;
+
+  @IsNotEmpty()
+  value: string;
+}
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -36,6 +47,12 @@ export class AuthController {
   }
 
   @UseGuards(AuthGuard)
+  @Post('/change-account-details')
+  async changeAccountDetails(@Body() accountDetailDTO: AccountDetailDto) {
+    return this.authService.changeAccountDetails(accountDetailDTO);
+  }
+
+  @UseGuards(AuthGuard)
   @Get('/profile')
   getUserData(@Request() req) {
     if (req.user) {
@@ -49,6 +66,7 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('/user-todos')
   getUserTodos(@Request() req) {
+    console.log(req.user);
     if (req.user) {
       const username = req.user.username;
       return this.authService.getUser(username);
@@ -60,8 +78,6 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Post('/create-todo')
   async createTodo(@Body() createTodoDto: CreateTodoDto, @Request() req) {
-    console.log(createTodoDto);
-    console.log('USER REQUEST', req.user.sub);
     return this.authService.createTodo(
       createTodoDto.todo,
       createTodoDto.reflectionText,
