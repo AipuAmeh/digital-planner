@@ -14,33 +14,24 @@ export type Data = {
   username: string
 }
 
+type LoaderData = {
+  user: {
+    email: string,
+    password: string,
+    username: string
+  },
+  verseData: string
+}
+
 const Profile = () => {
-  const loaderData = useLoaderData() as Data;
-  const [data, setData] = useState(loaderData);
-  const [verse, setVerse] = useState('');
+  const loaderData = useLoaderData() as LoaderData;
+  const userData = loaderData.user;
+  const verse = loaderData.verseData;
+  const [data, setData] = useState(userData);
 
-// console.log('LOADER DATA:',data);
 
-  const options = {
-    method: 'GET',
-    url: 'https://labs.bible.org/api/?',
-    params: {
-      passage: 'votd',
-      formatting: 'plain'
-    },
-    origin: true
-  };
-  const getBibleVerses = async () => {
-    try {
-      const verseResponse = await axios.request(options);
-      console.log(verseResponse.data);
-      setVerse(verseResponse.data);
-      return
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  getBibleVerses();
+console.log('LOADER DATA:', loaderData);
+
 
 
   // truncate Bible verse and show more upon click
