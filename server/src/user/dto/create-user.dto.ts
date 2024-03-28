@@ -11,18 +11,18 @@ import { Transform } from 'class-transformer';
 export class CreateUserDto {
   @IsNotEmpty()
   @IsEmail()
-  @Transform((params) => sanitizeHtml(params.value))
+  // @Transform((params) => sanitizeHtml(params.value))
   email: string;
 
   @IsNotEmpty()
   @MinLength(3, { message: 'Username must have a minimum of three characters' })
   @IsAlphanumeric()
-  @Transform((params) => sanitizeHtml(params.value))
+  // @Transform((params) => sanitizeHtml(params.value))
   username: string;
 
   @IsNotEmpty()
   @MinLength(8, { message: 'Password must be a minimum of 8 characters.' })
-  @Transform((params) => sanitizeHtml(params.value))
+  // @Transform((params) => sanitizeHtml(params.value))
   // @Matches(passwordRegEx)
   password: string;
 }

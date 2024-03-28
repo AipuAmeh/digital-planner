@@ -21,12 +21,12 @@ export class UserService {
    * we have defined what are the keys we are expecting from body
    * @returns promise of user
    */
-  async createUser(createUserDto: CreateUserDto): Promise<User> {
-    const user = new User();
-    user.email = createUserDto.email;
-    user.username = createUserDto.username;
-    user.password = createUserDto.password;
-    return await this.userRepository.save(user);
+  async createUser(user: CreateUserDto) {
+    // const user = new User();
+    // user.email = createUserDto.email;
+    // user.username = createUserDto.username;
+    // user.password = createUserDto.password;
+    return await this.userRepository.save({ ...user });
   }
 
   /**
@@ -53,13 +53,13 @@ export class UserService {
    * @param updateUserDto this is partial type of createUserDto.
    * @returns promise of udpate user
    */
-  updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    const user: User = new User();
-    user.email = updateUserDto.email;
-    user.username = updateUserDto.username;
-    user.password = updateUserDto.password;
-    user.id = id;
-    return this.userRepository.save(user);
+  async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    const updatedUser: User = new User();
+    updatedUser.email = updateUserDto.email;
+    updatedUser.username = updateUserDto.username;
+    updatedUser.password = updateUserDto.password;
+    updatedUser.id = id;
+    return await this.userRepository.save(updatedUser);
   }
 
   /**

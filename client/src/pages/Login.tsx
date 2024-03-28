@@ -91,12 +91,12 @@ const Login = () => {
 
     return (
         <Stack>
-              <Text mx='auto' pt='2em' fontSize='3xl'>Log in to your Account</Text>
+              <Text mx='auto' pt='3em' fontSize='3xl'>Log in to your Account</Text>
             <Center>
               
                 <FormControl isRequired
                     display="flex"
-                    flexDirection="column" w='65%' pt="3em"
+                    flexDirection="column" w='65%' mt="3em"
                 >
                     <FormLabel>Username</FormLabel>
                     <Input

@@ -4,6 +4,12 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { TodoService } from 'src/todo/todo.service';
+import { UpdateUserDto } from 'src/user/dto/update-user.dto';
+import { User } from 'src/user/entities/user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { AccountDetailDto } from './auth.controller';
+
 // import { CreateTodoDto } from './dto/create-todo.dto';
 @Injectable()
 export class AuthService {
@@ -46,6 +52,22 @@ export class AuthService {
     }
   }
 
+  async changeAccountDetails(accountDetailDTO: AccountDetailDto) {
+    const user = await this.userService.findOneUser(accountDetailDTO.username);
+    if (accountDetailDTO.field === 'password') {
+      const plainTextPassword = accountDetailDTO.value;
+      const hashPassword = await this.hashPassword(plainTextPassword);
+      user[accountDetailDTO.field] = hashPassword;
+    } else {
+      user[accountDetailDTO.field] = accountDetailDTO.value;
+    }
+    const updatedUser = await this.userService.createUser(user);
+    return {
+      username: updatedUser.username,
+      email: updatedUser.email,
+    };
+  }
+
   async getUser(username: string) {
     const user = await this.userService.findOneUser(username);
     console.log(user);
@@ -53,9 +75,10 @@ export class AuthService {
       throw new UnauthorizedException();
     } else {
       return {
+        password: user.password,
         email: user.email,
         username: user.username,
-        id: user.id,
+        // id: user.id,
       };
     }
   }

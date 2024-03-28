@@ -17,7 +17,14 @@ import { useToast } from '@chakra-ui/react';
 import PasswordChecklist from "react-password-checklist";
 import React from 'react';
 
-
+export const isInvalidEmail = (email:string) => {
+    const emailFormat = /\S+@\S+\.\S+/;
+    if (email.match(emailFormat) && email.length > 0) {
+        return false;
+    } else {
+        return true;
+    }
+};
 
 const Signup = () => {
     const toast = useToast();
@@ -88,7 +95,7 @@ const Signup = () => {
 
     return (
         <Stack>
-            <Text mx='auto' pt='2em' fontSize='3xl'>Create an Account</Text>
+            <Text mx='auto' pt='3em' fontSize='3xl'>Create an Account</Text>
             <Center>
                 <FormControl isRequired
                     display="flex"

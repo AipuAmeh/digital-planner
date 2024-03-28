@@ -7,7 +7,8 @@ const Header = () => {
     const navigate = useNavigate();
 
 // make auth page for logging out upon expiration
-
+// show tasks only on log in
+// turn into hamburger for mobile
     const LogoutButton = () => { 
         navigate('/');
         window.location.reload();

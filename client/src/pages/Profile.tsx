@@ -1,24 +1,26 @@
 
 import { useLoaderData } from "react-router-dom";
-import { Box, Button, Card, CardBody, CardHeader, Center, Flex, Heading, Stack, Textarea } from '@chakra-ui/react';
+import { Avatar, Box,  Center, Flex, HStack, Input, WrapItem } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react'
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { AddIcon, PlusSquareIcon } from '@chakra-ui/icons'
+import { useState } from "react";
+import { CheckIcon, EditIcon} from '@chakra-ui/icons'
+import { IconButton } from '@chakra-ui/react'
+import UserDetailsRow from "../components/Profile/UserDetailsRow";
 
-const date = new Date().toDateString();
+export type Data = {
+  email: string,
+  password: string,
+  username: string
+}
 
 const Profile = () => {
-  const data: any = useLoaderData();
+  const loaderData = useLoaderData() as Data;
+  const [data, setData] = useState(loaderData);
   const [verse, setVerse] = useState('');
-console.log('LOADER DATA:',data)
-  // const style = {
-  //   border: {
-  //     'border': 'solid 4px #371236'
-  //   },
 
-  // };
-// use loader data to add user info for account details
+// console.log('LOADER DATA:',data);
+
   const options = {
     method: 'GET',
     url: 'https://labs.bible.org/api/?',
@@ -28,7 +30,6 @@ console.log('LOADER DATA:',data)
     },
     origin: true
   };
-
   const getBibleVerses = async () => {
     try {
       const verseResponse = await axios.request(options);
@@ -40,12 +41,27 @@ console.log('LOADER DATA:',data)
     }
   }
   getBibleVerses();
+
+
+  // truncate Bible verse and show more upon click
+  // add media queries for responsive design
   return (
     <Box>
       <Center display='flex' flexDirection='column'>
-        <Text fontSize='3xl' p='3em' className="verse">{verse}</Text>
+        <Text mt='3em' fontSize='3xl'>My Profile</Text>
+        <Text fontSize='2xl' pt='3em' px='3em' pb='1em' className="verse" noOfLines={[1, 2, 3]}>{verse}</Text>
+<Box  display='flex' className='account-details' w="60%" gap={8} m="0 auto" py={20} >
+  <Box>
+    <Avatar name={data.username} size='2xl' bg='#371236' color='white'/>
+  </Box>
+  <Box  w='100%' display='flex' flexDirection='column' gap={3}>
+    <UserDetailsRow field="Username" value={data.username} username={data.username} setData={setData}/>
+    <UserDetailsRow field="Email" value={data.email} username={data.username} setData={setData}/>
+    <UserDetailsRow field="Password" value="********" username={data.username} setData={setData}/>
+  </Box>
 
-        <Text fontSize='xl' pb='2em'>{date}</Text>
+
+</Box>
       </Center>
 
     </Box>
