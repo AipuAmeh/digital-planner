@@ -44,7 +44,19 @@ const router = createBrowserRouter([
               const response = await axios.get("http://localhost:3001/auth/profile", {
                 headers: { Authorization: `Bearer ${token}` }
               });
-              return response.data;
+              const user = response.data;
+              const options = {
+                method: 'GET',
+                url: 'https://labs.bible.org/api/?',
+                params: {
+                  passage: 'votd',
+                  formatting: 'plain'
+                },
+                origin: true
+              };
+              const verse = await axios.request(options);
+              const verseData = verse.data
+              return { user, verseData };
             } catch (error) {
               console.log('ERROR', error);
               return redirect('/login');
