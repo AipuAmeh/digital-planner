@@ -1,11 +1,8 @@
 
 import { useLoaderData } from "react-router-dom";
-import { Avatar, Box,  Center, Flex, HStack, Input, WrapItem } from '@chakra-ui/react';
+import { Avatar, Box,  Center, useBreakpointValue } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react'
-import axios from "axios";
 import { useState } from "react";
-import { CheckIcon, EditIcon} from '@chakra-ui/icons'
-import { IconButton } from '@chakra-ui/react'
 import UserDetailsRow from "../components/Profile/UserDetailsRow";
 
 export type Data = {
@@ -24,6 +21,10 @@ type LoaderData = {
 }
 
 const Profile = () => {
+  const fontSize = useBreakpointValue({ base: 'sm', sm: 'md', md: 'lg', lg: 'xl', xl: '2xl' });
+  const versePadding = useBreakpointValue({ base: '20', sm: '10em', md: '20px', lg: '30px'});
+  const accountPadding = useBreakpointValue({ base: '2.5em', sm: '2.5em', md: '3em', lg: '4em'})
+  const width = useBreakpointValue({ base: '80%', sm: '80%', md: '60%', lg: '60%'})
   const loaderData = useLoaderData() as LoaderData;
   const userData = loaderData.user;
   const verse = loaderData.verseData;
@@ -40,8 +41,9 @@ console.log('LOADER DATA:', loaderData);
     <Box>
       <Center display='flex' flexDirection='column'>
         <Text mt='3em' fontSize='3xl'>My Profile</Text>
-        <Text fontSize='2xl' pt='3em' px='3em' pb='1em' className="verse" noOfLines={[1, 2, 3]}>{verse}</Text>
-<Box  display='flex' className='account-details' w="60%" gap={8} m="0 auto" py={20} >
+        <Text fontSize={fontSize} py='2em' px='3em' pb={versePadding} className="verse" noOfLines={[1, 2, 3]} flex={2} overflow={"visible"}  >{verse}</Text>
+        
+<Box  display='flex' className='account-details' w={width} gap={8} m="0 auto" py={accountPadding} >
   <Box>
     <Avatar name={data.username} size='2xl' bg='#371236' color='white'/>
   </Box>
@@ -50,8 +52,6 @@ console.log('LOADER DATA:', loaderData);
     <UserDetailsRow field="Email" value={data.email} username={data.username} setData={setData}/>
     <UserDetailsRow field="Password" value="********" username={data.username} setData={setData}/>
   </Box>
-
-
 </Box>
       </Center>
 
