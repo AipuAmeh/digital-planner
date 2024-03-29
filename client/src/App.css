@@ -17,7 +17,7 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-@media screen and (max-width: 600px){
+@media screen and (max-width: 700px){
   .account-details {
     display: flex;
     align-items: center;
@@ -26,8 +26,11 @@
 }
 
 @media screen and (max-width: 600px) {
-
+  .card-header {
+    flex-direction: column;
+  }
 }
+
 .App-header {
   background-color: #282c34;
   min-height: 10vh;

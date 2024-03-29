@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Spacer, Flex, Box, Text } from "@chakra-ui/react";
+import { Spacer, Flex, Box, Text, useBreakpointValue } from "@chakra-ui/react";
 import axios from "axios";
 import { Card, CardHeader, CardBody, Stack} from '@chakra-ui/react'
 import React from "react";
@@ -18,14 +18,14 @@ type todosObject = {
   priority: string
   color: string
 };
+
 const date = new Date().toDateString();
 
 const Todo = () => {
   const data: any = useLoaderData();
   console.log('TODO LOADER DATA:', data.todos.data);
   const loadedData = data.todos.data;
-
-
+  const headerMargin = useBreakpointValue({ base: '1.5em', sm: '1em', md: '2em', lg: '3em'})
   const style = {
     border: {
       'border': 'solid 4px #371236'
@@ -56,7 +56,7 @@ const Todo = () => {
       <Text
         className="verse"
         fontSize='2xl'
-        mt='5em'
+        mt={headerMargin}
         mb='2em'>{date}</Text>
 
       <TodoModal />
@@ -77,6 +77,7 @@ const Todo = () => {
                 color='black'
                 pb='1em'>
                 <CardHeader
+                  className='card-header'
                   display='flex'
                   alignContent='flex-end'
                   fontSize='lg'>
@@ -85,6 +86,7 @@ const Todo = () => {
                   > {todos?.todaysDate}</Text>
                   <Spacer></Spacer>
                   <Text
+                  className='priority'
                     color={todos?.priority === 'Extremely Important!' ? "red" : todos?.priority === 'Coming soon.' ? "orange" : "green"}
                     mr='1em'
                     fontWeight='700'>{todos?.priority}</Text>
@@ -98,6 +100,7 @@ const Todo = () => {
                 
                 </CardBody>
                 <Flex
+          
                   gap='3'
                   flexDirection='row'
                   justify='flex-end'
@@ -109,6 +112,7 @@ const Todo = () => {
                     color='#371236'
                     onClick={() => deleteHandler(todos?.id)}
                     cursor='pointer'
+                 
                     />
                    
                 </Flex>

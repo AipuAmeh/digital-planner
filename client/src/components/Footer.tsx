@@ -6,6 +6,7 @@ const styles = {
     },
     
 }
+// figure out way to get footer to bottom of page
 const Footer = () => {
     return (
         <Box style={styles.border}>

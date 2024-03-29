@@ -17,7 +17,7 @@ const Header = () => {
 
     // create context
     // add loader data for header if token
-
+    // add way for logout to switch immediately upon login
     const isMobile = useBreakpointValue({ base: true, md: false, sm: false });
 
     return (
