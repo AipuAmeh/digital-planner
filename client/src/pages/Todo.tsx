@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Spacer, Flex, Box, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Spacer, Flex, Box, Text, useBreakpointValue, Checkbox } from "@chakra-ui/react";
 import axios from "axios";
 import { Card, CardHeader, CardBody, Stack} from '@chakra-ui/react'
 import React from "react";
@@ -82,6 +82,11 @@ const Todo = () => {
                   alignContent='flex-end'
                   fontSize='lg'
                   pt={{base: '1em', sm: '1em'}}>
+                  <Checkbox 
+                  display='flex'
+                  justifyContent='flex-end' 
+                  mr='0.5em'
+                  ></Checkbox>
                   <Text
                     fontWeight='800'
                   > {todos?.todaysDate}</Text>
@@ -104,8 +109,8 @@ const Todo = () => {
           
                   gap='3'
                   flexDirection='row'
-                  justify='flex-end'
-                  mr='2em'
+                  justify={{base: 'center', sm: 'center', md:'flex-end', lg: 'flex-end'}}
+                  mr={{base: '0', sm: '0', md: '2em', lg: '2em'}}
                 >
                    <EditTodoModal id={todos?.id}/>
                     <DeleteIcon 
