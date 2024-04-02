@@ -1,4 +1,4 @@
-import { Box, Button, Center, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -19,6 +19,7 @@ const Home = () => {
         </Flex>
         <Center display="flex" flexDirection="column" gap="2em" pt="3em">
           <Button
+            className="call-buttons"
             backgroundColor="#371236"
             _hover={{ bg: "#F7F9F7", color: "black" }}
             color="white"
@@ -31,7 +32,7 @@ const Home = () => {
             backgroundColor="#371236"
             _hover={{ bg: "#F7F9F7", color: "black" }}
             color="white"
-            size="lg"
+            size='lg'
             width="200px"
           >
             <Link to="/signup">Signup</Link>

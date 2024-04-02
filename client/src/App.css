@@ -31,6 +31,12 @@
   }
 }
 
+@media screen and (max-width: 600px) {
+  .call-buttons {
+    size: medium
+  }
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 10vh;

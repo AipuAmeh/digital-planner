@@ -25,7 +25,7 @@ const Todo = () => {
   const data: any = useLoaderData();
   console.log('TODO LOADER DATA:', data.todos.data);
   const loadedData = data.todos.data;
-  const headerMargin = useBreakpointValue({ base: '1.5em', sm: '1em', md: '2em', lg: '3em'})
+  const headerMargin = useBreakpointValue({ base: '1.5em', sm: '1em', md: '2em', lg: '3em'});
   const style = {
     border: {
       'border': 'solid 4px #371236'
@@ -73,14 +73,15 @@ const Todo = () => {
                 backgroundColor='#FFFFFA'
                 style={style.border}
                 key={todos?.id}
-                size='sm'
+                size={{base: 'xs', sm: 'xs', md: 'sm', lg: 'sm'}}
                 color='black'
                 pb='1em'>
                 <CardHeader
                   className='card-header'
                   display='flex'
                   alignContent='flex-end'
-                  fontSize='lg'>
+                  fontSize='lg'
+                  pt={{base: '1em', sm: '1em'}}>
                   <Text
                     fontWeight='800'
                   > {todos?.todaysDate}</Text>
