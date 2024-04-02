@@ -63,19 +63,16 @@ const Login = () => {
                     username: '',
                     password: ''
                 }
+                
                 );
+                navigate('/profile');
                 toast({
                     title: 'Successfully logged in.',
                     description: `Welcome back ${formState.username}!`,
                     status: 'success',
                     duration: 2000,
                     position: 'top-left'
-                })
-
-                if (token) {
-                    navigate('/profile');
-                };
-              
+                })            
             }
         } catch (error) {
             console.log(error);

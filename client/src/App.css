@@ -17,6 +17,25 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+@media screen and (max-width: 700px){
+  .account-details {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .card-header {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .call-buttons {
+    size: medium
+  }
+}
 
 .App-header {
   background-color: #282c34;
@@ -59,6 +78,7 @@
 .save-todo {
  width: 75%;
 }
+
 
 @keyframes App-logo-spin {
   from {

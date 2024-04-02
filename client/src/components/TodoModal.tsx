@@ -70,6 +70,7 @@ function TodoModal() {
   return (
     <div className="App">
  <Button 
+      className='todo-modal-btn'
       size='lg'
       onClick={onOpen} 
       mb='5em'

@@ -3,7 +3,7 @@ import { Box, IconButton, Input, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 import { isInvalidEmail } from "../../pages/Signup";
-import { useToast } from "@chakra-ui/react";
+import { useToast,  useBreakpointValue  } from "@chakra-ui/react";
 import { Data } from "../../pages/Profile";
 
 type Props = {
@@ -17,6 +17,7 @@ const UserDetailsRow = ({ field, value, username, setData}: Props) => {
   const toast = useToast();
   const [updateField, setUpdates] = useState(false);
   const [valueState, setValueState] = useState(value);
+  const fontSize = useBreakpointValue({ base: 'sm', sm: 'md', md: 'lg', lg: 'lg' });
 
   const onChange = (e: any) => {
     setValueState(e.target.value);
@@ -91,7 +92,7 @@ const UserDetailsRow = ({ field, value, username, setData}: Props) => {
 
   return (
     <Box display="flex" gap={2}>
-      <Text flex={1} lineHeight="32px">
+      <Text flex={1} lineHeight="32px" fontSize={fontSize}>
         {field}:
       </Text>
       {updateField ? (
@@ -106,7 +107,7 @@ const UserDetailsRow = ({ field, value, username, setData}: Props) => {
         </>
       ) : (
         <>
-          <Text flex={1} lineHeight="32px">
+          <Text flex={1} lineHeight="32px" fontSize={fontSize}>
             {field === "Password" ? "********" : valueState}{" "}
           </Text>{" "}
         </>
