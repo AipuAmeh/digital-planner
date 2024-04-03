@@ -14,6 +14,7 @@ export class CreateTodoDto {
 
   priority: string;
 
+  // completed: number;
   // @IsNotEmpty()
   // id: number;
 }

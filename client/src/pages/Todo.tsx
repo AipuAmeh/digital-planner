@@ -9,7 +9,7 @@ import EditTodoModal from "../components/EditTodoModal";
 import { DeleteIcon } from "@chakra-ui/icons";
 
 // add full month calendar 
-// add media queries
+
 type todosObject = {
   id: number,
   todo: string,
@@ -17,6 +17,7 @@ type todosObject = {
   todaysDate: any
   priority: string
   color: string
+  completed: boolean
 };
 
 const date = new Date().toDateString();
@@ -24,6 +25,7 @@ const date = new Date().toDateString();
 const Todo = () => {
   const data: any = useLoaderData();
   console.log('TODO LOADER DATA:', data.todos.data);
+  const [completed, setCompleted] = useState(true);
   const loadedData = data.todos.data;
   const headerMargin = useBreakpointValue({ base: '1.5em', sm: '1em', md: '2em', lg: '3em'});
   const style = {
@@ -31,6 +33,22 @@ const Todo = () => {
       'border': 'solid 4px #371236'
     },
   };
+
+  const completedTodo = async () => {
+  setCompleted(!completed)
+
+  if (completed) {
+    console.log('COMPLETED?:', completed);
+    // axios.post("http:/")
+    // const checkedItems = loadedData.filter((task: todosObject) => task.completed);
+    // console.log('CHECKED ARRAY:', checkedItems);
+  } else {
+    console.log('UNABLE TO FILTER')
+  }
+
+
+  };
+
 
   const deleteTodo = async (id: number) => {
     try {
@@ -86,6 +104,7 @@ const Todo = () => {
                   display='flex'
                   justifyContent='flex-end' 
                   mr='0.5em'
+                  onChange={completedTodo}
                   ></Checkbox>
                   <Text
                     fontWeight='800'

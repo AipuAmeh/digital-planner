@@ -15,6 +15,5 @@ export class UpdateTodoDto {
 
   priority: string;
 
-  // @IsNotEmpty()
-  // id: number;
+  completed: boolean;
 }
