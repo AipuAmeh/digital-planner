@@ -8,7 +8,7 @@ import { Modal, ModalOverlay, ModalContent, ModalCloseButton } from '@chakra-ui/
 
 import React from "react";
 // const date = new Date().toDateString();
-
+// fix modal size on smaller screens
 type todosObject = {
   id: number,
   todo: string,
