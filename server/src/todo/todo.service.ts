@@ -58,6 +58,8 @@ export class TodoService {
     return this.todoRepository.save(todo);
   }
 
+  // markTaskAsUncomplete for returning it back to false??
+
   removeTodo(id: number): Promise<{ affected?: number }> {
     return this.todoRepository.delete(id);
   }
