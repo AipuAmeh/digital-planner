@@ -58,6 +58,17 @@ export class TodoService {
     return this.todoRepository.save(todo);
   }
 
+  // markTaskAsUncomplete for returning it back to false??
+  async markTaskIncomplete(id: number) {
+    const todo = await this.findOneTodo(id);
+    if (!todo) {
+      throw new Error('No task found');
+    }
+    todo.completed = false;
+    console.log(todo);
+    return this.todoRepository.save(todo);
+  }
+
   removeTodo(id: number): Promise<{ affected?: number }> {
     return this.todoRepository.delete(id);
   }
