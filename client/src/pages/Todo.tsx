@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Spacer, Flex, Box, Text, useBreakpointValue, Checkbox } from "@chakra-ui/react";
+import { Spacer, Flex, Box, Text, useBreakpointValue, Button, useBoolean } from "@chakra-ui/react";
 import axios from "axios";
 import { Card, CardHeader, CardBody, Stack} from '@chakra-ui/react'
 import React from "react";
@@ -7,10 +7,10 @@ import TodoModal from "../components/TodoModal";
 import { useLoaderData } from "react-router-dom";
 import EditTodoModal from "../components/EditTodoModal";
 import { DeleteIcon } from "@chakra-ui/icons";
-
+import CompletedCheckBox from "../components/Todo/CompletedCheckBox";
 // add full month calendar 
 
-type todosObject = {
+export type todosObject = {
   id: number,
   todo: string,
   reflectionText: string
@@ -25,30 +25,17 @@ const date = new Date().toDateString();
 const Todo = () => {
   const data: any = useLoaderData();
   console.log('TODO LOADER DATA:', data.todos.data);
-  const [completed, setCompleted] = useState(true);
   const loadedData = data.todos.data;
+  const [todoData, setTodoData] = useState(loadedData)
+  const [completed, setCompleted] = useState([]);
+  const [flag, setFlag] = useBoolean()
+
   const headerMargin = useBreakpointValue({ base: '1.5em', sm: '1em', md: '2em', lg: '3em'});
   const style = {
     border: {
       'border': 'solid 4px #371236'
     },
   };
-
-  const completedTodo = async () => {
-  setCompleted(!completed)
-
-  if (completed) {
-    console.log('COMPLETED?:', completed);
-    // axios.post("http:/")
-    // const checkedItems = loadedData.filter((task: todosObject) => task.completed);
-    // console.log('CHECKED ARRAY:', checkedItems);
-  } else {
-    console.log('UNABLE TO FILTER')
-  }
-
-
-  };
-
 
   const deleteTodo = async (id: number) => {
     try {
@@ -59,11 +46,16 @@ const Todo = () => {
     }
   };
 
+  // if todos.completed === true, push completed  
+  // todos toward the bottom
+
+
+
   // not deleting immediately, figure out why
   // works for now but may not be permanent
   const deleteHandler = async (id: number) => {
     deleteTodo(id);
-    loadedData.filter((todoData: todosObject) => todoData.id !== id);
+    todoData.filter((todoData: todosObject) => todoData.id !== id);
     window.location.reload();
     // setData(data.filter((todoData: todosObject) => todoData.id !== id));
   };
@@ -100,12 +92,9 @@ const Todo = () => {
                   alignContent='flex-end'
                   fontSize='lg'
                   pt={{base: '1em', sm: '1em'}}>
-                  <Checkbox 
-                  display='flex'
-                  justifyContent='flex-end' 
-                  mr='0.5em'
-                  onChange={completedTodo}
-                  ></Checkbox>
+                   <CompletedCheckBox 
+                   id={todos?.id} 
+                   setData={setTodoData}/>
                   <Text
                     fontWeight='800'
                   > {todos?.todaysDate}</Text>

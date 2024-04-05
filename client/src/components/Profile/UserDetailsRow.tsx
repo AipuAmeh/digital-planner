@@ -69,7 +69,6 @@ const UserDetailsRow = ({ field, value, username, setData}: Props) => {
         }
       )
       .then((response) => {
-        console.log("RESPONSE:", response.data);
         setData(response.data);
         toast({
             title: "Success!",
