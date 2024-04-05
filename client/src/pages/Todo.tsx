@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Spacer, Flex, Box, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Spacer, Flex, Box, Text, useBreakpointValue, Button, useBoolean } from "@chakra-ui/react";
 import axios from "axios";
 import { Card, CardHeader, CardBody, Stack} from '@chakra-ui/react'
 import React from "react";
@@ -7,16 +7,17 @@ import TodoModal from "../components/TodoModal";
 import { useLoaderData } from "react-router-dom";
 import EditTodoModal from "../components/EditTodoModal";
 import { DeleteIcon } from "@chakra-ui/icons";
-
+import CompletedCheckBox from "../components/Todo/CompletedCheckBox";
 // add full month calendar 
-// add media queries
-type todosObject = {
+
+export type todosObject = {
   id: number,
   todo: string,
   reflectionText: string
   todaysDate: any
   priority: string
   color: string
+  completed: boolean
 };
 
 const date = new Date().toDateString();
@@ -25,6 +26,10 @@ const Todo = () => {
   const data: any = useLoaderData();
   console.log('TODO LOADER DATA:', data.todos.data);
   const loadedData = data.todos.data;
+  const [todoData, setTodoData] = useState(loadedData)
+  const [completed, setCompleted] = useState([]);
+  const [flag, setFlag] = useBoolean()
+
   const headerMargin = useBreakpointValue({ base: '1.5em', sm: '1em', md: '2em', lg: '3em'});
   const style = {
     border: {
@@ -41,13 +46,32 @@ const Todo = () => {
     }
   };
 
+
+const completedTodos = [];
+for (let i = 0; i < loadedData.length; i++) {
+  if (loadedData[i].completed === true) {
+    completedTodos.push(loadedData[i]);
+  }
+}
+console.log('SHOULD SHOW NEW ARRAY:',completedTodos);
+completedTodos.forEach(item => {
+  const index = loadedData.indexOf(item);
+  if (index !== -1) {
+    todoData.splice(index, 1);
+  }
+});
+loadedData.push(...completedTodos);
+
+
+
   // not deleting immediately, figure out why
   // works for now but may not be permanent
   const deleteHandler = async (id: number) => {
     deleteTodo(id);
-    loadedData.filter((todoData: todosObject) => todoData.id !== id);
+    // todoData.filter((todoData: todosObject) => todoData.id !== id);
     window.location.reload();
-    // setData(data.filter((todoData: todosObject) => todoData.id !== id));
+    setTodoData(todoData.filter((todoData: todosObject) => todoData.id !== id));
+  
   };
 
   return (
@@ -82,6 +106,9 @@ const Todo = () => {
                   alignContent='flex-end'
                   fontSize='lg'
                   pt={{base: '1em', sm: '1em'}}>
+                   <CompletedCheckBox 
+                   id={todos?.id} 
+                   setData={setTodoData}/>
                   <Text
                     fontWeight='800'
                   > {todos?.todaysDate}</Text>
@@ -104,8 +131,8 @@ const Todo = () => {
           
                   gap='3'
                   flexDirection='row'
-                  justify='flex-end'
-                  mr='2em'
+                  justify={{base: 'center', sm: 'center', md:'flex-end', lg: 'flex-end'}}
+                  mr={{base: '0', sm: '0', md: '2em', lg: '2em'}}
                 >
                    <EditTodoModal id={todos?.id}/>
                     <DeleteIcon 

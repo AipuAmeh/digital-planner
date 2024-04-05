@@ -22,6 +22,16 @@ export class TodoController {
     return this.todoService.updateTodo(+id, updateTodoDto);
   }
 
+  @Patch('/mark-complete/:id')
+  markTaskAsComplete(@Param('id') id: string) {
+    return this.todoService.markTaskAsComplete(+id);
+  }
+
+  @Patch('/mark-incomplete/:id')
+  markTaskIncomplete(@Param('id') id: string) {
+    return this.todoService.markTaskIncomplete(+id);
+  }
+
   @Delete(':id')
   removeTodo(@Param('id') id: string) {
     return this.todoService.removeTodo(+id);

@@ -26,4 +26,7 @@ export class Todo {
 
   @Column()
   priority: string;
+
+  @Column({ default: false })
+  completed: boolean;
 }

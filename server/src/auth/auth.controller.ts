@@ -5,16 +5,12 @@ import {
   Get,
   UseGuards,
   Request,
-  Req,
-  Patch,
 } from '@nestjs/common';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { CreateTodoDto } from './dto/create-todo.dto';
-import { UpdateUserDto } from 'src/user/dto/update-user.dto';
 import { IsNotEmpty } from 'class-validator';
-// import { TodoService } from 'src/todo/todo.service';
 
 type LoginDTO = {
   username: string;
