@@ -46,8 +46,21 @@ const Todo = () => {
     }
   };
 
-  // if todos.completed === true, push completed  
-  // todos toward the bottom
+
+const completedTodos = [];
+for (let i = 0; i < loadedData.length; i++) {
+  if (loadedData[i].completed === true) {
+    completedTodos.push(loadedData[i]);
+  }
+}
+console.log('SHOULD SHOW NEW ARRAY:',completedTodos);
+completedTodos.forEach(item => {
+  const index = loadedData.indexOf(item);
+  if (index !== -1) {
+    todoData.splice(index, 1);
+  }
+});
+loadedData.push(...completedTodos);
 
 
 
@@ -55,9 +68,10 @@ const Todo = () => {
   // works for now but may not be permanent
   const deleteHandler = async (id: number) => {
     deleteTodo(id);
-    todoData.filter((todoData: todosObject) => todoData.id !== id);
+    // todoData.filter((todoData: todosObject) => todoData.id !== id);
     window.location.reload();
-    // setData(data.filter((todoData: todosObject) => todoData.id !== id));
+    setTodoData(todoData.filter((todoData: todosObject) => todoData.id !== id));
+  
   };
 
   return (
