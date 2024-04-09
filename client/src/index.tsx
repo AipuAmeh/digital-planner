@@ -6,12 +6,12 @@ import './index.css';
 import axios from 'axios';
 
 import App from './App';
+import Error from './pages/Error';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Todo from './pages/Todo';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
-// import { useToast } from '@chakra-ui/react'
 
 const router = createBrowserRouter([
 
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
 
     path: '/',
     element: <App />,
-    // create errorElement page
+    errorElement: <Error />,
     children: [
       {
         index: true,
@@ -37,7 +37,6 @@ const router = createBrowserRouter([
         path: '/profile',
         element: <Profile />,
         loader: async () => {
-          // const navigate = useNavigate();
           const token = localStorage.getItem('token');
           if (token) {
             try {
