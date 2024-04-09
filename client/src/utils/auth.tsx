@@ -1,4 +1,4 @@
-import { JwtHeader, JwtPayload, jwtDecode } from "jwt-decode";
+import { JwtPayload, jwtDecode } from "jwt-decode";
 
 class ClientAuthService {
   getToken() {
@@ -7,21 +7,27 @@ class ClientAuthService {
 
   loggedIn() {
     const jwtToken = this.getToken();
-    console.log(jwtToken);
-    // return token && !this.isTokenExpired(token) ? true : false;
+    return jwtToken && !this.isTokenExpired(jwtToken) ? true : false;
   }
 
   isTokenExpired(token:string) {
     const decoded = jwtDecode<JwtPayload>(token)
-    console.log('DECODED EXP',decoded.exp)
 
-    // if (decoded.exp < Date.now() / 1000) {
-    //   localStorage.removeItem("token");
-    //   return true;
-    // }
+    if (decoded && decoded.exp !== undefined) {
+      console.log('accessed.')
+    } else {
+      return console.error('exp undefined');
+    }
+    
+    if (decoded.exp < Date.now() / 1000) {
+      localStorage.removeItem("token");
+      return true;
+    } 
 
-    // return false;
+    return false;
   }
 }
 
-export default ClientAuthService;
+const authInstance = new ClientAuthService(); 
+
+export default authInstance;

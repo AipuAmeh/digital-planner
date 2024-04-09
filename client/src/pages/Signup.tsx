@@ -45,7 +45,7 @@ const Signup = () => {
             [name]: value,
         });
     };
-    // show password checklist once input is clicked
+    
     const showListOnClick = () => {
         setShowChecklist(true);
 
