@@ -14,10 +14,10 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react';
-import PasswordChecklist from "react-password-checklist";
+import  PasswordChecklistComp from '../components/Validation/PasswordChecklist';
 import React from 'react';
 
-export const isInvalidEmail = (email:string) => {
+export const isInvalidEmail = (email: string) => {
     const emailFormat = /\S+@\S+\.\S+/;
     if (email.match(emailFormat) && email.length > 0) {
         return false;
@@ -35,7 +35,7 @@ const Signup = () => {
         password: ''
     });
     const [show, setShow] = React.useState(false);
-
+    const [showChecklist, setShowChecklist] = useState(false);
     const handlePasswordClick = () => setShow(!show);
 
     const handleChange = (e: any) => {
@@ -45,11 +45,30 @@ const Signup = () => {
             [name]: value,
         });
     };
-// show password checklist once input is clicked
+    
+    const showListOnClick = () => {
+        setShowChecklist(true);
 
-    const handleClick = async () => {
+    };
+
+
+    const handleClick = async (e: any) => {
         try {
-            if (formState.username === "" || formState.email === "" || formState.password === " ") {
+            const { name } = e.target;
+            if (name === 'email') {
+                const invalidEmail = isInvalidEmail(formState.email);
+                if (invalidEmail) {
+                    toast({
+                        title: "Error",
+                        description: `Please enter a valid email.`,
+                        status: "error",
+                        duration: 2000,
+                        isClosable: true,
+                    });
+                    return;
+                }
+            }
+            else if (formState.username === "" || formState.email === "" || formState.password === " ") {
                 return toast({
                     title: 'Error',
                     description: 'Please create an account.',
@@ -131,25 +150,26 @@ const Signup = () => {
                             type={show ? 'text' : 'password'}
                             name="password"
                             value={formState.password}
-                            onChange={handleChange}/>
+                            onChange={handleChange}
+                            onClick={showListOnClick}
+                            mb={2}
+                        />
                         <InputRightElement width='4.5rem'>
-                            <Button 
-                            h='1.75rem' 
-                            size='sm' 
-                            backgroundColor='#371236'
-                            _hover={{ bg: '#F7F9F7', color: 'black' }}
-                            color='white' 
-                            onClick={handlePasswordClick}>
+                            <Button
+                                h='1.75rem'
+                                size='sm'
+                                backgroundColor='#371236'
+                                _hover={{ bg: '#F7F9F7', color: 'black' }}
+                                color='white'
+                                onClick={handlePasswordClick}>
                                 {show ? 'Hide' : 'Show'}
-                            
+
                             </Button>
                         </InputRightElement>
                     </InputGroup>
-                    <PasswordChecklist
-                            rules={["capital", "specialChar", "minLength", "number"]}
-                            minLength={8}
-                            value={formState.password}
-                        />
+                    { showChecklist ? 
+               <PasswordChecklistComp  password={formState.password} /> : false
+                    }
                     <Center>
                         <Button m={8}
                             size='lg'

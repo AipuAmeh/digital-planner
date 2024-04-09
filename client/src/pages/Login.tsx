@@ -33,7 +33,7 @@ const Login = () => {
             [name]: value,
         });
     };
-// ADD LOGIC FOR LOGGING OUT AUTOMATICALLY
+
     const handleClick = async () => {
         try {          
             if (formState.username === "" || formState.password === "") {

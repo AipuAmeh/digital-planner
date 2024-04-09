@@ -1,23 +1,17 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, useBreakpointValue } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
+import authInstance from "../utils/auth";
 const token = localStorage.getItem("token");
 
 const Header = () => {
     const navigate = useNavigate();
-
-    // make auth page for logging out upon expiration
-    // show tasks only on log in
-    // turn into hamburger for mobile
     const LogoutButton = () => {
         navigate("/");
         window.location.reload();
         localStorage.removeItem("token");
     };
 
-    // create context
-    // add loader data for header if token
-    // add way for logout to switch immediately upon login
     const isMobile = useBreakpointValue({ base: true, md: false, sm: false });
 
     return (
@@ -40,7 +34,7 @@ const Header = () => {
                             <MenuItem >
                                 <Link to="/profile">Profile</Link>
                             </MenuItem>
-                            {token ? (
+                            {authInstance.loggedIn() ? (
                                 <>
 
                                     <MenuItem >
