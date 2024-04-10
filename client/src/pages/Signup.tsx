@@ -36,6 +36,7 @@ const Signup = () => {
     });
     const [show, setShow] = React.useState(false);
     const [showChecklist, setShowChecklist] = useState(false);
+
     const handlePasswordClick = () => setShow(!show);
 
     const handleChange = (e: any) => {
@@ -48,7 +49,6 @@ const Signup = () => {
 
     const showListOnClick = () => {
         setShowChecklist(true);
-
     };
     // what type is e ??
     // React.MouseEvent<HTMLButtonElement> e 
@@ -67,7 +67,7 @@ const Signup = () => {
                     });
                     return;
                 }
-            }
+            } 
             else if (formState.username === "" || formState.email === "" || formState.password === " ") {
                 return toast({
                     title: 'Error',
