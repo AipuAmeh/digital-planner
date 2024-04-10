@@ -19,14 +19,14 @@ This week I am working on Manual and Spec testing.
 
 ## Installation
 
-# Cloning the Respository
+### Cloning the Respository
 To review my current work, start a new project in your visual studio code, or any similar code editor. Use `git clone [SSH URL]` and copy the url of my main branch and clone it into your local repository. 
 
 The SSH URL is found by clicking on the green `<> Code` button under the `<> Code` tab.
-# Forking the Repository
+### Forking the Repository
 You can also fork the respository by clicking the `Fork` button and following the instructions listed on the screen.
 
-### Running the Application
+## Running the Application
 
  - Once this branch is in your environment, create a .env file based off of the .envExample file for your own confidential secrets.
   
