@@ -7,7 +7,7 @@ Digital Planner is an interactive application that allows you to add daily tasks
 Follow along with me as I code! Visit my Trello board to stay up to date with the features that I am working on: [Trello Board](https://trello.com/b/Cu7Oloup/to-do-list)
 
 ## Built With
-### Server-Side 
+### Client-Side 
 - Vite
 - React
 - Typescript
