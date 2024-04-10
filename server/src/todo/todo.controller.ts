@@ -17,6 +17,11 @@ export class TodoController {
     return this.todoService.findOneTodo(+id);
   }
 
+  @Get('/find-user-projects/:id')
+  findUserProjects(@Param('id') id: string) {
+    return this.todoService.findUserProjects(+id);
+  }
+
   @Patch(':id')
   updateTodo(@Param('id') id: string, @Body() updateTodoDto: UpdateTodoDto) {
     return this.todoService.updateTodo(+id, updateTodoDto);
