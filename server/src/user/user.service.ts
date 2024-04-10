@@ -46,6 +46,9 @@ export class UserService {
     return await this.userRepository.findOne({ where: { username } });
   }
 
+  async findUserById(id: number) {
+    return await this.userRepository.findOne({ where: { id } });
+  }
   /**
    * this function is used to updated specific user whose id is passed in
    * parameter along with passed updated data

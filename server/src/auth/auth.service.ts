@@ -36,12 +36,18 @@ export class AuthService {
 
   async signup(CreateUserDto: CreateUserDto) {
     const hashedPassword = await this.hashPassword(CreateUserDto.password);
+    // make a route that is find by id to compare
+    const existingUser = await this.userService.findOneUser(
+      CreateUserDto.username,
+    );
     const user = await this.userService.createUser({
       email: CreateUserDto.email,
       username: CreateUserDto.username,
       password: hashedPassword,
     });
-    if (user) {
+    if (user === existingUser) {
+      throw new Error('user already exists.');
+    } else if (user) {
       const payload = { sub: user.id, username: user.username };
       return { access_token: await this.jwtService.signAsync(payload) };
     }
@@ -73,7 +79,7 @@ export class AuthService {
         password: user.password,
         email: user.email,
         username: user.username,
-        // id: user.id,
+        id: user.id,
       };
     }
   }

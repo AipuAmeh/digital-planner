@@ -14,7 +14,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react';
-import  PasswordChecklistComp from '../components/Validation/PasswordChecklist';
+import PasswordChecklistComp from '../components/Validation/PasswordChecklist';
 import React from 'react';
 
 export const isInvalidEmail = (email: string) => {
@@ -45,13 +45,13 @@ const Signup = () => {
             [name]: value,
         });
     };
-    
+
     const showListOnClick = () => {
         setShowChecklist(true);
 
     };
-
-
+    // what type is e ??
+    // React.MouseEvent<HTMLButtonElement> e 
     const handleClick = async (e: any) => {
         try {
             const { name } = e.target;
@@ -75,7 +75,18 @@ const Signup = () => {
                     status: 'error',
                     duration: 2000,
                 });;
-            } else {
+            }
+            else {
+                const existingUser = await axios.get("http://localhost:3001/user");
+                for (let i = 0; i < existingUser.data.length; i++) {
+                    if (existingUser.data[i].username === formState.username) {
+                        return toast({
+                            title: 'Error',
+                            description: 'Username already exists.',
+                            status: 'error'
+                        });
+                    }
+                }
                 const response = await axios.post("http://localhost:3001/auth/signup", {
                     username: formState.username,
                     email: formState.email,
@@ -96,9 +107,7 @@ const Signup = () => {
                     status: 'success',
                     duration: 2000,
                 })
-
-                navigate('/todo');
-                window.location.reload();
+                navigate('/profile');
             }
         } catch (error) {
             console.log(error);
@@ -167,8 +176,8 @@ const Signup = () => {
                             </Button>
                         </InputRightElement>
                     </InputGroup>
-                    { showChecklist ? 
-               <PasswordChecklistComp  password={formState.password} /> : false
+                    {showChecklist ?
+                        <PasswordChecklistComp password={formState.password} /> : false
                     }
                     <Center>
                         <Button m={8}

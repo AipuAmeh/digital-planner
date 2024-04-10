@@ -44,6 +44,8 @@ const Login = () => {
                     duration: 2000,
                 });
             } else {
+                // find existing user and if email is the same, throw error that says email already exists
+                // const existingUser = await axios.get("http://localhost:3001")
                 const response = await axios.post("http://localhost:3001/auth/login/", {
                     username: formState.username,
                     password: formState.password
