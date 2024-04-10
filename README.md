@@ -51,9 +51,7 @@ You can also fork the respository by clicking the `Fork` button and following th
  - Start both the Server and Client folders in the main terminal, by running
    ```sh
    npm run develop
-   ```
-  .
- - Navigate to [http://localhost:3000/](http://localhost:3000/) to view the homepage.
+      ```
  - (!! IMPORTANT !!) Make sure to create a `.env` file in the server folder of your project. Use the `.envEXAMPLE` as a template for your database name, username, password, personal port, and a random password for your JWT secret.
 
 ## Usage
