@@ -3,9 +3,9 @@ import { Spacer, Flex, Box, Text, useBreakpointValue, Button, useBoolean } from 
 import axios from "axios";
 import { Card, CardHeader, CardBody, Stack} from '@chakra-ui/react'
 import React from "react";
-import TodoModal from "../components/TodoModal";
+import TodoModal from "../components/Todo/TodoModal";
 import { useLoaderData } from "react-router-dom";
-import EditTodoModal from "../components/EditTodoModal";
+import EditTodoModal from "../components/Todo/EditTodoModal";
 import { DeleteIcon } from "@chakra-ui/icons";
 import CompletedCheckBox from "../components/Todo/CompletedCheckBox";
 // add full month calendar 
@@ -27,8 +27,6 @@ const Todo = () => {
   console.log('TODO LOADER DATA:', data.todos.data);
   const loadedData = data.todos.data;
   const [todoData, setTodoData] = useState(loadedData)
-  const [completed, setCompleted] = useState([]);
-  const [flag, setFlag] = useBoolean()
 
   const headerMargin = useBreakpointValue({ base: '1.5em', sm: '1em', md: '2em', lg: '3em'});
   const style = {

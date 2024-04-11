@@ -2,11 +2,11 @@ import {
   IsAlphanumeric,
   IsEmail,
   IsNotEmpty,
+  IsStrongPassword,
   MinLength,
 } from 'class-validator';
 import * as sanitizeHtml from 'sanitize-html';
 import { Transform } from 'class-transformer';
-// think about password matching
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -22,5 +22,11 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @MinLength(8, { message: 'Password must be a minimum of 8 characters.' })
+  @IsStrongPassword({
+    minLowercase: 1,
+    minNumbers: 1,
+    minSymbols: 1,
+    minUppercase: 1,
+  })
   password: string;
 }
