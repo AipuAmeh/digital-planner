@@ -20,7 +20,8 @@ describe('UserService', () => {
         {
           provide: getRepositoryToken(User),
           useValue: mockUserRepository,
-      }],
+        },
+      ],
     }).compile();
 
     service = module.get<UserService>(UserService);
@@ -96,7 +97,7 @@ describe('UserService', () => {
       password: 'Password*12',
     };
 
-    jest.spyOn(mockUserRepository,'save').mockReturnValue(user);
+    jest.spyOn(mockUserRepository, 'save').mockReturnValue(user);
     const result = await service.createUser(createUserDto);
     expect(result).toEqual(user);
     expect(mockUserRepository.save).toHaveBeenCalled();
@@ -111,7 +112,7 @@ describe('UserService', () => {
       email: 'aameh@test.com',
       password: 'Password*12',
     };
-    jest.spyOn(mockUserRepository,'delete').mockReturnValue(user);
+    jest.spyOn(mockUserRepository, 'delete').mockReturnValue(user);
     const result = await service.removeUser(id);
     expect(result).toEqual(user);
     expect(mockUserRepository.delete).toHaveBeenCalled();
