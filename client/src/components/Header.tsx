@@ -66,7 +66,7 @@ const Header = () => {
                         <Link to="/">Home</Link>
                     </h2>
                     <Box>
-                        {token ? (
+                        {authInstance.loggedIn() ? (
                             <Box display='flex' gap={5}>
                                 <h2 onClick={LogoutButton}>
                                     {" "}

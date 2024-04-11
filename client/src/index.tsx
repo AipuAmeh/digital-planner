@@ -61,7 +61,6 @@ const router = createBrowserRouter([
               return redirect('/login');
             }
           } else {
-            console.log('NO TOKEN');
             return redirect('/signup');
           }
         },
@@ -75,7 +74,7 @@ const router = createBrowserRouter([
             const user = await axios.get("http://localhost:3001/auth/user-todos", {
               headers: { Authorization: `Bearer ${token}` }
             });
-            const todos = await axios.get("http://localhost:3001/todo", {
+            const todos = await axios.get(`http://localhost:3001/todo/find-user-projects/${user.data.id}`, {
               headers: { Authorization: `Bearer ${token}` }
             });
             return { user, todos };

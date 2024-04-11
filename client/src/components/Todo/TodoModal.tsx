@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Checkbox, Flex, FormControl, FormLabel, Input, Spacer, useDisclosure } from "@chakra-ui/react";
+import { Checkbox, Flex, FormControl, FormLabel, Input, Spacer, useDisclosure, useToast } from "@chakra-ui/react";
 import { Textarea } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import axios from "axios";
 import { Modal, ModalOverlay, ModalContent, ModalCloseButton } from '@chakra-ui/react'
-
+import { useFormControl } from '@chakra-ui/react';
 import React from "react";
 // const date = new Date().toDateString();
 // fix modal size on smaller screens
@@ -26,9 +26,8 @@ function TodoModal() {
   const [todoInput, setTodoInput] = useState('');
   const [reflection, setReflection] = useState('');
   const [priority, setPriority] = useState('');
-
-
   const [data, setData] = useState<todosObject[]>([]);
+  // const
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -90,7 +89,7 @@ function TodoModal() {
           w='65%'
           pt="5em"
             className="todo-card">
-            <FormLabel>Todo Task</FormLabel>
+            <FormLabel>Task</FormLabel>
             <Input
               className="input"
               placeholder="What do you want to do..."
@@ -99,7 +98,8 @@ function TodoModal() {
               value={todoInput}
               onChange={handleChange}
             />
-            <FormLabel mt={4}>Intentions</FormLabel>
+            <FormLabel 
+            mt={4}>Intentions</FormLabel>
             <Textarea
               className="todo-text-area"
               placeholder="Why do you want to do it..."
@@ -137,14 +137,13 @@ function TodoModal() {
             </Flex>
             <Center>
               <Button
-                width='200px'
                 mt="20px"
                 
                 className="save-todo"
                 backgroundColor='#371236' 
                 _hover={{ bg: '#F7F9F7', color: 'black' }}
                 color='white'
-                size="lg"
+                size="md"
                 type="button"
                 onClick={handleClick}
               >
