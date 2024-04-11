@@ -16,16 +16,8 @@ const completedTodo = async () => {
    )
    .then((response) => {
     console.log('RESPONSE:', response.data);
-    // newArray.map to show all the completed
-    // const newArray = [];
-    // newArray.push(response.data);
-    // console.log(newArray);
     setData(response.data);
     window.location.reload();
-    //     // move completed cards to separate 
-    //     // page 
-    //     // show toggle for todo and completed
-
 
    })
    .catch((error) => {

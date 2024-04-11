@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Spacer, Flex, Box, Text, useBreakpointValue, Button, useBoolean } from "@chakra-ui/react";
+import { Spacer, Flex, Box, Text, useBreakpointValue, } from "@chakra-ui/react";
 import axios from "axios";
 import { Card, CardHeader, CardBody, Stack} from '@chakra-ui/react'
 import React from "react";
@@ -8,7 +8,6 @@ import { useLoaderData } from "react-router-dom";
 import EditTodoModal from "../components/Todo/EditTodoModal";
 import { DeleteIcon } from "@chakra-ui/icons";
 import CompletedCheckBox from "../components/Todo/CompletedCheckBox";
-// add full month calendar 
 
 export type todosObject = {
   id: number,
@@ -24,7 +23,6 @@ const date = new Date().toDateString();
 
 const Todo = () => {
   const data: any = useLoaderData();
-  console.log('TODO LOADER DATA:', data.todos.data);
   const loadedData = data.todos.data;
   const [todoData, setTodoData] = useState(loadedData)
 
@@ -51,7 +49,7 @@ for (let i = 0; i < loadedData.length; i++) {
     completedTodos.push(loadedData[i]);
   }
 }
-console.log('SHOULD SHOW NEW ARRAY:',completedTodos);
+
 completedTodos.forEach(item => {
   const index = loadedData.indexOf(item);
   if (index !== -1) {
