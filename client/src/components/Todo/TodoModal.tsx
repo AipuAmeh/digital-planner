@@ -16,7 +16,11 @@ type todosObject = {
   color: string
 };
 
-function TodoModal() {
+type Props = {
+setCurrentData: React.Dispatch<React.SetStateAction<todosObject>>
+}
+
+function TodoModal({ setCurrentData} : Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -24,7 +28,6 @@ function TodoModal() {
   const [todoInput, setTodoInput] = useState('');
   const [reflection, setReflection] = useState('');
   const [priority, setPriority] = useState('');
-  const [data, setData] = useState<todosObject[]>([]);
   const [error, setError] = useState(false);
 
   const handleChange = (e: any) => {
@@ -53,11 +56,11 @@ function TodoModal() {
         headers: { Authorization: `Bearer ${token}` }
       });
       console.log('RESPONSE DATA:', response.data);
-
+      setCurrentData(response.data);
       setTodoInput('');
       setReflection('');
       window.location.reload();
-      setData([...data, response.data]);
+  
 
 
     } catch (error) {

@@ -28,7 +28,6 @@ const Profile = () => {
   const width = useBreakpointValue({ base: '80%', sm: '80%', md: '80%', lg: '60%'})
   const loaderData = useLoaderData() as LoaderData;
   const userData = loaderData.user;
-  console.log(userData);
   const verse = loaderData.verseData;
   const [data, setData] = useState(userData);
 

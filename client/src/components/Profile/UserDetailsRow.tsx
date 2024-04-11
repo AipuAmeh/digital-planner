@@ -3,7 +3,7 @@ import { Box, IconButton, Input, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 import { isInvalidEmail } from "../../pages/Signup";
-import { useToast,  useBreakpointValue  } from "@chakra-ui/react";
+import { useToast, useBreakpointValue } from "@chakra-ui/react";
 import { Data } from "../../pages/Profile";
 
 type Props = {
@@ -13,12 +13,13 @@ type Props = {
   setData: React.Dispatch<React.SetStateAction<Data>>
 };
 
-const UserDetailsRow = ({ field, value, username, setData}: Props) => {
+const UserDetailsRow = ({ field, value, username, setData }: Props) => {
   const toast = useToast();
   const [updateField, setUpdates] = useState(false);
   const [valueState, setValueState] = useState(value);
   const [error, setError] = useState(false);
   const fontSize = useBreakpointValue({ base: 'sm', sm: 'md', md: 'lg', lg: 'lg' });
+  const iconSize = useBreakpointValue({ base: 'xs', sm: 'xs', md: 'sm', lg: 'sm'});
 
   const onChange = (e: any) => {
     setValueState(e.target.value);
@@ -40,35 +41,31 @@ const UserDetailsRow = ({ field, value, username, setData}: Props) => {
           isClosable: true,
         });
         return;
-      } 
+      }
     } else {
-        if (valueState === '') {
-            toast({
-                title: "Error",
-                description: `Please enter a value.`,
-                status: "error",
-                duration: 2000,
-                isClosable: true,
-              });
-              return;
-        } else {
-          const existingUser = await axios.get("http://localhost:3001/user");
-          console.log(existingUser);
-          for (let i = 0; i < existingUser.data.length; i++) {
-            if (existingUser.data[i].username === valueState) {
-              setError(true);
-              return toast({
-                title: 'Error',
-                description: 'Username already exists.',
-                status: 'error'
-              });
-            } 
-          } 
+      if (valueState === '') {
+        toast({
+          title: "Error",
+          description: `Please enter a value.`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        return;
+      } else {
+        const existingUser = await axios.get("http://localhost:3001/user");
+        for (let i = 0; i < existingUser.data.length; i++) {
+          if (existingUser.data[i].username === valueState) {
+            setError(true);
+            return toast({
+              title: 'Error',
+              description: 'Username already exists.',
+              status: 'error'
+            });
+          }
         }
-    } 
-
-
-    
+      }
+    }
     const token = localStorage.getItem("token");
 
     setUpdates(!updateField);
@@ -87,23 +84,22 @@ const UserDetailsRow = ({ field, value, username, setData}: Props) => {
       .then((response) => {
         setData(response.data);
         toast({
-            title: "Success!",
-            description: `Successfully updated account details.`,
-            status: "success",
-            duration: 2000,
-            isClosable: true,
-          });
+          title: "Success!",
+          description: `Successfully updated account details.`,
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
       }).catch((error) => {
         console.log(error);
         toast({
-            title: "Error",
-            description: `Please review your values and try again.`,
-            status: "error",
-            duration: 2000,
-            isClosable: true,
-          });
+          title: "Error",
+          description: `Please review your values and try again.`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
       })
-
   };
 
   return (
@@ -132,7 +128,7 @@ const UserDetailsRow = ({ field, value, username, setData}: Props) => {
       <IconButton
         aria-label="Edit Username"
         icon={updateField ? <CheckIcon /> : <EditIcon />}
-        size="sm"
+        size={iconSize}
         onClick={updateField ? onClickCheck : onClickEdit}
       />
     </Box>

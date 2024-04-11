@@ -106,6 +106,7 @@ const Signup = () => {
                     description: `Welcome ${formState.username}!`,
                     status: 'success',
                     duration: 2000,
+                    isClosable: true,
                 })
                 navigate('/profile');
             }
