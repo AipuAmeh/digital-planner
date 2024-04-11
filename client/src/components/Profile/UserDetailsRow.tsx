@@ -17,6 +17,7 @@ const UserDetailsRow = ({ field, value, username, setData}: Props) => {
   const toast = useToast();
   const [updateField, setUpdates] = useState(false);
   const [valueState, setValueState] = useState(value);
+  const [error, setError] = useState(false);
   const fontSize = useBreakpointValue({ base: 'sm', sm: 'md', md: 'lg', lg: 'lg' });
 
   const onChange = (e: any) => {
@@ -27,7 +28,7 @@ const UserDetailsRow = ({ field, value, username, setData}: Props) => {
     setUpdates(!updateField);
   };
 
-  const onClickCheck = () => {
+  const onClickCheck = async () => {
     if (field === "Email") {
       const invalidEmail = isInvalidEmail(valueState);
       if (invalidEmail) {
@@ -50,9 +51,24 @@ const UserDetailsRow = ({ field, value, username, setData}: Props) => {
                 isClosable: true,
               });
               return;
+        } else {
+          const existingUser = await axios.get("http://localhost:3001/user");
+          console.log(existingUser);
+          for (let i = 0; i < existingUser.data.length; i++) {
+            if (existingUser.data[i].username === valueState) {
+              setError(true);
+              return toast({
+                title: 'Error',
+                description: 'Username already exists.',
+                status: 'error'
+              });
+            } 
+          } 
         }
-    }
+    } 
 
+
+    
     const token = localStorage.getItem("token");
 
     setUpdates(!updateField);
@@ -87,6 +103,7 @@ const UserDetailsRow = ({ field, value, username, setData}: Props) => {
             isClosable: true,
           });
       })
+
   };
 
   return (
@@ -102,6 +119,7 @@ const UserDetailsRow = ({ field, value, username, setData}: Props) => {
             h="32px"
             onChange={onChange}
             type={field === "Password" ? "password" : "text"}
+            borderColor={error ? 'crimson' : 'grey'}
           />
         </>
       ) : (

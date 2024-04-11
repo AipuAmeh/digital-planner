@@ -1,4 +1,9 @@
-import { IsAlphanumeric, IsEmail, MinLength } from 'class-validator';
+import {
+  IsAlphanumeric,
+  IsEmail,
+  MinLength,
+  IsStrongPassword,
+} from 'class-validator';
 import * as sanitizeHtml from 'sanitize-html';
 import { Transform } from 'class-transformer';
 
@@ -13,5 +18,11 @@ export class UpdateUserDto {
   username: string;
 
   @MinLength(8, { message: 'Password must be a minimum of 8 characters.' })
+  @IsStrongPassword({
+    minLowercase: 1,
+    minNumbers: 1,
+    minSymbols: 1,
+    minUppercase: 1,
+  })
   password: string;
 }
