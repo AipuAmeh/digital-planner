@@ -90,7 +90,7 @@ const Login = () => {
 
     return (
         <Stack>
-              <Text mx='auto' pt='3em' fontSize='3xl'>Log in to your Account</Text>
+              <Text mx='auto' pt='3em' fontSize='3xl' className='verse'>Log in to your Account</Text>
             <Center>
               
                 <FormControl isRequired

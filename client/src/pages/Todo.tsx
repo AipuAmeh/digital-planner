@@ -75,7 +75,7 @@ loadedData.push(...completedTodos);
 
       <Text
         className="verse"
-        fontSize='2xl'
+        fontSize='3xl'
         mt={headerMargin}
         mb='2em'>{date}</Text>
 

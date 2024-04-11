@@ -123,7 +123,7 @@ const Signup = () => {
 
     return (
         <Stack>
-            <Text mx='auto' pt='3em' fontSize='3xl'>Create an Account</Text>
+            <Text mx='auto' pt='3em' fontSize='3xl' className='verse'>Create an Account</Text>
             <Center>
                 <FormControl isRequired
                     display="flex"

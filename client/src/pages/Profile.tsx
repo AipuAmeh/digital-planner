@@ -34,8 +34,11 @@ const Profile = () => {
   return (
     <Box>
       <Center display='flex' flexDirection='column'>
-        <Text mt={headerMargin} fontSize='3xl'>My Profile</Text>
-        <Text fontSize={fontSize} py='2em' px='3em' pb={versePadding} className="verse" noOfLines={[1, 2, 3]} flex={2} overflow={"hidden"}  >{verse}</Text>
+        <Text mt={headerMargin} 
+         className='verse'fontSize='3xl'>My Profile</Text>
+        <Text 
+       
+        fontSize={fontSize} py='2em' px='3em' pb={versePadding} noOfLines={[1, 2, 3]} flex={2} overflow={"hidden"}  >{verse}</Text>
         
 <Box  display='flex' className='account-details' w={width} gap={8} m="0 auto" py={accountPadding} >
   <Box>
