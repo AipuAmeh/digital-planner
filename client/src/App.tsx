@@ -7,12 +7,19 @@ import { Box } from "@chakra-ui/react";
 
 function App() {
   return (
-    <Box bgGradient='linear(to-l, #CEBACF, #B0A3D4)' h='100vh'>
+    <Box 
+    bgGradient='linear(to-l, #CEBACF, #B0A3D4)' 
+    minHeight='100vh'
+    position='relative'
+    >
       <Header />
       <Box bgGradient='linear(to-l, #CEBACF, #B0A3D4)'>
-      <main>
-      <Outlet />
-    </main>
+        <Box
+        as='main'
+        pb='16'
+        >
+    <Outlet />
+        </Box>
       </Box>
 
       <Footer />

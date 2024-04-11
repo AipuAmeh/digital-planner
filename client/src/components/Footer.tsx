@@ -1,21 +1,17 @@
 import { Text, Center, Box } from '@chakra-ui/react'
-
-const styles = {
-    border: {
-        border: 'solid 2px',
-    },
     
-}
-// figure out way to get footer to bottom of page
 const Footer = () => {
     return (
-        <Box style={styles.border}>
-        <footer>
+        <Box 
+        as='footer'
+        position="fixed"
+        bottom="0"
+        left="0"
+        width="100%"
+        >
             <Center bgGradient='linear(to-l, #CEBACF, #B0A3D4)' >
             <Text>© 2024 ABA Creations</Text>
             </Center>
-          
-        </footer>
         </Box>
 
     )

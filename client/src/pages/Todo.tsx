@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Spacer, Flex, Box, Text, useBreakpointValue, Button, useBoolean } from "@chakra-ui/react";
+import { Spacer, Flex, Box, Text, useBreakpointValue, } from "@chakra-ui/react";
 import axios from "axios";
 import { Card, CardHeader, CardBody, Stack} from '@chakra-ui/react'
 import React from "react";
@@ -8,7 +8,7 @@ import { useLoaderData } from "react-router-dom";
 import EditTodoModal from "../components/Todo/EditTodoModal";
 import { DeleteIcon } from "@chakra-ui/icons";
 import CompletedCheckBox from "../components/Todo/CompletedCheckBox";
-// add full month calendar 
+
 
 export type todosObject = {
   id: number,
@@ -20,14 +20,16 @@ export type todosObject = {
   completed: boolean
 };
 
+
+
 const date = new Date().toDateString();
 
 const Todo = () => {
   const data: any = useLoaderData();
-  console.log('TODO LOADER DATA:', data.todos.data);
   const loadedData = data.todos.data;
+  console.log('LOADER DATA', loadedData)
   const [todoData, setTodoData] = useState(loadedData)
-
+  console.log('LOADED DATA FROM USE STATE', todoData);
   const headerMargin = useBreakpointValue({ base: '1.5em', sm: '1em', md: '2em', lg: '3em'});
   const style = {
     border: {
@@ -38,22 +40,27 @@ const Todo = () => {
   const deleteTodo = async (id: number) => {
     try {
       const response = await axios.delete(`http://localhost:3001/todo/${id}`);
-      console.log(response.data);
+      console.log('DELETE RESPONSE:', response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
-
+  const deleteHandler = async (id: number) => {
+    deleteTodo(id);
+    setTodoData(loadedData.filter((todoData: todosObject) => todoData.id !== id));
+    window.location.reload();
+  };
+// when checkbox is clicked, task is 
+// pushed to end of task array
 const completedTodos = [];
-for (let i = 0; i < loadedData.length; i++) {
-  if (loadedData[i].completed === true) {
-    completedTodos.push(loadedData[i]);
+for (let i = 0; i < todoData.length; i++) {
+  if (todoData[i].completed === true) {
+    completedTodos.push(todoData[i]);
   }
 }
-console.log('SHOULD SHOW NEW ARRAY:',completedTodos);
 completedTodos.forEach(item => {
-  const index = loadedData.indexOf(item);
+  const index = todoData.indexOf(item);
   if (index !== -1) {
     todoData.splice(index, 1);
   }
@@ -62,26 +69,16 @@ loadedData.push(...completedTodos);
 
 
 
-  // not deleting immediately, figure out why
-  // works for now but may not be permanent
-  const deleteHandler = async (id: number) => {
-    deleteTodo(id);
-    // todoData.filter((todoData: todosObject) => todoData.id !== id);
-    window.location.reload();
-    setTodoData(todoData.filter((todoData: todosObject) => todoData.id !== id));
-  
-  };
-
   return (
     <Box className="App">
 
       <Text
         className="verse"
-        fontSize='2xl'
+        fontSize='3xl'
         mt={headerMargin}
         mb='2em'>{date}</Text>
 
-      <TodoModal />
+      <TodoModal setCurrentData={setTodoData}/>
     
       <Stack
         className="rendered-todos"
