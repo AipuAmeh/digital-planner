@@ -6,9 +6,6 @@ import { User } from 'src/user/entities/user.entity';
 
 @Entity()
 export class Todo {
-  /**
-   * this decorator will help to auto generate id for the table.
-   */
   @PrimaryGeneratedColumn()
   id: number;
 

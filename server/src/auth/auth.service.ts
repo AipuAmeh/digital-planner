@@ -36,7 +36,6 @@ export class AuthService {
 
   async signup(CreateUserDto: CreateUserDto) {
     const hashedPassword = await this.hashPassword(CreateUserDto.password);
-    // make a route that is find by id to compare
     const existingUser = await this.userService.findOneUser(
       CreateUserDto.username,
     );

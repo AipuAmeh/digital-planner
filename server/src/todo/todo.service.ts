@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-// import { CreateTodoDto } from '../auth/dto/create-todo.dto';
 import { UpdateTodoDto } from '../auth/dto/update-todo.dto';
 import { Todo } from './entities/todo.entity';
 
@@ -58,7 +57,6 @@ export class TodoService {
     return this.todoRepository.save(todo);
   }
 
-  // markTaskAsUncomplete for returning it back to false??
   async markTaskIncomplete(id: number) {
     const todo = await this.findOneTodo(id);
     if (!todo) {

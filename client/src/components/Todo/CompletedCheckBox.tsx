@@ -1,6 +1,5 @@
 import { Checkbox } from "@chakra-ui/react";
 import axios from "axios";
-import { useState } from "react";
 import { todosObject } from "../../pages/Todo";
 
 type Props = {

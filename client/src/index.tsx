@@ -61,7 +61,6 @@ const router = createBrowserRouter([
               return redirect('/login');
             }
           } else {
-            console.log('NO TOKEN');
             return redirect('/signup');
           }
         },
@@ -75,12 +74,9 @@ const router = createBrowserRouter([
             const user = await axios.get("http://localhost:3001/auth/user-todos", {
               headers: { Authorization: `Bearer ${token}` }
             });
-// getting all the todos, instead of the todos associated with the specific user
             const todos = await axios.get(`http://localhost:3001/todo/find-user-projects/${user.data.id}`, {
               headers: { Authorization: `Bearer ${token}` }
             });
-            console.log('USER:', user)
-            console.log('USERS TODOS', todos);
             return { user, todos };
           } catch (error) {
             console.error(error);

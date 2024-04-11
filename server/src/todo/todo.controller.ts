@@ -1,6 +1,5 @@
 import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
 import { TodoService } from './todo.service';
-// import { CreateTodoDto } from '../auth/dto/create-todo.dto';
 import { UpdateTodoDto } from '../auth/dto/update-todo.dto';
 
 @Controller('todo')
