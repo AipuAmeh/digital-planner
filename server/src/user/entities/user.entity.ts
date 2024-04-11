@@ -1,11 +1,8 @@
-import { Todo } from 'src/todo/entities/todo.entity';
+import { Todo } from '../../todo/entities/todo.entity';
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class User {
-  /**
-   * this decorator will help to auto generate id for the table.
-   */
   @PrimaryGeneratedColumn()
   id: number;
 
