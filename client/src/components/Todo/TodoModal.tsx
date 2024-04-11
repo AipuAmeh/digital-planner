@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { Checkbox, Flex, FormControl, FormLabel, Input, Spacer, useDisclosure, useToast } from "@chakra-ui/react";
+import { Checkbox, Flex, FormControl, FormLabel, Input, Spacer, useDisclosure, Radio, RadioGroup } from "@chakra-ui/react";
 import { Textarea } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Center } from "@chakra-ui/react";
 import axios from "axios";
 import { Modal, ModalOverlay, ModalContent, ModalCloseButton } from '@chakra-ui/react'
-import { useFormControl } from '@chakra-ui/react';
 import React from "react";
-// const date = new Date().toDateString();
-// fix modal size on smaller screens
+
 type todosObject = {
   id: number,
   todo: string,
@@ -27,25 +25,26 @@ function TodoModal() {
   const [reflection, setReflection] = useState('');
   const [priority, setPriority] = useState('');
   const [data, setData] = useState<todosObject[]>([]);
-  // const
+  const [error, setError] = useState(false);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     return name === 'todo' ? setTodoInput(value) : setReflection(value);
   };
 
-  const handlePriorityChange = (e:any) => {
-    const {name,  value } = e.target;
-
-    if (name === value) {
-      return setPriority(value);
-    }
+  const handlePriorityChange = (priority: string) => {
+    setPriority(priority);
 
   };
 
   const handleClick = async () => {
     const token = localStorage.getItem('token');
     try {
+      if (reflection.trim() === '') {
+        setError(true);
+      } else {
+        setError(false);
+      }
       const response = await axios.post("http://localhost:3001/auth/create-todo", {
         todo: todoInput,
         reflectionText: reflection,
@@ -54,6 +53,7 @@ function TodoModal() {
         headers: { Authorization: `Bearer ${token}` }
       });
       console.log('RESPONSE DATA:', response.data);
+
       setTodoInput('');
       setReflection('');
       window.location.reload();
@@ -107,33 +107,38 @@ function TodoModal() {
               value={reflection}
               onChange={handleChange}
             />
+             {error && <p style={{ color: 'red' }}>Be Intentional!</p>}
             <Spacer />
             <Flex flexDirection='column'>
             <FormLabel mt={4}>Priority</FormLabel>
-            <Checkbox 
+            <RadioGroup
+            display='flex'
+            flexDirection='column'
+            onChange={handlePriorityChange}
+            value={priority}
+            >    
+            <Radio 
             size='md'
             name='Extremely Important!' 
             value="Extremely Important!"   
-            onChange={handlePriorityChange}
             >
     Extremely Important!
-  </Checkbox>
-  <Checkbox 
+  </Radio>
+  <Radio 
   size='md'
   name='Coming soon.' 
   value="Coming soon."
-  onChange={handlePriorityChange}
   >
     Coming soon.
-  </Checkbox>
-  <Checkbox 
+  </Radio>
+  <Radio 
   size='md'
   name='Not Urgent.' 
   value="Not Urgent."
-  onChange={handlePriorityChange}
   >
     Not Urgent.
-  </Checkbox>
+  </Radio>
+  </RadioGroup>
             </Flex>
             <Center>
               <Button
