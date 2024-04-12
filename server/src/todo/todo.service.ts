@@ -57,6 +57,7 @@ export class TodoService {
     return this.todoRepository.save(todo);
   }
 
+  // only used for Postman - not currently being used
   async markTaskIncomplete(id: number) {
     const todo = await this.findOneTodo(id);
     if (!todo) {
