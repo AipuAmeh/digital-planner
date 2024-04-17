@@ -36,16 +36,13 @@ You can also fork the respository by clicking the `Fork` button and following th
 
  - Once this branch is in your environment, create a .env file based off of the .envExample file for your own confidential secrets.
 ### Client Side
-    - Navigate into the folder titled
-   `client`
-    and run
+    - Navigate into the folder titled `client` and run
    ```sh
    npm install
    ```
 ### Server Side
     - Navigate into the folder titled
-   `server`
-   and run
+   `server` and run
    ```sh
    npm install
    ```
