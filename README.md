@@ -41,18 +41,9 @@ You can also fork the respository by clicking the `Fork` button and following th
    npm install
    ```
 ### Server Side
-    - Navigate into the folder titled
-   `server` and run
-   ```sh
-   npm install
-   ```
-    - Run 
-       ```
-   npm run build
-   ```
-   - Run Migrations with: ```
-   npm run migration:run
-   ```
+   Navigate into the folder title `server` and run ```npm install```
+    - Run ```npm run build ```
+   - Run Migrations with: ```npm run migration:run```
  - Start both the Server and Client folders in the main terminal, by running
    ```sh
    npm run develop
