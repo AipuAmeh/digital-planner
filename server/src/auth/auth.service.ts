@@ -26,7 +26,7 @@ export class AuthService {
         access_token: await this.jwtService.signAsync(payload),
       };
     } else {
-      console.log('user does not exist');
+      throw new Error('user does not exist');
     }
   }
 
@@ -70,7 +70,6 @@ export class AuthService {
 
   async getUser(username: string) {
     const user = await this.userService.findOneUser(username);
-    console.log(user);
     if (user == null) {
       throw new UnauthorizedException();
     } else {

@@ -15,13 +15,12 @@ const completedTodo = async () => {
     `http://localhost:3001/todo/mark-complete/${id}`
    )
    .then((response) => {
-    console.log('RESPONSE:', response.data);
     setData(response.data);
     window.location.reload();
 
    })
    .catch((error) => {
-    console.log(error);
+    console.error(error);
    })
   
     };

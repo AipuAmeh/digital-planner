@@ -7,7 +7,8 @@ import TodoModal from "../components/Todo/TodoModal";
 import { useLoaderData } from "react-router-dom";
 import EditTodoModal from "../components/Todo/EditTodoModal";
 import { DeleteIcon } from "@chakra-ui/icons";
-import CompletedCheckBox from "../components/Todo/CompletedCheckBox";
+// commenting out checkbox until working again
+// import CompletedCheckBox from "../components/Todo/CompletedCheckBox";
 
 
 export type todosObject = {
@@ -27,9 +28,7 @@ const date = new Date().toDateString();
 const Todo = () => {
   const data: any = useLoaderData();
   const loadedData = data.todos.data;
-  console.log('LOADER DATA', loadedData)
   const [todoData, setTodoData] = useState(loadedData)
-  console.log('LOADED DATA FROM USE STATE', todoData);
   const headerMargin = useBreakpointValue({ base: '1.5em', sm: '1em', md: '2em', lg: '3em'});
   const style = {
     border: {
@@ -40,7 +39,7 @@ const Todo = () => {
   const deleteTodo = async (id: number) => {
     try {
       const response = await axios.delete(`http://localhost:3001/todo/${id}`);
-      console.log('DELETE RESPONSE:', response.data);
+      return response.data;
     } catch (error) {
       console.error(error);
     }
@@ -66,8 +65,6 @@ completedTodos.forEach(item => {
   }
 });
 loadedData.push(...completedTodos);
-
-
 
   return (
     <Box className="App">
@@ -101,9 +98,9 @@ loadedData.push(...completedTodos);
                   alignContent='flex-end'
                   fontSize='lg'
                   pt={{base: '1em', sm: '1em'}}>
-                   <CompletedCheckBox 
+                   {/* <CompletedCheckBox 
                    id={todos?.id} 
-                   setData={setTodoData}/>
+                   setData={setTodoData}/> */}
                   <Text
                     fontWeight='800'
                   > {todos?.todaysDate}</Text>

@@ -85,6 +85,12 @@ const Signup = () => {
                             description: 'Username already exists.',
                             status: 'error'
                         });
+                    } else if (existingUser.data[i].email === formState.email) {
+                        return toast({
+                            title: 'Error',
+                            description: 'Email already exists.',
+                            status: 'error'
+                        });
                     }
                 }
                 const response = await axios.post("http://localhost:3001/auth/signup", {
@@ -92,8 +98,6 @@ const Signup = () => {
                     email: formState.email,
                     password: formState.password
                 })
-
-                console.log('MY RESPONSE', response);
                 const token = response.data.access_token;
                 localStorage.setItem('token', token);
                 setFormState({
@@ -111,8 +115,7 @@ const Signup = () => {
                 navigate('/profile');
             }
         } catch (error) {
-            console.log(error);
-            console.log(formState);
+            console.error(error);
             toast({
                 title: 'Error',
                 description: 'Unable to create an account.',
