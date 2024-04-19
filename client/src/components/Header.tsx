@@ -2,7 +2,6 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, useBreakpointValue } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import authInstance from "../utils/auth";
-const token = localStorage.getItem("token");
 
 const Header = () => {
     const navigate = useNavigate();

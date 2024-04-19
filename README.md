@@ -35,23 +35,15 @@ You can also fork the respository by clicking the `Fork` button and following th
 ## Running the Application
 
  - Once this branch is in your environment, create a .env file based off of the .envExample file for your own confidential secrets.
-  
- - Navigate into the folder titled
-   `client`
-    and run
-   ```sh
-   npm install
-   ```
- - Navigate into the folder titled
-   `server`
-   and run
-   ```sh
-   npm install
-   ```
- - Start both the Server and Client folders in the main terminal, by running
-   ```sh
-   npm run develop
-      ```
+### Client-Side
+   - Navigate into the folder titled `client` and run ```npm install```
+    
+### Server-Side
+   - Navigate into the folder title `server` and run ```npm install```
+   - Run ```npm run build ```
+   - Run Migrations with: ```npm run migration:run```
+ - Start both the Server and Client folders in the main terminal, by running ```npm run develop```
+   
  - (!! IMPORTANT !!) Make sure to create a `.env` file in the server folder of your project. Use the `.envEXAMPLE` as a template for your database name, username, password, personal port, and a random password for your JWT secret.
 
 ## Usage
