@@ -57,7 +57,7 @@ const router = createBrowserRouter([
               const verseData = verse.data
               return { user, verseData };
             } catch (error) {
-              console.log('ERROR', error);
+              console.error(error);
               return redirect('/login');
             }
           } else {

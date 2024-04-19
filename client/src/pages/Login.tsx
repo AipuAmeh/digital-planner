@@ -33,6 +33,7 @@ const Login = () => {
             [name]: value,
         });
     };
+    // add more descriptive error messages
 
     const handleClick = async () => {
         try {          
@@ -76,7 +77,7 @@ const Login = () => {
                 })            
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
             toast({
                 title: 'Error',
                 description: 'Unable to log in.',

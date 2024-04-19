@@ -33,7 +33,6 @@ export class AuthController {
 
   @Post('/login')
   async login(@Body() body: LoginDTO) {
-    console.log(body.username, body.password);
     return await this.authService.login(body.username, body.password);
   }
 

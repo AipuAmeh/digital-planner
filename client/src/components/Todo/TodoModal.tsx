@@ -55,14 +55,10 @@ function TodoModal({ setCurrentData} : Props) {
       }, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      console.log('RESPONSE DATA:', response.data);
       setCurrentData(response.data);
       setTodoInput('');
       setReflection('');
       window.location.reload();
-  
-
-
     } catch (error) {
       console.error(error)
     }

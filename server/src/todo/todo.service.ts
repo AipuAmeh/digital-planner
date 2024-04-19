@@ -64,7 +64,6 @@ export class TodoService {
       throw new Error('No task found');
     }
     todo.completed = false;
-    console.log(todo);
     return this.todoRepository.save(todo);
   }
 
