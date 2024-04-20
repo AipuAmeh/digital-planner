@@ -7,13 +7,16 @@ import {
     Input,
     Text,
     InputGroup,
-    InputRightElement
+    InputRightElement,
+    Box,
+    useDisclosure, 
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react'
 import React from 'react';
+import ForgotPasswordModal from '../components/Login/ForgotPasswordModal';
 
 const Login = () => {
     const toast = useToast();
@@ -23,6 +26,7 @@ const Login = () => {
         password: ''
     });
     const [show, setShow] = React.useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const handlePasswordClick = () => setShow(!show);
     
@@ -33,7 +37,7 @@ const Login = () => {
             [name]: value,
         });
     };
-    // add more descriptive error messages
+    // add more descriptive error messages when logging in 
 
     const handleClick = async () => {
         try {          
@@ -147,7 +151,21 @@ const Login = () => {
                     </Center>
                 </FormControl>
             </Center>
-
+            <Box 
+                    display='flex'
+                    flexDirection='row'
+                    justifyContent='center'
+                    gap={10}
+                    >
+                    <Text
+                    lineHeight='35px'
+                    >Forgot your password? </Text>
+                    <Button
+                    onClick={onOpen}
+                    size='sm'
+                    >Reset Password</Button>
+                    </Box>
+                    <ForgotPasswordModal isOpen={isOpen} onClose={onClose}/>
 
         </Stack>
     )
