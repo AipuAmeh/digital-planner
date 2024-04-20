@@ -10,13 +10,20 @@ import { CreateUserDto } from '../user/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { CreateTodoDto } from './dto/create-todo.dto';
-import { IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
+import { Transform } from 'class-transformer';
+import * as sanitizeHtml from 'sanitize-html';
 
 type LoginDTO = {
   username: string;
   password: string;
 };
 
+export class Email {
+  @IsEmail(undefined, { message: 'Please enter a valid email address.'})
+  @Transform((params) => sanitizeHtml(params.value))
+  email: string;
+}
 export class AccountDetailDto {
   @IsNotEmpty()
   username: string;
@@ -79,5 +86,10 @@ export class AuthController {
       createTodoDto.priority,
       req.user.sub,
     );
+  }
+
+  @Post('/reset-password')
+  sendResetPasswordEmail(@Body() body: Email) {
+    return this.authService.sendResetPasswordEmail(body.email);
   }
 }
