@@ -1,11 +1,14 @@
-import { Box, Button, Center, FormControl, FormLabel, Input, InputGroup, Text, InputRightElement, Stack, FormErrorMessage } from "@chakra-ui/react";
+import { Box, Button, Center, FormControl, FormLabel, Input, InputGroup, Text, InputRightElement, Stack, FormErrorMessage, useToast } from "@chakra-ui/react";
+import axios from "axios";
 import React, { useState } from 'react';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
 
 
 const ResetPassword = () => {
     const { id, token } = useParams();
-    console.log(id, token);
+    const navigate = useNavigate();
+    const toast = useToast();
     const [show, setShow] = React.useState(false);
     const [password, setPassword] = useState('');
     const [secondPassword, setSecondPassword] = useState('');
@@ -16,7 +19,7 @@ const ResetPassword = () => {
     const isErrorPassword = password === "" && submitPassword;
     const isErrorSecondPassword = password !== secondPassword && submitSecondPassword;
 
- 
+ // add password checklist to reset password
 
     const onChangePassword = (e: any) => {
         setSubmitPassword(false);
@@ -35,10 +38,38 @@ const ResetPassword = () => {
 
         setSubmitPassword(true);
         setSubmitSecondPassword(true);
-        // setPassword('');
-        // setSecondPassword('');
+
+     axios
+     .post("http://localhost:3001/auth/save-new-password/", {
+            newPassword: password,
+            id,
+            token
+        })
+        .then((response) => {
+            console.log('RESPONSE', response.data);
+        setPassword('');
+        setSecondPassword('');
+        navigate('/login');
+        toast({
+            title: 'Success',
+            description: 'Your password has been reset! Please login with your new password',
+            status: 'success',
+            duration: 2000,
+            position: 'top-left',
+            isClosable: true,
+        })   
+        })
+        .catch(() => {
+            toast({
+                title: 'Error',
+                description: 'We cannot reset your password at this time. Please start the restart password process again',
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+            });
+        })
+
     }
-    const showPasswordBtn = () => setShow(!show);
     return (
         <Center>
           <Box display='flex' flexDirection='column' alignItems='center' mt='3em' w='65%'>

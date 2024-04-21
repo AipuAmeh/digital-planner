@@ -19,7 +19,7 @@ export class AuthService {
     private mailService: MailService,
     private jwtService: JwtService,
     private todoService: TodoService,
-  ) {}
+  ) { }
 
   async createAccessToken(user: User, secret?: string) {
     const payload = { sub: user.id };
@@ -81,6 +81,22 @@ export class AuthService {
     const token = await this.createAccessToken(user, user.password);
 
     return await this.mailService.sendPasswordResetEmail(user, token);
+  }
+
+  async saveNewPassword(newPassword: string, id: number, token: string) {
+    const user = await this.userService.findUserById(id);
+    await this.jwtService
+      .verifyAsync(token, {
+        secret: user.password,
+      })
+      .catch(() => {
+        throw new UnauthorizedException('token is invalid');
+      })
+      .then(async () => {
+        const hashedPassword = await this.hashPassword(newPassword);
+        user.password = hashedPassword;
+        return await this.userService.createUser(user);
+      });
   }
 
   async changeAccountDetails(accountDetailDTO: AccountDetailDto) {

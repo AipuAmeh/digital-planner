@@ -22,6 +22,7 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @MinLength(8, { message: 'Password must be a minimum of 8 characters.' })
+  @Transform((params) => sanitizeHtml(params.value))
   @IsStrongPassword({
     minLowercase: 1,
     minNumbers: 1,

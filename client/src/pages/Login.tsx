@@ -61,6 +61,7 @@ const Login = () => {
                         description: 'User does not exist.',
                         status: 'error',
                         duration: 2000,
+                        isClosable: true,
                     });
                 }
                 localStorage.setItem('token', token);
