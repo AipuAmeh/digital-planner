@@ -4,9 +4,11 @@ import { AuthService } from './auth.service';
 import { UserModule } from 'src/user/user.module';
 import { TodoModule } from 'src/todo/todo.module';
 import { JwtModule } from '@nestjs/jwt';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
   imports: [
+    MailModule,
     UserModule,
     TodoModule,
     JwtModule.register({

@@ -1,19 +1,40 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { TodoService } from '../todo/todo.service';
 import { AccountDetailDto } from './auth.controller';
+import { User } from '../user/entities/user.entity';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UserService,
+    private mailService: MailService,
     private jwtService: JwtService,
     private todoService: TodoService,
-  ) {}
+  ) { }
 
+  async createAccessToken(user: User, secret?: string) {
+    const payload = { sub: user.id };
+
+    if (secret) {
+      return this.jwtService.signAsync(payload, {
+        secret,
+        expiresIn: '10m',
+      });
+    } else {
+      return await this.jwtService.signAsync(payload);
+    }
+  }
+
+  // add createAccessToken to this function for cleanliness
   async login(username: string, pass: string) {
     const user = await this.userService.findOneUser(username);
     if (user !== null) {
@@ -50,6 +71,32 @@ export class AuthService {
       const payload = { sub: user.id, username: user.username };
       return { access_token: await this.jwtService.signAsync(payload) };
     }
+  }
+
+  async sendResetPasswordEmail(email: string) {
+    const user = await this.userService.findUserByEmail(email);
+    if (user === null) {
+      throw new BadRequestException('email not found');
+    }
+    const token = await this.createAccessToken(user, user.password);
+
+    return await this.mailService.sendPasswordResetEmail(user, token);
+  }
+
+  async saveNewPassword(newPassword: string, id: number, token: string) {
+    const user = await this.userService.findUserById(id);
+    await this.jwtService
+      .verifyAsync(token, {
+        secret: user.password,
+      })
+      .catch(() => {
+        throw new UnauthorizedException('token is invalid');
+      })
+      .then(async () => {
+        const hashedPassword = await this.hashPassword(newPassword);
+        user.password = hashedPassword;
+        return await this.userService.createUser(user);
+      });
   }
 
   async changeAccountDetails(accountDetailDTO: AccountDetailDto) {
