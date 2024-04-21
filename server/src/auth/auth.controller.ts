@@ -20,7 +20,7 @@ type LoginDTO = {
 };
 
 export class Email {
-  @IsEmail(undefined, { message: 'Please enter a valid email address.'})
+  @IsEmail(undefined, { message: 'Please enter a valid email address.' })
   @Transform((params) => sanitizeHtml(params.value))
   email: string;
 }
