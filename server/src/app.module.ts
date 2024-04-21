@@ -11,6 +11,7 @@ import { AuthController } from './auth/auth.controller';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import typeorm from './config/typeorm';
+import { MailService } from './mail/mail.service';
 
 @Module({
   imports: [
@@ -29,6 +30,6 @@ import typeorm from './config/typeorm';
     AuthModule,
   ],
   controllers: [TodoController, AuthController],
-  providers: [TodoService, AuthService],
+  providers: [TodoService, AuthService, MailService],
 })
 export class AppModule {}

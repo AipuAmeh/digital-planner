@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import Todo from './pages/Todo';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
+import ResetPassword from './pages/ResetPassword';
 
 const router = createBrowserRouter([
 
@@ -81,8 +82,11 @@ const router = createBrowserRouter([
           } catch (error) {
             console.error(error);
           }
-
         },
+      },
+      {
+        path: '/reset-password/:token/:id',
+        element: <ResetPassword />
       },
     ]
   }

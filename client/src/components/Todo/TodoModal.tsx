@@ -58,6 +58,7 @@ function TodoModal({ setCurrentData} : Props) {
       setCurrentData(response.data);
       setTodoInput('');
       setReflection('');
+      onClose();
       window.location.reload();
     } catch (error) {
       console.error(error)
