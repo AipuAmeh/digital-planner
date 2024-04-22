@@ -7,6 +7,7 @@ type Props = {
 const PasswordChecklistComp = ({password}: Props) => {
 return (
     <PasswordChecklist
+    
     rules={["capital", "specialChar", "minLength", "number"]}
     minLength={8}
     value={password}

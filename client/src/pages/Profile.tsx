@@ -47,7 +47,7 @@ const Profile = () => {
   <Box  w='100%' display='flex' flexDirection='column' gap={3}>
     <UserDetailsRow field="Username" value={data.username} username={data.username} setData={setData}/>
     <UserDetailsRow field="Email" value={data.email} username={data.username} setData={setData}/>
-    <UserDetailsRow field="Password" value="********" username={data.username} setData={setData}/>
+    <UserDetailsRow field="Password" value="" username={data.username} setData={setData}/>
   </Box>
 </Box>
       </Center>

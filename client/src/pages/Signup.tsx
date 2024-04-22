@@ -140,6 +140,7 @@ const Signup = () => {
                         className="input"
                         id="signup-username"
                         placeholder="Username"
+                        variant='filled'
                         type="text"
                         name="username"
                         value={formState.username}
@@ -149,6 +150,7 @@ const Signup = () => {
                     <Input
                         className="input"
                         placeholder="Email"
+                        variant='filled'
                         type="text"
                         name="email"
                         value={formState.email}
@@ -160,6 +162,7 @@ const Signup = () => {
                             className="input"
                             id="signup-password"
                             placeholder="Password"
+                            variant='filled'
                             type={show ? 'text' : 'password'}
                             name="password"
                             value={formState.password}
