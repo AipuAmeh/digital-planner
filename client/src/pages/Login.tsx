@@ -107,6 +107,7 @@ const Login = () => {
                         className="input"
                         id="login-username"
                         placeholder="Username"
+                        variant='filled'
                         type="text"
                         name="username"
                         value={formState.username}
@@ -118,6 +119,7 @@ const Login = () => {
                         className="input"
                         id="login-password"
                         placeholder="Password"
+                        variant='filled'
                         type={show ? 'text' : 'password'}
                         name="password"
                         value={formState.password}

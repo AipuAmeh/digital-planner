@@ -101,6 +101,8 @@ export class AuthService {
 
   async changeAccountDetails(accountDetailDTO: AccountDetailDto) {
     const user = await this.userService.findOneUser(accountDetailDTO.username);
+    console.log('FIELD', accountDetailDTO.field);
+    console.log('VALUE', accountDetailDTO.value);
     if (accountDetailDTO.field === 'password') {
       const plainTextPassword = accountDetailDTO.value;
       const hashPassword = await this.hashPassword(plainTextPassword);
