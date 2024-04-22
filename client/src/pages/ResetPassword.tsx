@@ -1,7 +1,8 @@
-import { Box, Button, Center, FormControl, FormLabel, Input, InputGroup, Text, InputRightElement, Stack, FormErrorMessage, useToast } from "@chakra-ui/react";
+import { Box, Button, Center, FormControl, FormLabel, Input, InputGroup, Text, FormErrorMessage, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
+import PasswordChecklistComp from "../components/Validation/PasswordChecklist";
 
 
 
@@ -9,17 +10,21 @@ const ResetPassword = () => {
     const { id, token } = useParams();
     const navigate = useNavigate();
     const toast = useToast();
-    const [show, setShow] = React.useState(false);
     const [password, setPassword] = useState('');
     const [secondPassword, setSecondPassword] = useState('');
 
     const [submitPassword, setSubmitPassword] = useState(false);
     const [submitSecondPassword, setSubmitSecondPassword] = useState(false);
 
+    const [showChecklist, setShowChecklist] = useState(false);
+
     const isErrorPassword = password === "" && submitPassword;
     const isErrorSecondPassword = password !== secondPassword && submitSecondPassword;
 
- // add password checklist to reset password
+ // add password checklist to reset password input
+ const showListOnClick = () => {
+    setShowChecklist(true);
+};
 
     const onChangePassword = (e: any) => {
         setSubmitPassword(false);
@@ -81,10 +86,11 @@ const ResetPassword = () => {
                             className="input"
                             id="login-password"
                             placeholder="Password"
-                            type={show ? 'text' : 'password'}
+                            type={'password'}
                             name="password"
                             value={password}
                             onChange={onChangePassword}
+                            onClick={showListOnClick}
                         />
                        {!isErrorPassword ? null : (
                             <FormErrorMessage>
@@ -92,6 +98,9 @@ const ResetPassword = () => {
                             </FormErrorMessage>
                         )}
                     </InputGroup>
+                    {showChecklist ?
+                        <PasswordChecklistComp password={password} /> : false
+                    }
                 </FormControl>
         <FormControl  isInvalid={isErrorSecondPassword} isRequired>
                         <FormLabel mt={4}>Re-enter Password</FormLabel>
@@ -100,7 +109,7 @@ const ResetPassword = () => {
                             className="input"
                             id="login-password"
                             placeholder="Password"
-                            type={show ? 'text' : 'password'}
+                            type={'password'}
                             name="password"
                             value={secondPassword}
                             onChange={onChangeSecondPassword}

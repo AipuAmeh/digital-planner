@@ -5,6 +5,7 @@ import { useState } from "react";
 import { isInvalidEmail } from "../../pages/Signup";
 import { useToast, useBreakpointValue } from "@chakra-ui/react";
 import { Data } from "../../pages/Profile";
+import PasswordChecklistComp from "../Validation/PasswordChecklist";
 
 type Props = {
   field: string;
@@ -18,8 +19,15 @@ const UserDetailsRow = ({ field, value, username, setData }: Props) => {
   const [updateField, setUpdates] = useState(false);
   const [valueState, setValueState] = useState(value);
   const [error, setError] = useState(false);
+  const [showPasswordChecklist, setPasswordShowChecklist] = useState(false);
   const fontSize = useBreakpointValue({ base: 'sm', sm: 'md', md: 'lg', lg: 'lg' });
   const iconSize = useBreakpointValue({ base: 'xs', sm: 'xs', md: 'sm', lg: 'sm'});
+
+  const showPasswordListOnClick = () => {
+    if (field === 'Password') {
+      setPasswordShowChecklist(true);
+    } 
+};
 
   const onChange = (e: any) => {
     setValueState(e.target.value);
@@ -30,6 +38,11 @@ const UserDetailsRow = ({ field, value, username, setData }: Props) => {
   };
 
   const onClickCheck = async () => {
+    if (valueState === value) {
+      setUpdates(!updateField);
+      return;
+    };
+    
     if (field === "Email") {
       const invalidEmail = isInvalidEmail(valueState);
       if (invalidEmail) {
@@ -40,6 +53,7 @@ const UserDetailsRow = ({ field, value, username, setData }: Props) => {
           duration: 2000,
           isClosable: true,
         });
+        setValueState(value);
         return;
       }
     } else {
@@ -60,10 +74,15 @@ const UserDetailsRow = ({ field, value, username, setData }: Props) => {
             return toast({
               title: 'Error',
               description: 'Username already exists.',
-              status: 'error'
+              status: 'error',
+              isClosable: true,
             });
           }
         }
+      }
+      // if no values were changed when clicked, don't do anything
+      if (valueState === value) {
+        return;
       }
     }
     const token = localStorage.getItem("token");
@@ -108,23 +127,31 @@ const UserDetailsRow = ({ field, value, username, setData }: Props) => {
         {field}:
       </Text>
       {updateField ? (
-        <>
+        <Box>
           <Input
             value={valueState}
             flex={1}
             h="32px"
             onChange={onChange}
+            variant='filled'
             type={field === "Password" ? "password" : "text"}
             borderColor={error ? 'crimson' : 'grey'}
+            onClick={showPasswordListOnClick}
           />
-        </>
+                    {showPasswordChecklist ?
+                        <PasswordChecklistComp password={valueState} /> : false
+                    }
+          </Box>
+
       ) : (
         <>
           <Text flex={1} lineHeight="32px" fontSize={fontSize}>
-            {field === "Password" ? "********" : valueState}{" "}
+            {field === "Password" ? "********" : valueState}
           </Text>{" "}
         </>
       )}
+
+      
       <IconButton
         aria-label="Edit Username"
         icon={updateField ? <CheckIcon /> : <EditIcon />}
