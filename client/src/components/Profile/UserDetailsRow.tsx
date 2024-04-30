@@ -157,6 +157,8 @@ const UserDetailsRow = ({ field, value, username, setData }: Props) => {
         icon={updateField ? <CheckIcon /> : <EditIcon />}
         size={iconSize}
         onClick={updateField ? onClickCheck : onClickEdit}
+        backgroundColor='#371236'
+        color="white"
       />
     </Box>
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Spacer, Flex, Box, Text, useBreakpointValue, } from "@chakra-ui/react";
+import { Spacer, Flex, Box, Text, useBreakpointValue, Button, } from "@chakra-ui/react";
 import axios from "axios";
 import { Card, CardHeader, CardBody, Stack} from '@chakra-ui/react'
 import React from "react";
@@ -8,7 +8,8 @@ import { useLoaderData } from "react-router-dom";
 import EditTodoModal from "../components/Todo/EditTodoModal";
 import { DeleteIcon } from "@chakra-ui/icons";
 // commenting out checkbox until working again
-// import CompletedCheckBox from "../components/Todo/CompletedCheckBox";
+import CompletedCheckBox from "../components/Todo/CompletedCheckBox";
+import SortByMenu from "../components/Todo/SortByMenu";
 
 
 export type todosObject = {
@@ -50,8 +51,9 @@ const Todo = () => {
     setTodoData(loadedData.filter((todoData: todosObject) => todoData.id !== id));
     window.location.reload();
   };
+
 // when checkbox is clicked, task is 
-// pushed to end of task array
+// placed in new array, shown when toggled
 const completedTodos = [];
 for (let i = 0; i < todoData.length; i++) {
   if (todoData[i].completed === true) {
@@ -66,6 +68,8 @@ completedTodos.forEach(item => {
 });
 loadedData.push(...completedTodos);
 
+console.log('COMPLETED TODOS ARRAY', completedTodos);
+console.log('TODO DATA', todoData);
   return (
     <Box className="App">
 
@@ -76,7 +80,7 @@ loadedData.push(...completedTodos);
         mb='2em'>{date}</Text>
 
       <TodoModal setCurrentData={setTodoData}/>
-    
+< SortByMenu />
       <Stack
         className="rendered-todos"
         spacing='6'
@@ -98,9 +102,9 @@ loadedData.push(...completedTodos);
                   alignContent='flex-end'
                   fontSize='lg'
                   pt={{base: '1em', sm: '1em'}}>
-                   {/* <CompletedCheckBox 
+                   <CompletedCheckBox 
                    id={todos?.id} 
-                   setData={setTodoData}/> */}
+                   setData={setTodoData}/>
                   <Text
                     fontWeight='800'
                   > {todos?.todaysDate}</Text>
