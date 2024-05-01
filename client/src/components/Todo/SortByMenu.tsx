@@ -8,9 +8,10 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 
+
 // drop down menu for sorting
 // when menu item clicked, show component of completed tasks
-
+// go to a new page that has all completed todos 
 const SortByMenu = () => {
   return (
     <Box display="flex" justifyContent="flex-end" mr={10} mb={4}>
@@ -19,9 +20,11 @@ const SortByMenu = () => {
           Sort By
         </MenuButton>
         <MenuList>
-          <MenuItem>Completed Tasks</MenuItem>
+          <MenuItem
+          >Completed Tasks</MenuItem>
           <MenuItem>Priority</MenuItem>
           <MenuItem>Date</MenuItem>
+          <MenuItem>All Tasks</MenuItem>
         </MenuList>
       </Menu>
     </Box>
