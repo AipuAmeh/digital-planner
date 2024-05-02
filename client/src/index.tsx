@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import Home from './pages/Home';
 import ResetPassword from './pages/ResetPassword';
 import CompletedTodos from './pages/CompletedTodos';
+import PriorityTodos from './pages/PriorityTodos';
 
 const router = createBrowserRouter([
 
@@ -106,7 +107,25 @@ const router = createBrowserRouter([
             console.error(error);
           }
         }
-      }
+      },
+      {
+        path: '/priority-todos',
+        element: <PriorityTodos />,
+        loader: async () => {
+          try {
+            const token = localStorage.getItem('token');
+            const user = await axios.get("http://localhost:3001/auth/user-todos", {
+              headers: { Authorization: `Bearer ${token}` }
+            });
+            const todos = await axios.get(`http://localhost:3001/todo/find-user-projects/${user.data.id}`, {
+              headers: { Authorization: `Bearer ${token}` }
+            });
+            return {todos, user};
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      },
     ]
   }
 ])

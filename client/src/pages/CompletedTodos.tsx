@@ -10,16 +10,17 @@ const CompletedTodos = () => {
     type CompletedTodos = {
         id: number,
         todo: string,
-        reflectionText: string
-        todaysDate: any
-        priority: string
-    }
+        reflectionText: string,
+        todaysDate: any,
+        priority: string,
+    };
+
     const data: any = useLoaderData();
     const loadedData = data.todos.data;
-    const [todoData, setTodoData] = useState(loadedData)
+    const [todoData, setTodoData] = useState(loadedData);
     const headerMargin = useBreakpointValue({ base: '1.5em', sm: '1em', md: '2em', lg: '3em'});
-   // when checkbox is clicked, task is
-    //placed in new array, shown when toggled
+
+    // completed todos pushed to new array
     const completedTodos = [];
     for (let i = 0; i < todoData.length; i++) {
       if (todoData[i].completed === true) {
@@ -34,8 +35,7 @@ const CompletedTodos = () => {
     });
     loadedData.push(...completedTodos);
 
-    // loop through completedTodos array
-
+    // return tasks looped through completedTodos array
     return (
       <Box className="App">
         <Text
