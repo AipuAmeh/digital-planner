@@ -64,7 +64,8 @@ return (
                   pt={{base: '1em', sm: '1em'}}>
                    <CompletedCheckBox 
                    id={id} 
-                   setData={setTodoData}/>
+                   setData={setTodoData}
+         />
                   <Text
                     fontWeight='800'
                   > {todaysDate}</Text>
