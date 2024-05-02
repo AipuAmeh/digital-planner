@@ -4,10 +4,10 @@ import { todosObject } from "../../pages/Todo";
 
 type Props = {
 id: number;
-setData: React.Dispatch<React.SetStateAction<todosObject>>
+setData: React.Dispatch<React.SetStateAction<todosObject>>;
 }
 
-const CompletedCheckBox = ({ id, setData }: Props) => {
+const CompletedCheckBox = ({ id, setData}: Props) => {
 
 const completedTodo = async () => {
    axios
@@ -16,8 +16,6 @@ const completedTodo = async () => {
    )
    .then((response) => {
     setData(response.data);
-    window.location.reload();
-
    })
    .catch((error) => {
     console.error(error);
