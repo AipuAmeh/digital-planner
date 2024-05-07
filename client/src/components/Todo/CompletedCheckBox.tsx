@@ -1,6 +1,6 @@
 import { Checkbox } from "@chakra-ui/react";
 import axios from "axios";
-import { todosObject } from "../../pages/Todo";
+import { todosObject } from "../../pages/TodoPages/Todo";
 
 type Props = {
 id: number;
@@ -27,7 +27,7 @@ const completedTodo = async () => {
         <Checkbox
         display='flex'
         justifyContent='flex-end' 
-        mr='0.5em'
+        mx={2}
         onChange={completedTodo}>         
         </Checkbox>
     )
