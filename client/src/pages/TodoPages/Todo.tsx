@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Box, Text, useBreakpointValue, } from "@chakra-ui/react";
 import { Stack} from '@chakra-ui/react'
 import React from "react";
-import TodoModal from "../components/Todo/TodoModal";
+import TodoModal from "../../components/Todo/TodoModal";
 import { useLoaderData } from "react-router-dom";
-import SortByMenu from "../components/Todo/SortByMenu";
-import AllTodos from "../components/Todo/AllTodos";
+import SortByMenu from "../../components/Todo/SortByMenu";
+import AllTodos from "../../components/Todo/AllTodos";
 
 
 export type todosObject = {

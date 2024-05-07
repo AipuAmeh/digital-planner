@@ -9,12 +9,12 @@ import App from './App';
 import Error from './pages/Error';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import Todo from './pages/Todo';
+import Todo from './pages/TodoPages/Todo';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
 import ResetPassword from './pages/ResetPassword';
-import CompletedTodos from './pages/CompletedTodos';
-import PriorityTodos from './pages/PriorityTodos';
+import CompletedTodos from './pages/TodoPages/CompletedTodos';
+import PriorityTodos from './pages/TodoPages/PriorityTodos';
 
 const router = createBrowserRouter([
 

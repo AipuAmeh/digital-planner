@@ -21,25 +21,26 @@ const SortByMenu = () => {
         </MenuButton>
 
         <MenuList>
-          <MenuItem>
+       
             <ChakraLink as={ReactRouterLink} to="/todo">
-              All Tasks
+              <MenuItem>All Tasks</MenuItem>
+           
             </ChakraLink>
-          </MenuItem>
+        
 
-          <MenuItem>
+      
             <ChakraLink as={ReactRouterLink} to="/completed-todos">
-              Completed Tasks
+           <MenuItem>Completed Tasks</MenuItem>
             </ChakraLink>
-          </MenuItem>
 
-          <MenuItem>
+
+
             <ChakraLink as={ReactRouterLink} to="/priority-todos">
-              Priority
+           <MenuItem>Priority</MenuItem>
             </ChakraLink>
-          </MenuItem>
+       
 
-          <MenuItem>Date</MenuItem>
+
         </MenuList>
       </Menu>
     </Box>
