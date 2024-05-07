@@ -9,11 +9,12 @@ import App from './App';
 import Error from './pages/Error';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import Todo from './pages/Todo';
+import Todo from './pages/TodoPages/Todo';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
 import ResetPassword from './pages/ResetPassword';
-import CompletedTodos from './pages/CompletedTodos';
+import CompletedTodos from './pages/TodoPages/CompletedTodos';
+import PriorityTodos from './pages/TodoPages/PriorityTodos';
 
 const router = createBrowserRouter([
 
@@ -106,7 +107,25 @@ const router = createBrowserRouter([
             console.error(error);
           }
         }
-      }
+      },
+      {
+        path: '/priority-todos',
+        element: <PriorityTodos />,
+        loader: async () => {
+          try {
+            const token = localStorage.getItem('token');
+            const user = await axios.get("http://localhost:3001/auth/user-todos", {
+              headers: { Authorization: `Bearer ${token}` }
+            });
+            const todos = await axios.get(`http://localhost:3001/todo/find-user-projects/${user.data.id}`, {
+              headers: { Authorization: `Bearer ${token}` }
+            });
+            return {todos, user};
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      },
     ]
   }
 ])

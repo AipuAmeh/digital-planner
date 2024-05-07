@@ -1,5 +1,5 @@
 import {Card, CardBody, CardHeader, Flex, Spacer, Stack, Text } from "@chakra-ui/react";
-import { todosObject } from "../../pages/Todo";
+import { todosObject } from "../../pages/TodoPages/Todo";
 import CompletedCheckBox from "./CompletedCheckBox";
 import EditTodoModal from "./EditTodoModal";
 import { DeleteIcon } from "@chakra-ui/icons";
@@ -63,6 +63,7 @@ return (
                   fontSize='lg'
                   pt={{base: '1em', sm: '1em'}}>
                    <CompletedCheckBox 
+                
                    id={id} 
                    setData={setTodoData}
          />
