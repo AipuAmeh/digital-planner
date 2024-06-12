@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "develop": "concurrently \"cd server && npm run start:dev\" \"cd client && npm run start\""
+    "develop": "concurrently \"cd server && npm run start:dev\" \"cd client && npm run start\"",
+    "build": "cd client && npm run build"
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.2.0",
