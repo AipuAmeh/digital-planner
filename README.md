@@ -5,6 +5,7 @@
 Digital Planner is an interactive application that allows you to add daily tasks to your personal profile! It is designed to help you organize your daily tasks and keep track of everything that you need to complete.
 
 Follow along with me as I code! Visit my Trello board to stay up to date with the features that I am working on: [Trello Board](https://trello.com/b/Cu7Oloup/to-do-list)
+
 <img width="732" alt="Screenshot 2024-07-24 at 10 40 18 PM" src="https://github.com/user-attachments/assets/3a720801-eb31-4887-9246-f63e4c8b953a">
 
 <img width="644" alt="Screenshot 2024-07-24 at 10 40 41 PM" src="https://github.com/user-attachments/assets/5855e629-aace-4254-be05-5a0cff99af41">
